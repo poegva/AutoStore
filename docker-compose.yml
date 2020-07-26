@@ -1,0 +1,45 @@
+version: '3.7'
+services:
+  redis:
+    image: redis:alpine
+    restart: always
+    container_name: 'redis'
+    command: redis-server
+    expose:
+      - 6379
+    ports:
+      - 6379:6379
+  db:
+    image: postgres:latest
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=postgres_dev
+  web:
+    build: ./app
+    command: python manage.py runserver 0.0.0.0:9000
+    volumes:
+      - ./app:/src/app
+    ports:
+      - 9000:9000
+    env_file:
+      - ./.env.dev
+    depends_on:
+      - db
+  celery:
+    build: ./app
+    container_name: 'celery'
+    command: celery -A store worker -B
+    volumes:
+      - .:/code
+    links:
+      - redis
+    env_file:
+      - ./.env.dev
+    depends_on:
+      - web
+      - redis
+volumes:
+  postgres_data:
