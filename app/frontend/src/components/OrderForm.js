@@ -1,8 +1,6 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
 import {clearCart, getCart} from "./Cart";
 
 function OrderSubmit(props) {
@@ -43,7 +41,7 @@ export class OrderForm extends React.Component {
         });
     }
 
-    async submitOrder() {
+    submitOrder() {
         console.log("Oppa");
 
         const data = this.state;
@@ -53,7 +51,7 @@ export class OrderForm extends React.Component {
 
         const body = JSON.stringify(data);
 
-        await fetch("api/orders/", {
+        fetch("api/orders/", {
             method: 'post',
             body: body,
             headers: {
@@ -82,7 +80,8 @@ export class OrderForm extends React.Component {
 
     render() {
         return (
-            <Form>
+            <p>ddi</p>
+            /*<Form>
                 <Form.Group>
                     <Form.Label>Ваше имя</Form.Label>
                     <Form.Control
@@ -108,7 +107,7 @@ export class OrderForm extends React.Component {
                 <OrderSubmit
                     submitOrder={() => this.submitOrder()}
                 />
-            </Form>
+            </Form>*/
         )
     }
 }

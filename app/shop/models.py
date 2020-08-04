@@ -16,6 +16,8 @@ class Item(models.Model):
     description = models.TextField(verbose_name='Описание')
     price = models.PositiveIntegerField(verbose_name='Стоимость')
 
+    image = models.FileField(upload_to='items', null=True, verbose_name='Изображение')
+
     def __str__(self):
         return f'{self.name} - {self.shop.name}'
 

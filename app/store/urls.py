@@ -13,6 +13,7 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
@@ -20,13 +21,14 @@ from rest_framework import routers
 from frontend import views as frontend_views
 
 from shop.views import ItemViewSet, OrderViewSet, OrderItemViewSet
+from store import settings
 
 api_router = routers.DefaultRouter()
 api_router.register(r'items', ItemViewSet)
 api_router.register(r'orders', OrderViewSet)
 api_router.register(r'order_items', OrderItemViewSet)
 
-urlpatterns = [
+urlpatterns = static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + [
     path('admin/', admin.site.urls),
 
     path('api/', include(api_router.urls)),

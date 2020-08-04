@@ -9,7 +9,7 @@ from shop.models import Shop, Item, Order, OrderItem
 class ItemSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Item
-        fields = ['id', 'name', 'description', 'price']
+        fields = ['id', 'name', 'description', 'price', 'image']
 
 
 class ItemViewSet(viewsets.ModelViewSet):

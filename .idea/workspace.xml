@@ -1,7 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="47897e9c-1e32-4683-9b93-11bcf88e51a5" name="Default Changelist" comment="" />
+    <list default="true" id="47897e9c-1e32-4683-9b93-11bcf88e51a5" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/frontend/src/actions/CartActions.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/frontend/src/actions/OrderActions.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/frontend/src/components/CartList.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/frontend/src/components/ContactForm.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/frontend/src/container/CartContainer.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/frontend/src/container/ShopContainer.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/frontend/src/reducers/CartReducer.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/frontend/src/reducers/OrderReducer.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/frontend/src/reducers/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/frontend/src/store/configureStore.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/app/frontend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/app/frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/frontend/src/components/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/frontend/src/components/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/frontend/src/components/Cart.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/frontend/src/components/Cart.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/frontend/src/components/Items.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/frontend/src/components/OrderForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/frontend/src/components/OrderForm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/frontend/src/components/Shop.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/frontend/src/components/Shop.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/frontend/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/frontend/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/frontend/static/frontend/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/frontend/static/frontend/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/frontend/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/frontend/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/shop/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/shop/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/shop/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/shop/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/store/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/store/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/store/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/store/urls.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -18,7 +45,11 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="ProjectId" id="1epOU4YeJa3wODlCRbJXK4pNiRh" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
@@ -27,17 +58,19 @@
   <component name="PropertiesComponent">
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/app" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/static" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.django.DjangoModulesConfigurable" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/app/frontend/src" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app/static" />
       <recent name="$PROJECT_DIR$/app" />
       <recent name="$PROJECT_DIR$/app/store" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app/frontend/src" />
     </key>
   </component>
   <component name="RunManager">
@@ -78,6 +111,8 @@
       <updated>1595015080539</updated>
       <workItem from="1595015084986" duration="30710000" />
       <workItem from="1595765815621" duration="366000" />
+      <workItem from="1595801771306" duration="8752000" />
+      <workItem from="1596562210939" duration="296000" />
     </task>
     <servers />
   </component>
@@ -89,24 +124,28 @@
       <screen x="0" y="23" width="1680" height="939" />
     </state>
     <state x="304" y="114" width="1071" height="848" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1680.939@0.23.1680.939" timestamp="1595256992486" />
-    <state width="1638" height="379" key="GridCell.Tab.0.bottom" timestamp="1595442697764">
-      <screen x="0" y="23" width="1680" height="937" />
+    <state width="1638" height="235" key="GridCell.Tab.0.bottom" timestamp="1595812316366">
+      <screen x="0" y="23" width="1680" height="935" />
     </state>
+    <state width="1638" height="235" key="GridCell.Tab.0.bottom/0.23.1680.935@0.23.1680.935" timestamp="1595812316366" />
     <state width="1638" height="379" key="GridCell.Tab.0.bottom/0.23.1680.937@0.23.1680.937" timestamp="1595442697764" />
     <state width="1638" height="310" key="GridCell.Tab.0.bottom/0.23.1680.939@0.23.1680.939" timestamp="1595258154579" />
-    <state width="1638" height="379" key="GridCell.Tab.0.center" timestamp="1595442697763">
-      <screen x="0" y="23" width="1680" height="937" />
+    <state width="1638" height="235" key="GridCell.Tab.0.center" timestamp="1595812316365">
+      <screen x="0" y="23" width="1680" height="935" />
     </state>
+    <state width="1638" height="235" key="GridCell.Tab.0.center/0.23.1680.935@0.23.1680.935" timestamp="1595812316365" />
     <state width="1638" height="379" key="GridCell.Tab.0.center/0.23.1680.937@0.23.1680.937" timestamp="1595442697763" />
     <state width="1638" height="310" key="GridCell.Tab.0.center/0.23.1680.939@0.23.1680.939" timestamp="1595258154578" />
-    <state width="1638" height="379" key="GridCell.Tab.0.left" timestamp="1595442697762">
-      <screen x="0" y="23" width="1680" height="937" />
+    <state width="1638" height="235" key="GridCell.Tab.0.left" timestamp="1595812316364">
+      <screen x="0" y="23" width="1680" height="935" />
     </state>
+    <state width="1638" height="235" key="GridCell.Tab.0.left/0.23.1680.935@0.23.1680.935" timestamp="1595812316364" />
     <state width="1638" height="379" key="GridCell.Tab.0.left/0.23.1680.937@0.23.1680.937" timestamp="1595442697762" />
     <state width="1638" height="310" key="GridCell.Tab.0.left/0.23.1680.939@0.23.1680.939" timestamp="1595258154578" />
-    <state width="1638" height="379" key="GridCell.Tab.0.right" timestamp="1595442697763">
-      <screen x="0" y="23" width="1680" height="937" />
+    <state width="1638" height="235" key="GridCell.Tab.0.right" timestamp="1595812316365">
+      <screen x="0" y="23" width="1680" height="935" />
     </state>
+    <state width="1638" height="235" key="GridCell.Tab.0.right/0.23.1680.935@0.23.1680.935" timestamp="1595812316365" />
     <state width="1638" height="379" key="GridCell.Tab.0.right/0.23.1680.937@0.23.1680.937" timestamp="1595442697763" />
     <state width="1638" height="310" key="GridCell.Tab.0.right/0.23.1680.939@0.23.1680.939" timestamp="1595258154579" />
     <state width="1638" height="310" key="GridCell.Tab.1.bottom" timestamp="1595258154583">
@@ -147,7 +186,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/app/frontend/src/components/OrderForm.js</url>
-          <line>42</line>
+          <line>40</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
