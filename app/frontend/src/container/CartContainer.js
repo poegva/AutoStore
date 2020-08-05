@@ -1,31 +1,21 @@
 import React from "react";
 import {connect} from "react-redux";
-import {setOpened} from "../actions/OrderActions";
 import Cart from "../components/Cart";
 
 function CartContainer(props) {
-    const cartEmpty = Object.keys(props.cart.content).length === 0
-
-    if (!cartEmpty) {
-        return <Cart cart={props.cart} order={props.order} setOpened={props.setOpened} />;
+    if (!props.cartEmpty) {
+        return <Cart orderStep={props.orderStep} />;
     }
     return null;
 }
 
 const mapStateToProps = store => {
+    console.log(store.order);
+
     return {
-        cart: store.cart,
-        order: store.order,
+        cartEmpty: Object.keys(store.cart.content).length === 0,
+        orderStep: store.order.step,
     };
 }
 
-const mapDispatchToProps = dispatch => {
-    return {
-        setOpened: opened => dispatch(setOpened(opened))
-    };
-}
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(CartContainer);
+export default connect(mapStateToProps)(CartContainer);

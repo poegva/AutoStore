@@ -1,10 +1,10 @@
+import React from "react";
 import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
-import React from "react";
-import makeStyles from "@material-ui/core/styles/makeStyles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-import MuiPhoneNumber from "material-ui-phone-number";
+import makeStyles from "@material-ui/core/styles/makeStyles";
+import {returnToContacts} from "../actions/OrderActions";
 
 const useStyles = makeStyles((theme) => ({
     dialogContainer: {
@@ -44,57 +44,26 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function ContactForm(props) {
+export default function DeliveryForm(props) {
     const classes = useStyles();
-
-    function onNameChange(event) {
-        props.setName(event.target.value);
-    }
-
-    function onPhoneChange(value) {
-        props.setPhone(value);
-    }
-
-    function onEmailChange(event) {
-        props.setEmail(event.target.value);
-    }
 
     return (
         <Container className={classes.dialogContainer}>
             <Typography component="h5" variant="h5" align="center" className={classes.formInput}>
-                Оформить заказ
+                Данные доставки
             </Typography>
             <Container className={classes.formContainer}>
                 <TextField
                     id="name"
-                    label="Имя"
+                    label="Адрес доставки"
                     variant="outlined"
                     className={classes.formInput}
-                    value={props.order.contacts.name ?? ""}
-                    onChange={onNameChange}
-                    required
                 />
-                <MuiPhoneNumber
-                    id="phone"
-                    label="Телефон"
-                    variant="outlined"
-                    className={classes.formInput}
-                    value={props.order.contacts.phone ?? ""}
-                    onChange={onPhoneChange}
-                    onlyCountries={['ru']}
-                    required
-                />
-                <TextField
-                    id="email"
-                    label="Email"
-                    variant="outlined"
-                    className={classes.formInput}
-                    value={props.order.contacts.email ?? ""}
-                    onChange={onEmailChange}
-                    required
-                />
-                <Button className={classes.submitButton} onClick={props.submitContacts}>
-                    Далее
+                <Button className={classes.submitButton}>
+                    Заказать
+                </Button>
+                <Button onClick={props.returnToContacts}>
+                    Назад
                 </Button>
             </Container>
         </Container>

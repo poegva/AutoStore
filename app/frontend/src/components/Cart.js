@@ -2,19 +2,11 @@ import React from "react";
 import Fab from "@material-ui/core/Fab";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import Dialog from "@material-ui/core/Dialog";
-import DialogTitle from "@material-ui/core/DialogTitle";
 import Grid from "@material-ui/core/Grid";
-import Container from "@material-ui/core/Container";
-import CardMedia from "@material-ui/core/CardMedia";
-import IconButton from "@material-ui/core/IconButton";
-import CardContent from "@material-ui/core/CardContent";
-import Typography from "@material-ui/core/Typography";
-import Card from "@material-ui/core/Card";
 import AddIcon from '@material-ui/icons/Add';
-import RemoveIcon from '@material-ui/icons/Remove';
-import CloseIcon from '@material-ui/icons/Close';
-import CartItemList from "./CartList";
-import ContactForm from "./ContactForm";
+import ContactForm from "../container/ContactFormContainer";
+import CartList from "../container/CartListContainer";
+import DeliveryForm from "../container/DeliveryFormContainer";
 
 const useStyles = makeStyles((theme) => ({
     openCartButton: {
@@ -33,22 +25,41 @@ const useStyles = makeStyles((theme) => ({
 function CartDialog(props) {
     const classes = useStyles();
 
+    let dialogContent = null;
+
+    if (props.orderStep === 0) {
+        dialogContent = (
+            <Grid container spacing={0} >
+                <Grid item sm={12} md={6} className={classes.itemCard}>
+                    <ContactForm />
+                </Grid>
+                <Grid item sm={12} md={6} className={classes.itemCard}>
+                    <CartList cart={props.cart}/>
+                </Grid>
+            </Grid>
+        );
+    } else if (props.orderStep === 1) {
+        dialogContent = (
+            <Grid container spacing={0} >
+                <Grid item sm={12} md={6} className={classes.itemCard}>
+                    <DeliveryForm />
+                </Grid>
+                <Grid item sm={12} md={6} className={classes.itemCard}>
+                    <CartList cart={props.cart}/>
+                </Grid>
+            </Grid>
+        );
+    }
+
     return (
         <Dialog
             onClose={props.handleClose}
             aria-labelledby="simple-dialog-title"
-            open={props.order.opened}
+            open={props.opened}
             maxWidth="md"
             fullWidth
         >
-            <Grid container spacing={0} >
-                <Grid item sm={12} md={6} className={classes.itemCard}>
-                    <CartItemList cart={props.cart}/>
-                </Grid>
-                <Grid item sm={12} md={6} className={classes.itemCard}>
-                    <ContactForm />
-                </Grid>
-            </Grid>
+            {dialogContent}
         </Dialog>
     );
 }
@@ -65,11 +76,24 @@ function OpenCartButton(props) {
     );
 }
 
-export default function Cart(props) {
-    return (
-        <div>
-            <OpenCartButton setOpened={props.setOpened} />
-            <CartDialog handleClose={() => props.setOpened(false)} order={props.order} cart={props.cart}/>
-        </div>
-    )
+export default class Cart extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            opened: false
+        }
+    }
+
+    render() {
+        return (
+            <div>
+                <OpenCartButton setOpened={(newOpened) => this.setState({opened: newOpened})} />
+                <CartDialog
+                    handleClose={() => this.setState({opened: false})}
+                    orderStep={this.props.orderStep}
+                    opened={this.state.opened}/>
+            </div>
+        );
+    }
 }

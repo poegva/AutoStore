@@ -60,7 +60,7 @@ function CartItemCard(props) {
     )
 }
 
-export default function CartItemList(props) {
+export default function CartList(props) {
     const classes = useStyles();
 
     return (

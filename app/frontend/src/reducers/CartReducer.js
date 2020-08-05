@@ -1,4 +1,4 @@
-import {ADD_ITEM, REMOVE_ITEM} from "../actions/CartActions";
+import {ADD_ITEM, REMOVE_ITEM, SET_ITEM} from "../actions/CartActions";
 
 const initialState = {
     content: {}
@@ -34,6 +34,9 @@ export function cartReducer(state = initialState, action) {
             }
 
         case REMOVE_ITEM:
+            return state;
+
+        case SET_ITEM:
             return state;
 
         default:
