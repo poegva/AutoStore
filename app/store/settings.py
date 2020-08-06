@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'shop.apps.ShopConfig',
     'frontend.apps.FrontendConfig',
+    'delivery.apps.DeliveryConfig',
 ]
 
 MIDDLEWARE = [

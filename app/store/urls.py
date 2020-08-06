@@ -18,15 +18,19 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
 
+from delivery.views import CompleteView
 from frontend import views as frontend_views
 
 from shop.views import ItemViewSet, OrderViewSet, OrderItemViewSet
 from store import settings
 
 api_router = routers.DefaultRouter()
+
 api_router.register(r'items', ItemViewSet)
 api_router.register(r'orders', OrderViewSet)
 api_router.register(r'order_items', OrderItemViewSet)
+
+api_router.register(r'delivery/complete', CompleteView, basename='complete')
 
 urlpatterns = static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + [
     path('admin/', admin.site.urls),

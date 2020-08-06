@@ -4,7 +4,8 @@ import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import makeStyles from "@material-ui/core/styles/makeStyles";
-import {returnToContacts} from "../actions/OrderActions";
+import Autocomplete from '@material-ui/lab/Autocomplete';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const useStyles = makeStyles((theme) => ({
     dialogContainer: {
@@ -44,6 +45,79 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
+function sleep(delay = 0) {
+    return new Promise((resolve) => {
+        setTimeout(resolve, delay);
+    });
+}
+
+function AddressField(props) {
+    const [open, setOpen] = React.useState(false);
+    const [options, setOptions] = React.useState([]);
+    const loading = open && options.length === 0;
+
+    React.useEffect(() => {
+        let active = true;
+
+        if (!loading) {
+            return undefined;
+        }
+
+        (async () => {
+            const response = await fetch('https://country.register.gov.uk/records.json?page-size=5000');
+            await sleep(100); // For demo purposes.
+            const countries = await response.json();
+
+            if (active) {
+                setOptions(Object.keys(countries).map((key) => countries[key].item[0]));
+            }
+        })();
+
+        return () => {
+            active = false;
+        };
+    }, [loading]);
+
+    React.useEffect(() => {
+        if (!open) {
+            setOptions([]);
+        }
+    }, [open]);
+
+    return (
+        <Autocomplete
+            id="asynchronous-demo"
+            open={open}
+            onOpen={() => {
+                setOpen(true);
+            }}
+            onClose={() => {
+                setOpen(false);
+            }}
+            getOptionSelected={(option, value) => option.name === value.name}
+            getOptionLabel={(option) => option.name}
+            options={options}
+            loading={loading}
+            renderInput={(params) => (
+                <TextField
+                    {...params}
+                    label="Asynchronous"
+                    variant="outlined"
+                    InputProps={{
+                        ...params.InputProps,
+                        endAdornment: (
+                            <React.Fragment>
+                                {loading ? <CircularProgress color="inherit" size={20} /> : null}
+                                {params.InputProps.endAdornment}
+                            </React.Fragment>
+                        ),
+                    }}
+                />
+            )}
+        />
+    );
+}
+
 export default function DeliveryForm(props) {
     const classes = useStyles();
 
@@ -53,12 +127,7 @@ export default function DeliveryForm(props) {
                 Данные доставки
             </Typography>
             <Container className={classes.formContainer}>
-                <TextField
-                    id="name"
-                    label="Адрес доставки"
-                    variant="outlined"
-                    className={classes.formInput}
-                />
+                <AddressField />
                 <Button className={classes.submitButton}>
                     Заказать
                 </Button>
