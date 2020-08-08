@@ -6,6 +6,7 @@ import Button from "@material-ui/core/Button";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import throttle from 'lodash/throttle';
 
 const useStyles = makeStyles((theme) => ({
     dialogContainer: {
@@ -45,65 +46,79 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function sleep(delay = 0) {
-    return new Promise((resolve) => {
-        setTimeout(resolve, delay);
-    });
-}
-
 function AddressField(props) {
-    const [open, setOpen] = React.useState(false);
+    const classes = useStyles();
+
+    const [value, setValue] = React.useState(null);
+    const [inputValue, setInputValue] = React.useState('');
     const [options, setOptions] = React.useState([]);
-    const loading = open && options.length === 0;
+
+    const getOptions = React.useMemo(
+        () =>
+            throttle((inputValue, callback) => {
+                fetch(`api/delivery/complete/?address=${inputValue}`)
+                    .then(result => result.json())
+                    .then(callback)
+            }, 500),
+        [],
+    );
 
     React.useEffect(() => {
         let active = true;
 
-        if (!loading) {
+        if (inputValue === '') {
+            setOptions(value ? [value] : []);
             return undefined;
         }
 
-        (async () => {
-            const response = await fetch('https://country.register.gov.uk/records.json?page-size=5000');
-            await sleep(100); // For demo purposes.
-            const countries = await response.json();
-
+        getOptions(inputValue, (results) => {
             if (active) {
-                setOptions(Object.keys(countries).map((key) => countries[key].item[0]));
+                let newOptions = [];
+
+                if (value) {
+                    newOptions = [value];
+                }
+
+                if (results) {
+                    newOptions = [...newOptions, ...results];
+                }
+
+                setOptions(newOptions);
             }
-        })();
+        });
 
         return () => {
             active = false;
         };
-    }, [loading]);
+    }, [value, inputValue, getOptions]);
 
-    React.useEffect(() => {
-        if (!open) {
-            setOptions([]);
-        }
-    }, [open]);
+    function onChange(event, newValue) {
+        setOptions(newValue ? [newValue, ...options] : options);
+        setValue(newValue);
+    }
 
     return (
         <Autocomplete
-            id="asynchronous-demo"
-            open={open}
-            onOpen={() => {
-                setOpen(true);
-            }}
-            onClose={() => {
-                setOpen(false);
-            }}
-            getOptionSelected={(option, value) => option.name === value.name}
-            getOptionLabel={(option) => option.name}
+            id="address"
+            getOptionSelected={(option, value) => option.address === value.address}
+            getOptionLabel={(option) => option.address}
+            filterOptions={(x) => x}
             options={options}
-            loading={loading}
+            autoComplete
+            includeInputInList
+            filterSelectedOptions
+            value={value}
+            onChange={onChange}
+            onInputChange={(event, newInputValue) => {
+                setInputValue(newInputValue);
+            }}
             renderInput={(params) => (
                 <TextField
                     {...params}
-                    label="Asynchronous"
+                    label="Адрес"
                     variant="outlined"
-                    InputProps={{
+                    className={classes.formInput}
+                    /*InputProps={{
                         ...params.InputProps,
                         endAdornment: (
                             <React.Fragment>
@@ -111,7 +126,7 @@ function AddressField(props) {
                                 {params.InputProps.endAdornment}
                             </React.Fragment>
                         ),
-                    }}
+                    }}*/
                 />
             )}
         />

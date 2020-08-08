@@ -3,14 +3,16 @@
   <component name="ChangeListManager">
     <list default="true" id="47897e9c-1e32-4683-9b93-11bcf88e51a5" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/delivery/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/delivery/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/frontend/.babelrc" beforeDir="false" afterPath="$PROJECT_DIR$/app/frontend/.babelrc" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/app/frontend/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/app/frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/frontend/src/components/Cart.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/frontend/src/components/Cart.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/frontend/src/components/DeliveryForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/frontend/src/components/DeliveryForm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/frontend/src/components/Shop.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/frontend/src/components/Shop.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/frontend/static/frontend/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/frontend/static/frontend/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/frontend/webpack.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/frontend/webpack.config.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/app/requirements.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/shop/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/shop/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/store/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/store/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/store/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/store/urls.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -95,7 +97,7 @@
       <workItem from="1595015084986" duration="30710000" />
       <workItem from="1595765815621" duration="366000" />
       <workItem from="1595801771306" duration="8752000" />
-      <workItem from="1596562210939" duration="3582000" />
+      <workItem from="1596562210939" duration="5145000" />
     </task>
     <servers />
   </component>

@@ -3,7 +3,7 @@ import Fab from "@material-ui/core/Fab";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import Dialog from "@material-ui/core/Dialog";
 import Grid from "@material-ui/core/Grid";
-import AddIcon from '@material-ui/icons/Add';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import ContactForm from "../container/ContactFormContainer";
 import CartList from "../container/CartListContainer";
 import DeliveryForm from "../container/DeliveryFormContainer";
@@ -69,8 +69,8 @@ function OpenCartButton(props) {
 
     return (
         <div className={classes.openCartButton}>
-            <Fab color="primary" aria-label="add" onClick={() => props.setOpened(true)}>
-                <AddIcon />
+            <Fab aria-label="add" onClick={() => props.setOpened(true)}>
+                <ShoppingCartIcon />
             </Fab>
         </div>
     );

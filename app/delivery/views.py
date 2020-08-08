@@ -17,4 +17,4 @@ class CompleteView(viewsets.ViewSet):
             }
         )
 
-        return Response({'data': result.json()})
+        return Response(result.json())

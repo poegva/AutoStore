@@ -10,3 +10,4 @@ djangorestframework>=3.11.0
 markdown
 django-filter
 requests
+dadata
