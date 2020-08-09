@@ -7,6 +7,10 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import ContactForm from "../container/ContactFormContainer";
 import CartList from "../container/CartListContainer";
 import DeliveryForm from "../container/DeliveryFormContainer";
+import Container from "@material-ui/core/Container";
+import Typography from "@material-ui/core/Typography";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import Box from "@material-ui/core/Box";
 
 const useStyles = makeStyles((theme) => ({
     openCartButton: {
@@ -20,6 +24,10 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         justifyContent: 'flex-start'
     },
+    redirectContainer: {
+        paddingTop: theme.spacing(4),
+        paddingBottom: theme.spacing(4)
+    }
 }));
 
 function CartDialog(props) {
@@ -49,6 +57,13 @@ function CartDialog(props) {
                 </Grid>
             </Grid>
         );
+    } else {
+        dialogContent = (
+            <Box display="flex" flexDirection="column" alignItems="center" className={classes.redirectContainer}>
+                <CircularProgress />
+                <Typography variant="h5" component="h5">Перенаправление на страницу оплаты</Typography>
+            </Box>
+        );
     }
 
     return (
@@ -76,24 +91,16 @@ function OpenCartButton(props) {
     );
 }
 
-export default class Cart extends React.Component {
-    constructor(props) {
-        super(props);
+export default function Cart(props) {
+    const [opened, setOpened] = React.useState(false);
 
-        this.state = {
-            opened: false
-        }
-    }
-
-    render() {
-        return (
-            <div>
-                <OpenCartButton setOpened={(newOpened) => this.setState({opened: newOpened})} />
-                <CartDialog
-                    handleClose={() => this.setState({opened: false})}
-                    orderStep={this.props.orderStep}
-                    opened={this.state.opened}/>
-            </div>
-        );
-    }
+    return (
+        <div>
+            <OpenCartButton setOpened={setOpened} />
+            <CartDialog
+                handleClose={() => setOpened(false)}
+                orderStep={props.orderStep}
+                opened={opened}/>
+        </div>
+    );
 }

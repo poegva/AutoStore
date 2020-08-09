@@ -13,17 +13,24 @@ class ItemSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class ItemViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows users to be viewed or edited.
-    """
     queryset = Item.objects.all()
     serializer_class = ItemSerializer
 
 
+class OrderItemSerializer(serializers.ModelSerializer):
+    item = serializers.PrimaryKeyRelatedField(queryset=Item.objects.all())
+
+    class Meta:
+        model = OrderItem
+        fields = ['item', 'quantity']
+
+
 class OrderSerializer(serializers.HyperlinkedModelSerializer):
+    items = OrderItemSerializer(many=True, read_only=True)
+
     class Meta:
         model = Order
-        fields = ['id', 'name', 'email']
+        fields = ['id', 'name', 'email', 'phone', 'items', 'address', 'delivery_option']
 
 
 class OrderViewSet(viewsets.ModelViewSet):
@@ -31,18 +38,19 @@ class OrderViewSet(viewsets.ModelViewSet):
     serializer_class = OrderSerializer
 
     def create(self, request, *args, **kwargs):
-        order = Order.objects.create(name=request.data['name'], email=request.data['email'])
-        for item_id, value in request.data['cart'].items():
-            OrderItem.objects.create(item_id=item_id, order=order, quantity=value['quantity'])
+
+        order_serializer = self.get_serializer(data=request.data)
+        order_serializer.is_valid(raise_exception=True)
+        order = order_serializer.save()
+
+        item_serializer = OrderItemSerializer(data=request.data['items'], many=True)
+        item_serializer.is_valid(raise_exception=True)
+        item_serializer.save(order=order)
+
         return Response({
-            'order': order.id
+            'order': order.id,
+            'paymentUrl': f'http://localhost:9000/order'
         }, status=200)
-
-
-class OrderItemSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = OrderItem
-        fields = ['item_id', 'quantity']
 
 
 class OrderItemViewSet(viewsets.ModelViewSet):

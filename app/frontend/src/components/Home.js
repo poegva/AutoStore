@@ -9,7 +9,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-function Home() {
+export default function Home() {
     const classes = useStyles();
 
     return (
@@ -20,5 +20,3 @@ function Home() {
         </Container>
     )
 }
-
-export {Home}

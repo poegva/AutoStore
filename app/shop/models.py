@@ -23,14 +23,32 @@ class Item(models.Model):
 
 
 class Order(models.Model):
-    name = models.CharField(max_length=200, verbose_name='Имя покупателя')
-    email = models.EmailField(verbose_name='Почта покупателя')
+    name = models.CharField(max_length=200, verbose_name='Имя покупателя', blank=True)
+    email = models.EmailField(verbose_name='Почта покупателя', blank=True)
+    phone = models.CharField(max_length=50, verbose_name='Телефон покупателя', blank=True)
+
+    address = models.JSONField(verbose_name='Адрес покупателя', null=True, blank=True)
+
+    NONE = 'NONE'
+    COURIER = 'COURIER'
+    POST = 'POST'
+    DELIVERY_OPTION_CHOICES = [
+        (NONE, 'Не выбрано'),
+        (COURIER, 'Курьер'),
+        (POST, 'Почта')
+    ]
+    delivery_option = models.CharField(
+        max_length=7, choices=DELIVERY_OPTION_CHOICES, default=NONE, verbose_name='Способ доставки'
+    )
 
     def __str__(self):
-        return f'{self.pk}: {self.name}'
+        return f'Заказ №{self.pk} ({self.name})'
 
 
 class OrderItem(models.Model):
-    order = models.ForeignKey(Order, on_delete=models.CASCADE, verbose_name='Заказ')
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, verbose_name='Заказ', related_name='items')
     item = models.ForeignKey(Item, on_delete=models.CASCADE, verbose_name='Товар')
     quantity = models.PositiveIntegerField(verbose_name='Количество')
+
+    def __str__(self):
+        return f'{self.item} - {self.quantity} шт. ({self.order})'

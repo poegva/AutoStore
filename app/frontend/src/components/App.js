@@ -6,7 +6,7 @@ import {
     Link as RouterLink
 } from "react-router-dom";
 
-import {Home} from './Home';
+import Home from './Home';
 import Toolbar from "@material-ui/core/Toolbar";
 import Link from '@material-ui/core/Link';
 import AppBar from "@material-ui/core/AppBar";
@@ -18,6 +18,8 @@ import useScrollTrigger from "@material-ui/core/useScrollTrigger";
 import Slide from "@material-ui/core/Slide";
 import ShopContainer from "../container/ShopContainer";
 import CartContainer from "../container/CartContainer";
+import Order from "./Order";
+import {Redirect} from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
     appBar: {
@@ -94,6 +96,23 @@ function AppNavigationBar(props) {
     )
 }
 
+function OrderRoute(props) {
+
+    let content = null;
+
+    if (props.lastOrderId) {
+        content = <Order />
+    } else {
+        content = <Redirect to="/" />
+    }
+
+    return (
+        <Route strict exact path="/order">
+            {content}
+        </Route>
+    );
+}
+
 function App(props) {
     const classes = useStyles();
     const sections = [
@@ -111,6 +130,9 @@ function App(props) {
         },
     ];
 
+    console.log(props.lastOrderId);
+    console.log(props.lastOrderId == null);
+
     return (
         <Router>
             <AppNavigationBar sections={sections} />
@@ -119,9 +141,16 @@ function App(props) {
 
             <div className={classes.content}>
                 <Switch>
-                    <Route path="/reviews"> <p>dd</p> </Route>
-                    <Route path="/shop"> <ShopContainer /> </Route>
-                    <Route path="/"> <Home /> </Route>
+                    <Route strict exact path="/reviews">
+                        <p>dd</p>
+                    </Route>
+                    <Route strict exact path="/shop">
+                        <ShopContainer />
+                    </Route>
+                    <OrderRoute lastOrderId={props.lastOrderId} strict exact path="/order" />
+                    <Route path="/">
+                        <Home />
+                    </Route>
                 </Switch>
             </div>
         </Router>

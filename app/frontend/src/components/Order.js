@@ -1,7 +1,7 @@
 import React from "react";
 import {useParams} from "react-router-dom";
 
-export function Order(props) {
+export default function Order(props) {
     let {id} = useParams();
 
     return (

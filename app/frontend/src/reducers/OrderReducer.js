@@ -1,12 +1,28 @@
-import {RETURN_TO_CONTACTS, SET_EMAIL, SET_NAME, SET_PHONE, SUBMIT_CONTACTS} from "../actions/OrderActions";
+import {
+    ORDER_SUBMITTED,
+    RETURN_TO_CONTACTS,
+    SET_ADDRESS,
+    SET_DELIVERY_SELECTED,
+    SET_EMAIL,
+    SET_NAME, SET_OPTIONS,
+    SET_PHONE,
+    SUBMIT_CONTACTS,
+    SUBMIT_ORDER
+} from "../actions/OrderActions";
 
 const initialState = {
-    step: 0, // 0 - Contact, 1 - Address, 2 - Payment
+    step: 0, // 0 - Contact, 1 - Address, 2 - Waiting redirect to payment
     contacts: {
         name: null,
         phone: null,
         email: null,
-    }
+    },
+    address: null,
+    delivery: {
+        options: null,
+        selected: null
+    },
+    lastOrderId: null
 };
 
 export function orderReducer(state = initialState, action) {
@@ -49,6 +65,46 @@ export function orderReducer(state = initialState, action) {
             return {
                 ...state,
                 step: 0,
+            };
+
+        case SET_ADDRESS:
+            return {
+                ...state,
+                address: action.payload,
+            };
+
+        case SET_OPTIONS:
+            return {
+                ...state,
+                delivery: {
+                    ...state.delivery,
+                    options: action.payload,
+                    selected: null,
+                }
+            };
+
+        case SUBMIT_ORDER:
+            return {
+                ...state,
+                step: 2,
+                orderId: null,
+            };
+
+        case SET_DELIVERY_SELECTED:
+            return {
+                ...state,
+                delivery: {
+                    ...state.delivery,
+                    selected: action.payload
+                }
+            };
+
+        case ORDER_SUBMITTED:
+            window.location = action.payload.paymentUrl;
+
+            return {
+                ...state,
+                lastOrderId: action.payload.id,
             };
 
         default:
