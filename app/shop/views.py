@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404
+from django.utils.crypto import get_random_string
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import serializers, viewsets
 from rest_framework.response import Response
@@ -39,9 +40,18 @@ class OrderViewSet(viewsets.ModelViewSet):
 
     def create(self, request, *args, **kwargs):
 
-        order_serializer = self.get_serializer(data=request.data)
+        create_data = {
+            'name': 'Долбоеб',
+            'phone': '+7999999999',
+            'email': 'p@yandex.ru',
+            'address': {},
+            'delivery_option': 'POST',
+            'items': [],
+        }
+
+        order_serializer = self.get_serializer(data=create_data)
         order_serializer.is_valid(raise_exception=True)
-        order = order_serializer.save()
+        order = order_serializer.save(token=get_random_string(length=32))
 
         item_serializer = OrderItemSerializer(data=request.data['items'], many=True)
         item_serializer.is_valid(raise_exception=True)
@@ -49,6 +59,7 @@ class OrderViewSet(viewsets.ModelViewSet):
 
         return Response({
             'order': order.id,
+            'token': order.token,
             'paymentUrl': f'http://localhost:9000/order'
         }, status=200)
 

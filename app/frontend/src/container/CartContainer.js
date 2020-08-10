@@ -13,7 +13,7 @@ const mapStateToProps = store => {
     console.log(store.order);
 
     return {
-        cartEmpty: Object.keys(store.cart.content).length === 0,
+        cartEmpty: Object.keys(store.order.cart).length === 0,
         orderStep: store.order.step,
     };
 }

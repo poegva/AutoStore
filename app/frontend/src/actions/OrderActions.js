@@ -1,5 +1,7 @@
-import {useHistory} from "react-router-dom";
-
+export const ADD_ITEM = 'ADD_ITEM'
+export const REMOVE_ITEM = 'REMOVE_ITEM'
+export const SET_ITEM = 'SET_ITEM'
+export const CLEAR_CART = 'CLEAR_CART'
 export const SET_NAME = 'SET_NAME'
 export const SET_PHONE = 'SET_PHONE'
 export const SET_EMAIL = 'SET_EMAIL'
@@ -11,6 +13,45 @@ export const SET_DELIVERY_SELECTED = 'SET_DELIVERY_SELECTED'
 export const SUBMIT_ORDER = 'SUBMIT_ORDER'
 export const ORDER_SUBMITTED = 'ORDER_SUBMITTED'
 export const CLEAR_ORDER = 'CLEAR_ORDER'
+
+
+export function addItem(item) {
+    return dispatch => {
+        dispatch({
+            type: ADD_ITEM,
+            payload: item,
+        });
+    };
+}
+
+export function removeItem(item) {
+    return dispatch => {
+        dispatch({
+            type: REMOVE_ITEM,
+            payload: item,
+        });
+    };
+}
+
+export function setItem(item, quantity) {
+    return dispatch => {
+        dispatch({
+            type: ADD_ITEM,
+            payload: {
+                item: item,
+                quantity: quantity,
+            },
+        });
+    };
+}
+
+export function clearCart() {
+    return dispatch => {
+        dispatch({
+            type: CLEAR_CART,
+        });
+    };
+}
 
 export function setName(name) {
     return dispatch => {
@@ -90,8 +131,6 @@ export function submitOrder(orderData) {
             type: SUBMIT_ORDER,
         });
 
-        console.log(orderData);
-
         fetch("api/orders/", {
             method: 'post',
             body: JSON.stringify(orderData),
@@ -103,8 +142,13 @@ export function submitOrder(orderData) {
             .then(result => {
                 dispatch({
                     type: ORDER_SUBMITTED,
-                    payload: result
-                })
+                    payload: {
+                        id: result.order,
+                        token: result.token,
+                    }
+                });
+
+                window.location = result.paymentUrl;
             });
     };
 }

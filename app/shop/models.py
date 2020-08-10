@@ -41,6 +41,8 @@ class Order(models.Model):
         max_length=7, choices=DELIVERY_OPTION_CHOICES, default=NONE, verbose_name='Способ доставки'
     )
 
+    token = models.CharField(max_length=32, verbose_name='Токен доступа к заказу', default='NO_TOKEN')
+
     def __str__(self):
         return f'Заказ №{self.pk} ({self.name})'
 

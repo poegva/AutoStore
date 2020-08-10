@@ -215,7 +215,7 @@ export default function DeliveryForm(props) {
                 phone: props.order.contacts.phone,
                 address: props.order.address,
                 delivery_option: props.order.delivery.selected,
-                items: Object.values(props.cart.content).map(item => convertItemToData(item))
+                items: Object.values(props.order.cart).map(item => convertItemToData(item))
             };
 
             props.submitOrder(orderData);

@@ -1,12 +1,12 @@
 import React from "react";
 import {connect} from "react-redux";
 import CartList from "../components/CartList";
-import {addItem, removeItem, setItem} from "../actions/CartActions";
+import {addItem, removeItem, setItem} from "../actions/OrderActions";
 
 
 const mapStateToProps = store => {
     return {
-        cart: store.cart,
+        cart: store.order.cart,
     };
 }
 

@@ -2,24 +2,28 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="47897e9c-1e32-4683-9b93-11bcf88e51a5" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/frontend/src/container/AppContainer.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/frontend/src/container/OrderContainer.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/delivery/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/delivery/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/delivery/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/delivery/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/frontend/src/actions/CartActions.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/frontend/src/actions/CartActions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/frontend/src/actions/CartActions.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/app/frontend/src/actions/OrderActions.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/frontend/src/actions/OrderActions.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/frontend/src/components/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/frontend/src/components/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/frontend/src/components/Cart.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/frontend/src/components/Cart.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/frontend/src/components/CartList.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/frontend/src/components/CartList.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/frontend/src/components/DeliveryForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/frontend/src/components/DeliveryForm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/frontend/src/components/Home.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/frontend/src/components/Home.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/frontend/src/components/Order.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/frontend/src/components/Order.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/frontend/src/container/AppContainer.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/frontend/src/container/AppContainer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/frontend/src/container/CartContainer.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/frontend/src/container/CartContainer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/frontend/src/container/CartListContainer.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/frontend/src/container/CartListContainer.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/frontend/src/container/DeliveryFormContainer.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/frontend/src/container/DeliveryFormContainer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/frontend/src/container/ShopContainer.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/frontend/src/container/ShopContainer.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/frontend/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/frontend/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/frontend/src/reducers/CartReducer.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/app/frontend/src/reducers/OrderReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/frontend/src/reducers/OrderReducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/frontend/src/reducers/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/frontend/src/reducers/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/frontend/src/store/configureStore.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/frontend/src/store/configureStore.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/frontend/static/frontend/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/frontend/static/frontend/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/shop/migrations/0004_auto_20200808_2258.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/shop/migrations/0004_order_fields.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/shop/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/shop/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/shop/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/shop/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/store/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/store/urls.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -104,7 +108,7 @@
       <workItem from="1595015084986" duration="30710000" />
       <workItem from="1595765815621" duration="366000" />
       <workItem from="1595801771306" duration="8752000" />
-      <workItem from="1596562210939" duration="21498000" />
+      <workItem from="1596562210939" duration="27957000" />
     </task>
     <servers />
   </component>
@@ -192,12 +196,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/app/shop/views.py</url>
-          <line>39</line>
+          <line>40</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/app/shop/views.py</url>
-          <line>41</line>
+          <line>51</line>
           <option name="timeStamp" value="6" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -217,7 +221,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/app/shop/views.py</url>
-          <line>45</line>
+          <line>55</line>
           <option name="timeStamp" value="10" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">

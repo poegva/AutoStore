@@ -4,7 +4,7 @@ import App from "../components/App";
 
 const mapStateToProps = store => {
     return {
-        lastOrderId: store.order.lastOrderId
+        order: store.order
     };
 }
 

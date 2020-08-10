@@ -6,7 +6,6 @@ import {returnToContacts, setAddress, setDeliverySelected, setName, submitOrder}
 const mapStateToProps = store => {
     return {
         order: store.order,
-        cart: store.cart,
     };
 }
 

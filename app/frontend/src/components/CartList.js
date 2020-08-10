@@ -68,7 +68,7 @@ export default function CartList(props) {
             <Typography component="h5" variant="h5" align="center">
                 Корзина
             </Typography>
-            {Object.values(props.cart.content).map(cartItem => (
+            {Object.values(props.cart).map(cartItem => (
                 <CartItemCard item={cartItem.item} quantity={cartItem.quantity} key={cartItem.item.id} />
             ))}
         </Container>

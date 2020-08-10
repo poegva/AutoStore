@@ -18,7 +18,7 @@ import useScrollTrigger from "@material-ui/core/useScrollTrigger";
 import Slide from "@material-ui/core/Slide";
 import ShopContainer from "../container/ShopContainer";
 import CartContainer from "../container/CartContainer";
-import Order from "./Order";
+import Order from "../container/OrderContainer";
 import {Redirect} from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
@@ -96,26 +96,9 @@ function AppNavigationBar(props) {
     )
 }
 
-function OrderRoute(props) {
-
-    let content = null;
-
-    if (props.lastOrderId) {
-        content = <Order />
-    } else {
-        content = <Redirect to="/" />
-    }
-
-    return (
-        <Route strict exact path="/order">
-            {content}
-        </Route>
-    );
-}
-
 function App(props) {
     const classes = useStyles();
-    const sections = [
+    let sections = [
         {
             title: 'Главная',
             url: '/',
@@ -130,8 +113,15 @@ function App(props) {
         },
     ];
 
-    console.log(props.lastOrderId);
-    console.log(props.lastOrderId == null);
+    if (props.order.lastOrder.id) {
+        sections = [
+            ...sections,
+            {
+                title: 'Мой заказ',
+                url: '/order',
+            }
+        ];
+    }
 
     return (
         <Router>
@@ -147,7 +137,9 @@ function App(props) {
                     <Route strict exact path="/shop">
                         <ShopContainer />
                     </Route>
-                    <OrderRoute lastOrderId={props.lastOrderId} strict exact path="/order" />
+                    <Route strict exact path="/order">
+                        <Order />
+                    </Route>
                     <Route path="/">
                         <Home />
                     </Route>
