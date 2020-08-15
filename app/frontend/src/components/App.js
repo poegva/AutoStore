@@ -34,7 +34,8 @@ const useStyles = makeStyles((theme) => ({
         fontFamily: 'roboto',
     },
     content: {
-        backgroundColor: '#F6F6F6'
+        backgroundColor: '#F6F6F6',
+        height: "100%",
     },
     centered: {
     }

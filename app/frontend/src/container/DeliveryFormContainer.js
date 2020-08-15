@@ -14,7 +14,7 @@ const mapDispatchToProps = dispatch => {
         returnToContacts: () => dispatch(returnToContacts()),
         setAddress: (address) => dispatch(setAddress(address)),
         setDeliverySelected: (selected) => dispatch(setDeliverySelected(selected)),
-        submitOrder: (orderData) => dispatch(submitOrder(orderData)),
+        submitOrder: (orderData, redirect) => dispatch(submitOrder(orderData, redirect)),
     };
 }
 

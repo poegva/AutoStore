@@ -42,11 +42,13 @@ INSTALLED_APPS = [
     'shop.apps.ShopConfig',
     'frontend.apps.FrontendConfig',
     'delivery.apps.DeliveryConfig',
+    'payment.apps.PaymentConfig',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -158,3 +160,16 @@ REST_FRAMEWORK = {
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+# CORS
+
+CORS_ORIGIN_WHITELIST = [
+    'http://127.0.0.1:3000',
+    'http://localhost:3000'
+]
+
+# Yandex Checkout
+
+YANDEX_CHECKOUT_CLIENT_ID = '700410'
+YANDEX_CHECKOUT_SECRET_KEY = 'test_XbyGEojSENZukjDeWrl0M8Yppr9fEr03iqc8mDpVpRs'
+

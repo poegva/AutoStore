@@ -21,14 +21,13 @@ from rest_framework import routers
 from delivery.views import CompleteView, OptionsView
 from frontend import views as frontend_views
 
-from shop.views import ItemViewSet, OrderViewSet, OrderItemViewSet
+from shop.views import ItemViewSet, OrderViewSet
 from store import settings
 
 api_router = routers.DefaultRouter()
 
 api_router.register(r'items', ItemViewSet)
 api_router.register(r'orders', OrderViewSet)
-api_router.register(r'order_items', OrderItemViewSet)
 
 api_router.register(r'delivery/complete', CompleteView, basename='complete')
 api_router.register(r'delivery/options', OptionsView, basename='options')

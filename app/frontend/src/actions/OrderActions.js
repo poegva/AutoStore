@@ -125,7 +125,7 @@ export function setDeliverySelected(selected) {
     };
 }
 
-export function submitOrder(orderData) {
+export function submitOrder(orderData, redirect) {
     return dispatch => {
         dispatch({
             type: SUBMIT_ORDER,
@@ -148,7 +148,7 @@ export function submitOrder(orderData) {
                     }
                 });
 
-                window.location = result.paymentUrl;
+                redirect();
             });
     };
 }

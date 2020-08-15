@@ -195,6 +195,7 @@ function DeliveryOptions(props) {
 
 export default function DeliveryForm(props) {
     const classes = useStyles();
+    let history = useHistory();
 
     function convertItemToData(item) {
         return {
@@ -218,7 +219,7 @@ export default function DeliveryForm(props) {
                 items: Object.values(props.order.cart).map(item => convertItemToData(item))
             };
 
-            props.submitOrder(orderData);
+            props.submitOrder(orderData, () => history.push('/order'));
         }
     }
 

@@ -4,10 +4,11 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import serializers, viewsets
 from rest_framework.response import Response
 
+from payment.utils import get_or_create_payment
 from shop.models import Shop, Item, Order, OrderItem
 
 
-class ItemSerializer(serializers.HyperlinkedModelSerializer):
+class ItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = Item
         fields = ['id', 'name', 'description', 'price', 'image']
@@ -19,6 +20,14 @@ class ItemViewSet(viewsets.ModelViewSet):
 
 
 class OrderItemSerializer(serializers.ModelSerializer):
+    item = ItemSerializer()
+
+    class Meta:
+        model = OrderItem
+        fields = ['item', 'quantity']
+
+
+class OrderItemCreateSerializer(serializers.ModelSerializer):
     item = serializers.PrimaryKeyRelatedField(queryset=Item.objects.all())
 
     class Meta:
@@ -28,10 +37,21 @@ class OrderItemSerializer(serializers.ModelSerializer):
 
 class OrderSerializer(serializers.HyperlinkedModelSerializer):
     items = OrderItemSerializer(many=True, read_only=True)
+    token = serializers.ReadOnlyField()
+    payment_token = serializers.SerializerMethodField(method_name='get_payment_token')
+
+    def get_state(self, order):
+        return 'PAYMENT'
+
+    def get_payment_token(self, order):
+        payment = get_or_create_payment(order)
+        return payment.confirmation_token
 
     class Meta:
         model = Order
-        fields = ['id', 'name', 'email', 'phone', 'items', 'address', 'delivery_option']
+        fields = [
+            'id', 'name', 'email', 'phone', 'items', 'address', 'delivery_option', 'token', 'status', 'payment_token'
+        ]
 
 
 class OrderViewSet(viewsets.ModelViewSet):
@@ -39,33 +59,18 @@ class OrderViewSet(viewsets.ModelViewSet):
     serializer_class = OrderSerializer
 
     def create(self, request, *args, **kwargs):
-
-        create_data = {
-            'name': 'Долбоеб',
-            'phone': '+7999999999',
-            'email': 'p@yandex.ru',
-            'address': {},
-            'delivery_option': 'POST',
-            'items': [],
-        }
-
-        order_serializer = self.get_serializer(data=create_data)
+        order_serializer = self.get_serializer(data=request.data)
         order_serializer.is_valid(raise_exception=True)
-        order = order_serializer.save(token=get_random_string(length=32))
+        order = order_serializer.save(token=get_random_string(length=32), status=Order.WAITING_PAYMENT)
 
-        item_serializer = OrderItemSerializer(data=request.data['items'], many=True)
+        item_serializer = OrderItemCreateSerializer(data=request.data['items'], many=True)
         item_serializer.is_valid(raise_exception=True)
         item_serializer.save(order=order)
 
-        return Response({
-            'order': order.id,
-            'token': order.token,
-            'paymentUrl': f'http://localhost:9000/order'
-        }, status=200)
+        data = self.get_serializer(order).data
 
+        return Response(data, status=200)
 
-class OrderItemViewSet(viewsets.ModelViewSet):
-    queryset = OrderItem.objects.all()
-    serializer_class = OrderItemSerializer
-    filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['order']
+    def retrieve(self, request, pk=None, *args, **kwargs):
+        order = get_object_or_404(self.queryset, pk=pk)
+        return Response(self.get_serializer(order).data, status=200)

@@ -1,5 +1,8 @@
 module.exports = {
   entry: ["@babel/polyfill", "./src/index.js"],
+  devServer: {
+      contentBase: './static/frontend',
+  },
   module: {
     rules: [
       {

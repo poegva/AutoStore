@@ -41,6 +41,18 @@ class Order(models.Model):
         max_length=7, choices=DELIVERY_OPTION_CHOICES, default=NONE, verbose_name='Способ доставки'
     )
 
+    CREATED = 'CREATED'
+    WAITING_PAYMENT = 'WAITING_PAYMENT'
+    PAYED = 'PAYED'
+    STATUS_CHOiCES = [
+        (CREATED, 'Создан'),
+        (WAITING_PAYMENT, 'Ожидает оплаты'),
+        (PAYED, 'Оплачен')
+    ]
+    status = models.CharField(
+        max_length=20, choices=STATUS_CHOiCES, default=CREATED, verbose_name='Статус'
+    )
+
     token = models.CharField(max_length=32, verbose_name='Токен доступа к заказу', default='NO_TOKEN')
 
     def __str__(self):

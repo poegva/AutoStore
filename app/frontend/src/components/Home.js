@@ -15,7 +15,7 @@ export default function Home() {
     return (
         <Container>
             <Typography variant="h2" gutterBottom align='center' className={classes.title}>
-                HQD Pods
+                HQD Podsщщлл
             </Typography>
         </Container>
     )
