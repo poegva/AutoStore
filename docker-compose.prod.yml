@@ -1,23 +1,25 @@
 version: '3.7'
 services:
   redis:
-    image: redis
+    image: redis:alpine
     restart: always
     container_name: 'redis'
     command: redis-server
     ports:
-      - '6379:6379'
+      - 6379:6379
   db:
     image: postgres:latest
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     env_file:
       - ./.env.prod.db
-  web:
+  backend:
     build: ./app
     command: uwsgi --ini uwsgi.ini
+    expose:
+      - 9000
     ports:
-      - 8000:8000
+      - 9000:9000
     volumes:
       - ./app:/src/app
       - assets:/src/app/assets
@@ -36,17 +38,29 @@ services:
     env_file:
       - ./.env.prod
     depends_on:
-      - web
+      - backend
       - redis
+  frontend:
+    container_name: frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.prod
+    volumes:
+      - './frontend:/src/frontend'
+      - '/src/frontend/node_modules'
+      - build:/src/frontend/build
   nginx:
     build: ./nginx
     ports:
       - 80:80
       - 443:443
     depends_on:
-      - web
+      - backend
+      - frontend
     volumes:
-      - assets:/src/app/assets
+      - ./frontend:/src/frontend
+      - ./app:src/app
 volumes:
   postgres_data:
   assets:
+  build:
