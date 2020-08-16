@@ -22,7 +22,7 @@ function Payment(props) {
         script.onload = () => {
             const checkout = new window.YandexCheckout({
                 confirmation_token: props.order.payment_token,
-                return_url: `http://${window.location.hostname}:3000/order`,
+                return_url: window.location.href,
                 embedded_3ds: true,
                 error_callback(error) {
                     console.log(error);

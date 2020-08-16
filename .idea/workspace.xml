@@ -2,9 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="47897e9c-1e32-4683-9b93-11bcf88e51a5" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/frontend/.dockeignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/store.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/store.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/store/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/store/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/store/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/store/settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,7 +58,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/app/static" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.django.DjangoModulesConfigurable" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -74,9 +79,9 @@
         <env name="PYTHONUNBUFFERED" value="1" />
         <env name="DJANGO_SETTINGS_MODULE" value="store.settings" />
       </envs>
-      <option name="SDK_HOME" value="docker-compose://[$PROJECT_DIR$/docker-compose.yml]:web/python" />
+      <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
+      <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="launchJavascriptDebuger" value="false" />
@@ -106,6 +111,7 @@
       <workItem from="1595801771306" duration="8752000" />
       <workItem from="1596562210939" duration="33821000" />
       <workItem from="1597351318425" duration="17101000" />
+      <workItem from="1597585624332" duration="5076000" />
     </task>
     <servers />
   </component>
@@ -113,42 +119,51 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="304" y="113" width="1071" height="848" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1597584919897">
-      <screen x="0" y="23" width="1680" height="937" />
+    <state x="304" y="111" width="1071" height="848" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1597594097694">
+      <screen x="0" y="23" width="1680" height="934" />
     </state>
+    <state x="304" y="111" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1680.934@0.23.1680.934" timestamp="1597594097694" />
     <state x="304" y="113" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1680.937@0.23.1680.937" timestamp="1597584919897" />
     <state x="304" y="114" width="1071" height="848" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1680.939@0.23.1680.939" timestamp="1595256992486" />
-    <state width="1638" height="215" key="GridCell.Tab.0.bottom" timestamp="1597584921528">
-      <screen x="0" y="23" width="1680" height="937" />
+    <state x="546" y="300" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1597592472887">
+      <screen x="0" y="23" width="1680" height="934" />
     </state>
-    <state width="1638" height="215" key="GridCell.Tab.0.bottom/0.23.1680.934@0.23.1680.934" timestamp="1597580088503" />
+    <state x="546" y="300" key="#com.intellij.fileTypes.FileTypeChooser/0.23.1680.934@0.23.1680.934" timestamp="1597592472887" />
+    <state x="16" y="40" key="#store" timestamp="1597594068685">
+      <screen x="0" y="23" width="1680" height="934" />
+    </state>
+    <state x="16" y="40" key="#store/0.23.1680.934@0.23.1680.934" timestamp="1597594068685" />
+    <state width="1638" height="215" key="GridCell.Tab.0.bottom" timestamp="1597594223660">
+      <screen x="0" y="23" width="1680" height="934" />
+    </state>
+    <state width="1638" height="215" key="GridCell.Tab.0.bottom/0.23.1680.934@0.23.1680.934" timestamp="1597594223660" />
     <state width="1638" height="235" key="GridCell.Tab.0.bottom/0.23.1680.935@0.23.1680.935" timestamp="1595812316366" />
     <state width="1638" height="215" key="GridCell.Tab.0.bottom/0.23.1680.937@0.23.1680.937" timestamp="1597584921528" />
     <state width="1638" height="310" key="GridCell.Tab.0.bottom/0.23.1680.939@0.23.1680.939" timestamp="1595258154579" />
     <state width="1638" height="246" key="GridCell.Tab.0.bottom/0.23.1680.941@0.23.1680.941" timestamp="1597498182730" />
     <state width="1638" height="244" key="GridCell.Tab.0.bottom/0.23.1680.947@0.23.1680.947" timestamp="1597240298930" />
-    <state width="1638" height="215" key="GridCell.Tab.0.center" timestamp="1597584921527">
-      <screen x="0" y="23" width="1680" height="937" />
+    <state width="1638" height="215" key="GridCell.Tab.0.center" timestamp="1597594223658">
+      <screen x="0" y="23" width="1680" height="934" />
     </state>
-    <state width="1638" height="215" key="GridCell.Tab.0.center/0.23.1680.934@0.23.1680.934" timestamp="1597580088502" />
+    <state width="1638" height="215" key="GridCell.Tab.0.center/0.23.1680.934@0.23.1680.934" timestamp="1597594223658" />
     <state width="1638" height="235" key="GridCell.Tab.0.center/0.23.1680.935@0.23.1680.935" timestamp="1595812316365" />
     <state width="1638" height="215" key="GridCell.Tab.0.center/0.23.1680.937@0.23.1680.937" timestamp="1597584921527" />
     <state width="1638" height="310" key="GridCell.Tab.0.center/0.23.1680.939@0.23.1680.939" timestamp="1595258154578" />
     <state width="1638" height="246" key="GridCell.Tab.0.center/0.23.1680.941@0.23.1680.941" timestamp="1597498182730" />
     <state width="1638" height="244" key="GridCell.Tab.0.center/0.23.1680.947@0.23.1680.947" timestamp="1597240298929" />
-    <state width="1638" height="215" key="GridCell.Tab.0.left" timestamp="1597584921526">
-      <screen x="0" y="23" width="1680" height="937" />
+    <state width="1638" height="215" key="GridCell.Tab.0.left" timestamp="1597594223658">
+      <screen x="0" y="23" width="1680" height="934" />
     </state>
-    <state width="1638" height="215" key="GridCell.Tab.0.left/0.23.1680.934@0.23.1680.934" timestamp="1597580088502" />
+    <state width="1638" height="215" key="GridCell.Tab.0.left/0.23.1680.934@0.23.1680.934" timestamp="1597594223658" />
     <state width="1638" height="235" key="GridCell.Tab.0.left/0.23.1680.935@0.23.1680.935" timestamp="1595812316364" />
     <state width="1638" height="215" key="GridCell.Tab.0.left/0.23.1680.937@0.23.1680.937" timestamp="1597584921526" />
     <state width="1638" height="310" key="GridCell.Tab.0.left/0.23.1680.939@0.23.1680.939" timestamp="1595258154578" />
     <state width="1638" height="246" key="GridCell.Tab.0.left/0.23.1680.941@0.23.1680.941" timestamp="1597498182729" />
     <state width="1638" height="244" key="GridCell.Tab.0.left/0.23.1680.947@0.23.1680.947" timestamp="1597240298929" />
-    <state width="1638" height="215" key="GridCell.Tab.0.right" timestamp="1597584921528">
-      <screen x="0" y="23" width="1680" height="937" />
+    <state width="1638" height="215" key="GridCell.Tab.0.right" timestamp="1597594223659">
+      <screen x="0" y="23" width="1680" height="934" />
     </state>
-    <state width="1638" height="215" key="GridCell.Tab.0.right/0.23.1680.934@0.23.1680.934" timestamp="1597580088503" />
+    <state width="1638" height="215" key="GridCell.Tab.0.right/0.23.1680.934@0.23.1680.934" timestamp="1597594223659" />
     <state width="1638" height="235" key="GridCell.Tab.0.right/0.23.1680.935@0.23.1680.935" timestamp="1595812316365" />
     <state width="1638" height="215" key="GridCell.Tab.0.right/0.23.1680.937@0.23.1680.937" timestamp="1597584921528" />
     <state width="1638" height="310" key="GridCell.Tab.0.right/0.23.1680.939@0.23.1680.939" timestamp="1595258154579" />
@@ -178,9 +193,10 @@
     <state width="1638" height="272" key="GridCell.Tab.1.right/0.23.1680.937@0.23.1680.937" timestamp="1597532496150" />
     <state width="1638" height="310" key="GridCell.Tab.1.right/0.23.1680.939@0.23.1680.939" timestamp="1595258154582" />
     <state width="1638" height="127" key="GridCell.Tab.1.right/0.23.1680.941@0.23.1680.941" timestamp="1597497937849" />
-    <state x="341" y="131" key="SettingsEditor" timestamp="1595257028959">
-      <screen x="0" y="23" width="1680" height="939" />
+    <state x="341" y="130" key="SettingsEditor" timestamp="1597594051324">
+      <screen x="0" y="23" width="1680" height="934" />
     </state>
+    <state x="341" y="130" key="SettingsEditor/0.23.1680.934@0.23.1680.934" timestamp="1597594051324" />
     <state x="341" y="131" key="SettingsEditor/0.23.1680.939@0.23.1680.939" timestamp="1595257028959" />
     <state width="840" height="470" key="XDebugger.FullValuePopup" timestamp="1596928616415">
       <screen x="0" y="23" width="1680" height="941" />
