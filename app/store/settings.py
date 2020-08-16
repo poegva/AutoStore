@@ -25,7 +25,7 @@ SECRET_KEY = '@#z^7@6*+(+4_dkst!)#lna8g*+-fn2#e7!=jh9y)6j1pp&^b_'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'django_extensions',
     'rest_framework',
     'shop.apps.ShopConfig',
-    'frontend.apps.FrontendConfig',
     'delivery.apps.DeliveryConfig',
     'payment.apps.PaymentConfig',
 ]
@@ -165,7 +164,8 @@ MEDIA_URL = '/media/'
 
 CORS_ORIGIN_WHITELIST = [
     'http://127.0.0.1:3000',
-    'http://localhost:3000'
+    'http://localhost:3000',
+    'http://192.168.1.75:3000'
 ]
 
 # Yandex Checkout
