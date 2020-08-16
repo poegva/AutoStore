@@ -23,6 +23,7 @@ services:
     volumes:
       - ./app:/src/app
       - assets:/src/app/assets
+      - media:/src/app/media
     env_file:
       - ./.env.prod
     depends_on:
@@ -46,9 +47,8 @@ services:
       context: ./frontend
       dockerfile: Dockerfile.prod
     volumes:
-      - './frontend:/src/frontend'
-      - '/src/frontend/node_modules'
-      - build:/src/frontend/build
+      - ./frontend:/src/frontend
+      - www:/src/frontend/build
   nginx:
     build: ./nginx
     ports:
@@ -58,9 +58,11 @@ services:
       - backend
       - frontend
     volumes:
-      - ./frontend:/src/frontend
-      - ./app:src/app
+      - www:/www
+      - assets:/src/app/assets
+      - media:/src/app/media
 volumes:
   postgres_data:
+  www:
+  media:
   assets:
-  build:

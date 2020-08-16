@@ -2,8 +2,6 @@ FROM python:3.8.0-alpine
 
 WORKDIR /src/app
 
-RUN mkdir /src/app/assets
-
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
