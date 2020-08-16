@@ -19,7 +19,6 @@ from django.urls import path, include
 from rest_framework import routers
 
 from delivery.views import CompleteView, OptionsView
-from frontend import views as frontend_views
 
 from shop.views import ItemViewSet, OrderViewSet
 from store import settings

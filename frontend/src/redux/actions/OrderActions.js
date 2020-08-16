@@ -115,7 +115,7 @@ export function setAddress(address) {
         });
 
         if (address && address.addressComponents.some(c => c.kind === "HOUSE")) {
-            fetch(`http://${window.location.hostname}:9000/api/delivery/options/?value=${1000}&address=${address.address}`)
+            fetch(`http://${window.location.hostname}/api/delivery/options/?value=${1000}&address=${address.address}`)
                 .then(r => r.json())
                 .then(result => {
                     dispatch({
@@ -147,7 +147,7 @@ export function submitOrder(orderData, redirect) {
             type: SUBMIT_ORDER,
         });
 
-        fetch(`http://${window.location.hostname}:9000/api/orders/`, {
+        fetch(`http://${window.location.hostname}/api/orders/`, {
             method: 'post',
             body: JSON.stringify(orderData),
             headers: {
@@ -170,7 +170,7 @@ export function submitOrder(orderData, redirect) {
 export function loadOrder(id, token) {
     return dispatch => {
         console.log("Fetch");
-        fetch(`http://${window.location.hostname}:9000/api/orders/${id}/?token=${token}`)
+        fetch(`http://${window.location.hostname}/api/orders/${id}/?token=${token}`)
             .then(result => result.json())
             .then(result => {
                 dispatch({

@@ -11,7 +11,7 @@ export default function AddressField(props) {
     const getOptions = React.useMemo(
         () =>
             throttle((inputValue, callback) => {
-                fetch(`http://${window.location.hostname}:9000/api/delivery/complete/?address=${inputValue}`)
+                fetch(`http://${window.location.hostname}/api/delivery/complete/?address=${inputValue}`)
                     .then(result => result.json())
                     .then(callback)
             }, 500),
