@@ -7,28 +7,44 @@ import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 import CartItemCard from "../components/CartItemCard";
 import {addItem, loadOrder} from "../redux/actions/OrderActions";
-import Skeleton from "@material-ui/lab/Skeleton";
 
 function Payment(props) {
     const [loading, setLoading] = React.useState(false);
+    const [reload, setReload] = React.useState(true);
+
+    console.log("Rendering with " + props.order.payment_token + ", loading " + loading);
+    console.log(props.order);
 
     React.useEffect(() => {
-        if (props.order.status !== 'WAITING_PAYMENT' || !props.order.payment_token || loading)
+        if (loading || !reload)
             return;
+
+        if (reload)
+            setReload(false);
 
         const script = document.createElement("script");
         script.src = "https://kassa.yandex.ru/checkout-ui/v2.js";
         script.async = true;
         script.onload = () => {
             const checkout = new window.YandexCheckout({
-                confirmation_token: props.order.payment_token,
+                confirmation_token: props.order.payment.token,
                 return_url: window.location.href,
                 embedded_3ds: true,
                 error_callback(error) {
                     console.log(error);
                     if (error.error === 'token_expired') {
                         setLoading(true);
-                        setTimeout(() => props.loadOrder(props.order.id, props.order.token), 2000);
+                        setTimeout(
+                            () => props.loadOrder(
+                                props.order.id,
+                                props.order.token,
+                                () => {
+                                    setLoading(false);
+                                    setReload(true);
+                                }
+                            ),
+                            1000
+                        );
                     }
                 }
             });
@@ -36,18 +52,18 @@ function Payment(props) {
             checkout.render('payment-form');
         }
         document.body.appendChild(script);
-    }, [props.order.payment_token])
-
-    if (props.order.status !== 'WAITING_PAYMENT' || !props.order.payment_token) {
-        return null;
-    }
+    });
 
     return (
         <Box style={{paddingBottom: 20}}>
             <Typography variant="h5" component="h5" align="center" paragraph>Оплата</Typography>
             {loading ?
-                <ItemsLoading variant="h6" loadingText="Обработка оплаты..." /> :
-                <div id="payment-form" style={{minHeight: 400}}></div>
+                <ItemsLoading variant="h6" loadingText="Обработка оплаты..." /> : (
+                    <React.Fragment>
+                    <p>{props.order.payment.cancellation_reason}</p>
+                    <div id="payment-form" style={{minHeight: 400}}></div>
+                    </React.Fragment>
+                )
             }
         </Box>
     )
@@ -93,7 +109,10 @@ function OrderInfo(props) {
     return (
         <Box>
             <Typography align="center" paragraph>Статус: {stateToText(props.order.status)}</Typography>
-            <Payment order={props.order} loadOrder={props.loadOrder} />
+            {props.order.status === 'WAITING_PAYMENT' ?
+                <Payment order={props.order} loadOrder={props.loadOrder} /> :
+                null
+            }
             <OrderDetails order={props.order} />
             <OrderContent order={props.order} />
         </Box>
@@ -133,7 +152,7 @@ function Order(props) {
             }
         }, 30000);
         return () => clearInterval(interval);
-    }, []);
+    });
 
     let content = null;
 
@@ -142,7 +161,7 @@ function Order(props) {
     } else {
         let subContent = null;
 
-        if (!(id in props.order.orders)) {
+        if (!order) {
             subContent = <ItemsLoading />;
         } else {
             subContent = <OrderInfo loadOrder={props.loadOrder} order={props.order.orders[id]} />;
@@ -171,7 +190,7 @@ const mapStateToProps = store => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        loadOrder: (id, token) => dispatch(loadOrder(id, token))
+        loadOrder: (id, token, callback) => dispatch(loadOrder(id, token, callback))
     };
 }
 

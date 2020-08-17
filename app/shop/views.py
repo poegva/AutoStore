@@ -38,19 +38,23 @@ class OrderItemCreateSerializer(serializers.ModelSerializer):
 class OrderSerializer(serializers.HyperlinkedModelSerializer):
     items = OrderItemSerializer(many=True, read_only=True)
     token = serializers.ReadOnlyField()
-    payment_token = serializers.SerializerMethodField(method_name='get_payment_token')
+    payment = serializers.SerializerMethodField(method_name='get_payment')
 
     def get_state(self, order):
         return 'PAYMENT'
 
-    def get_payment_token(self, order):
-        payment = get_or_create_payment(order)
-        return payment.confirmation_token
+    def get_payment(self, order):
+        payment, new, reason = get_or_create_payment(order)
+        return {
+            'token': payment.confirmation_token,
+            'cancellation_reason': reason,
+            'new': new,
+        }
 
     class Meta:
         model = Order
         fields = [
-            'id', 'name', 'email', 'phone', 'items', 'address', 'delivery_option', 'token', 'status', 'payment_token'
+            'id', 'name', 'email', 'phone', 'items', 'address', 'delivery_option', 'token', 'status', 'payment'
         ]
 
 

@@ -11,15 +11,16 @@ class Payment(models.Model):
     PENDING = 'pending'
     WAITING_FOR_CAPTURE = 'waiting_for_capture'
     SUCCEEDED = 'succeeded'
-    CANCELLED = 'cancelled'
+    CANCELED = 'canceled'
     STATUS_CHOICES = [
         (PENDING, 'Ожидает оплаты'),
         (WAITING_FOR_CAPTURE, 'Оплачен, ожидает подтверждения'),
         (SUCCEEDED, 'Оплачен и подтвержден'),
-        (CANCELLED, 'Отменен')
+        (CANCELED, 'Отменен')
     ]
 
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, db_index=True, verbose_name='Статус платежа')
+    cancellation_reason = models.CharField(max_length=40, null=True, verbose_name='Причина отмены')
 
     amount = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Сумма платежа')
     currency = models.CharField(max_length=3, default='RUB', verbose_name='Валюта платежа')

@@ -175,9 +175,8 @@ export function submitOrder(orderData, redirect) {
     };
 }
 
-export function loadOrder(id, token) {
+export function loadOrder(id, token, callback) {
     return dispatch => {
-        console.log("Fetch");
         fetch(`http://${window.location.hostname}/api/orders/${id}/?token=${token}`)
             .then(result => result.json())
             .then(result => {
@@ -185,6 +184,8 @@ export function loadOrder(id, token) {
                     type: ORDER_LOADED,
                     payload: result
                 })
+                if (callback)
+                    callback();
             })
     }
 }

@@ -17,7 +17,9 @@ def refresh_payment(payment):
         payment.order.status = Order.PAYED
         payment.order.save(update_fields=['status'])
     payment.status = yandex_payment.status
-    payment.save(update_fields=['status'])
+    if yandex_payment.cancellation_details:
+        payment.cancellation_reason = yandex_payment.cancellation_details.reason
+    payment.save(update_fields=['status', 'cancellation_reason'])
     return payment
 
 
@@ -49,15 +51,22 @@ def create_payment(order):
 def get_or_create_payment(order):
     succeeded = Payment.objects.filter(order=order, status__in=(Payment.SUCCEEDED, Payment.WAITING_FOR_CAPTURE))
     if succeeded.exists():
-        return succeeded.first()
+        return succeeded.first(), False, None
+
+    reason = None
+    canceled = Payment.objects.filter(order=order, status=Payment.CANCELED).order_by('-id')
+    if canceled.exists():
+        reason = canceled.first().cancellation_reason
 
     pending = Payment.objects.filter(order=order, status=Payment.PENDING)
     if pending.exists():
         payment = pending.first()
         payment = refresh_payment(payment)
-        if payment.status != Payment.CANCELLED:
-            return payment
+        if payment.status != Payment.CANCELED:
+            return payment, False, reason
+        else:
+            reason = payment.cancellation_reason
 
-    return create_payment(order)
+    return create_payment(order), True, reason
 
 
