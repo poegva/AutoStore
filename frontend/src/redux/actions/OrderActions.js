@@ -1,3 +1,5 @@
+import Cookies from 'js-cookie'
+
 export const ADD_ITEM = 'ADD_ITEM'
 export const REMOVE_ITEM = 'REMOVE_ITEM'
 export const SET_ITEM = 'SET_ITEM'
@@ -147,11 +149,14 @@ export function submitOrder(orderData, redirect) {
             type: SUBMIT_ORDER,
         });
 
+        const csrftoken = Cookies.get('csrftoken');
+
         fetch(`http://${window.location.hostname}/api/orders/`, {
             method: 'post',
             body: JSON.stringify(orderData),
             credentials: "same-origin",
             headers: {
+                'X-CSRFToken': csrftoken,
                 'Content-Type': 'application/json',
             }
         })
