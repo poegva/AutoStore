@@ -150,6 +150,7 @@ export function submitOrder(orderData, redirect) {
         fetch(`http://${window.location.hostname}/api/orders/`, {
             method: 'post',
             body: JSON.stringify(orderData),
+            credentials: "same-origin",
             headers: {
                 'Content-Type': 'application/json',
             }
