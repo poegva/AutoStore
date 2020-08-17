@@ -151,6 +151,8 @@ export function submitOrder(orderData, redirect) {
 
         const csrftoken = Cookies.get('csrftoken');
 
+        console.log("Sending CSRF " + csrftoken);
+
         fetch(`http://${window.location.hostname}/api/orders/`, {
             method: 'post',
             body: JSON.stringify(orderData),
