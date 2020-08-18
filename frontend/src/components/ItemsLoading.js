@@ -7,7 +7,7 @@ import React from "react";
 export default function ItemsLoading(props) {
     if (props.error) {
         return (
-            <Box display="flex" flexDirection="column" justifyContent="center" style={{paddingTop: 20}}>
+            <Box display="flex" flexDirection="column" justifyContent="center" style={props.style ?? {paddingTop: 20}}>
                 <ErrorIcon color="secondary" fontSize="large" style={{ alignSelf: "center" }}/>
                 <Typography align="center" component="h5" variant={props.variant ?? "h5"}>
                     {props.errorText ?? "Ошибка загрузки"}
@@ -16,7 +16,7 @@ export default function ItemsLoading(props) {
         );
     } else {
         return (
-            <Box display="flex" flexDirection="column" justifyContent="center" style={{paddingTop: 20}}>
+            <Box display="flex" flexDirection="column" justifyContent="center" style={props.style ?? {paddingTop: 20}}>
                 <CircularProgress style={{alignSelf: "center"}}/>
                 <Typography align="center" component="h5" variant={props.variant ?? "h5"}>
                     {props.loadingText ?? "Загрузка..."}

@@ -93,7 +93,7 @@ export default function CartItemCard(props) {
                         style={{paddingTop: 5}}
                         align="center"
                     >
-                        {props.item.price * props.quantity}
+                        {props.item.price * props.quantity} ₽
                     </Typography>
                 </Box>
             </CardContent>

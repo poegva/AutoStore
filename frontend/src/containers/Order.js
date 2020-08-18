@@ -8,14 +8,55 @@ import Typography from "@material-ui/core/Typography";
 import CartItemCard from "../components/CartItemCard";
 import {addItem, loadOrder} from "../redux/actions/OrderActions";
 
-function Payment(props) {
-    const [loading, setLoading] = React.useState(false);
-    const [reload, setReload] = React.useState(true);
+function PaymentWidget(props) {
+    const [display, setDisplay] = React.useState(true);
 
-    console.log("Rendering with " + props.order.payment_token + ", loading " + loading);
-    console.log(props.order);
+    console.log("Rendering payment widget");
 
     React.useEffect(() => {
+        if (!display)
+            return;
+
+        setDisplay(false);
+
+        const script = document.createElement("script");
+        script.src = "https://kassa.yandex.ru/checkout-ui/v2.js";
+        script.async = true;
+        script.onload = () => {
+            const checkout = new window.YandexCheckout({
+                confirmation_token: props.token,
+                return_url: window.location.href,
+                embedded_3ds: true,
+                error_callback(error) {
+                    console.log(error);
+                    if (error.error === 'token_expired') {
+                        props.expiredCallback();
+                    }
+                }
+            });
+
+            checkout.render('payment-form');
+        }
+        document.body.appendChild(script);
+
+        return () => document.body.removeChild(script);
+    });
+
+    return (
+        <React.Fragment>
+            {props.reason ? <ItemsLoading error errorText="Ошибка оплаты, попробуйте еще раз" style={{paddingBottom: 20}} /> : null}
+            <div id="payment-form" style={{minHeight: 400}}></div>
+        </React.Fragment>
+    );
+}
+
+function Payment(props) {
+    const [loading, setLoading] = React.useState(false);
+
+    if (props.order.status !== 'WAITING_PAYMENT')
+        return null;
+
+    /*React.useEffect(() => {
         if (loading || !reload)
             return;
 
@@ -52,18 +93,23 @@ function Payment(props) {
             checkout.render('payment-form');
         }
         document.body.appendChild(script);
-    });
+    });*/
+
+    function updateOrder() {
+        setLoading(true);
+        props.loadOrder(props.order.id, props.order.token, () => setLoading(false));
+    }
 
     return (
         <Box style={{paddingBottom: 20}}>
             <Typography variant="h5" component="h5" align="center" paragraph>Оплата</Typography>
             {loading ?
-                <ItemsLoading variant="h6" loadingText="Обработка оплаты..." /> : (
-                    <React.Fragment>
-                    <p>{props.order.payment.cancellation_reason}</p>
-                    <div id="payment-form" style={{minHeight: 400}}></div>
-                    </React.Fragment>
-                )
+                <ItemsLoading variant="h6" loadingText="Обработка оплаты..." /> :
+                <PaymentWidget
+                    token={props.order.payment.token}
+                    expiredCallback={updateOrder}
+                    reason={props.order.payment.cancellation_reason}
+                />
             }
         </Box>
     )
@@ -109,10 +155,7 @@ function OrderInfo(props) {
     return (
         <Box>
             <Typography align="center" paragraph>Статус: {stateToText(props.order.status)}</Typography>
-            {props.order.status === 'WAITING_PAYMENT' ?
-                <Payment order={props.order} loadOrder={props.loadOrder} /> :
-                null
-            }
+            <Payment order={props.order} loadOrder={props.loadOrder} />
             <OrderDetails order={props.order} />
             <OrderContent order={props.order} />
         </Box>
