@@ -53,7 +53,14 @@ class Order(models.Model):
         max_length=20, choices=STATUS_CHOiCES, default=CREATED, verbose_name='Статус'
     )
 
-    token = models.CharField(max_length=32, verbose_name='Токен доступа к заказу', default='NO_TOKEN')
+    token = models.CharField(max_length=32, default='NO_TOKEN', verbose_name='Токен доступа к заказу')
+
+    items_cost = models.IntegerField(default=0, verbose_name='Стоимость товаров')
+    delivery_cost = models.IntegerField(default=0, verbose_name='Стоимость доставки')
+
+    @property
+    def total_cost(self):
+        return self.items_cost + self.delivery_cost
 
     def __str__(self):
         return f'Заказ №{self.pk} ({self.name})'

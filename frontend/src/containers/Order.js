@@ -6,7 +6,8 @@ import TextBlock from "../components/TextBlock";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 import CartItemCard from "../components/CartItemCard";
-import {addItem, loadOrder} from "../redux/actions/OrderActions";
+import {loadOrder} from "../redux/actions/OrderActions";
+import DeliveryCard from "../components/DeliveryCard";
 
 function PaymentWidget(props) {
     const [display, setDisplay] = React.useState(true);
@@ -40,7 +41,7 @@ function PaymentWidget(props) {
         document.body.appendChild(script);
 
         return () => document.body.removeChild(script);
-    });
+    }, [display, props]);
 
     return (
         <React.Fragment>
@@ -55,45 +56,6 @@ function Payment(props) {
 
     if (props.order.status !== 'WAITING_PAYMENT')
         return null;
-
-    /*React.useEffect(() => {
-        if (loading || !reload)
-            return;
-
-        if (reload)
-            setReload(false);
-
-        const script = document.createElement("script");
-        script.src = "https://kassa.yandex.ru/checkout-ui/v2.js";
-        script.async = true;
-        script.onload = () => {
-            const checkout = new window.YandexCheckout({
-                confirmation_token: props.order.payment.token,
-                return_url: window.location.href,
-                embedded_3ds: true,
-                error_callback(error) {
-                    console.log(error);
-                    if (error.error === 'token_expired') {
-                        setLoading(true);
-                        setTimeout(
-                            () => props.loadOrder(
-                                props.order.id,
-                                props.order.token,
-                                () => {
-                                    setLoading(false);
-                                    setReload(true);
-                                }
-                            ),
-                            1000
-                        );
-                    }
-                }
-            });
-
-            checkout.render('payment-form');
-        }
-        document.body.appendChild(script);
-    });*/
 
     function updateOrder() {
         setLoading(true);
@@ -130,11 +92,17 @@ function OrderDetails(props) {
 function OrderContent(props) {
     return (
         <Box style={{paddingBottom: 20}} display="flex" flexDirection="column" justifyContent="center" alignItems="center">
-            <Typography variant="h5" component="h5" align="center" paragraph>Товары</Typography>
+            <Typography variant="h5" component="h5" align="center" paragraph>Содержимое</Typography>
             <Box display="flex" flexDirection="column" justifyContent="center" style={{width: 500, maxWidth: "100%"}}>
                 {props.order.items.map(item => (
                     <CartItemCard quantity={item.quantity} item={item.item} key={item.item.id} />
                 ))}
+                <DeliveryCard option={{option: {cost: props.order.delivery_cost}}} />
+                <Box style={{padding: 16}}>
+                    <Typography align="right">
+                        Итого: {props.order.items_cost + props.order.delivery_cost} ₽
+                    </Typography>
+                </Box>
             </Box>
         </Box>
     )
@@ -185,7 +153,7 @@ function Order(props) {
                 }
             }
         }
-    }, [error, id, props.order.orders]);
+    }, [order, props, reloaded, error, id]);
 
     React.useEffect(() => {
         const interval = setInterval(() => {

@@ -4,7 +4,8 @@ import React from "react";
 import {connect} from "react-redux";
 import CartItemCard from "../components/CartItemCard";
 import Box from "@material-ui/core/Box";
-import {addItem, deleteItem, removeItem, setName} from "../redux/actions/OrderActions";
+import {addItem, deleteItem, removeItem} from "../redux/actions/OrderActions";
+import DeliveryCard from "../components/DeliveryCard";
 
 function CartContent(props) {
     return (
@@ -13,17 +14,23 @@ function CartContent(props) {
                 Корзина
             </Typography>
             <Box display="flex" flexDirection="column" justifyContent="center">
-            {Object.values(props.cart).map(cartItem => (
-                <CartItemCard
-                    item={cartItem.item}
-                    quantity={cartItem.quantity}
-                    key={cartItem.item.id}
-                    cart
-                    addItem={() => props.addItem(cartItem.item)}
-                    removeItem={() => props.removeItem(cartItem.item)}
-                    deleteItem={() => props.deleteItem(cartItem.item)}
-                />
-            ))}
+                {Object.values(props.cart).map(cartItem => (
+                    <CartItemCard
+                        item={cartItem.item}
+                        quantity={cartItem.quantity}
+                        key={cartItem.item.id}
+                        cart
+                        addItem={() => props.addItem(cartItem.item)}
+                        removeItem={() => props.removeItem(cartItem.item)}
+                        deleteItem={() => props.deleteItem(cartItem.item)}
+                    />
+                ))}
+                <DeliveryCard option={props.deliveryOption} />
+                <Box style={{padding: 16}}>
+                    <Typography align="right">
+                        Итого: {props.cartTotal + (props.deliveryOption ? props.deliveryOption.option.cost : 0)} ₽
+                    </Typography>
+                </Box>
             </Box>
         </Container>
     );
@@ -31,7 +38,9 @@ function CartContent(props) {
 
 const mapStateToProps = store => {
     return {
-        cart: store.order.cart
+        cart: store.order.cart,
+        cartTotal: store.order.cartTotal,
+        deliveryOption: store.order.deliveryOption,
     };
 }
 

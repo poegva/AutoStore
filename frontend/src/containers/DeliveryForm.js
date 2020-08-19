@@ -29,14 +29,13 @@ function DeliveryForm(props) {
             email: props.order.contacts.email,
             phone: props.order.contacts.phone,
             address: props.order.address,
-            delivery_option: props.order.delivery.selected,
+            delivery_option: props.order.deliveryOption.type,
             items: Object.values(props.order.cart).map(item => convertItemToData(item))
         };
 
         props.submitOrder(orderData, () => history.push('/order'));
     }
 
-    console.log("order state");
     console.log(props.order);
 
     return (
@@ -44,7 +43,7 @@ function DeliveryForm(props) {
             <Typography component="h5" variant="h5" align="center" style={{paddingBottom: 40}}>
                 Данные доставки
             </Typography>
-            <GenericForm submit={submitOrder} returnBack={props.returnToContacts}>
+            <GenericForm submit={submitOrder} returnBack={props.returnToContacts} submitText="Купить">
                 <AddressField
                     id="address"
                     label="Адрес"
@@ -60,6 +59,7 @@ function DeliveryForm(props) {
                     address={props.order.address}
                     value={props.order.deliveryOption}
                     setValue={props.setDeliveryOption}
+                    itemsValue={props.order.cartTotal ?? 0}
                     options={[
                         {type: "COURIER", name: "Курьер"},
                         {type: "POST", name: "Почта"},

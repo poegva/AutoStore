@@ -2,13 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="47897e9c-1e32-4683-9b93-11bcf88e51a5" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/delivery/utils.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/DeliveryCard.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/delivery/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/delivery/utils.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/delivery/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/delivery/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/form/AddressField.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/form/AddressField.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/payment/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/payment/utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/shop/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/shop/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/shop/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/shop/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/components/form/DeliveryOptionField.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/form/DeliveryOptionField.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/components/form/GenericForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/form/GenericForm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/containers/CartContent.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/containers/CartContent.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/containers/CartDialog.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/containers/CartDialog.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/containers/DeliveryForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/containers/DeliveryForm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/containers/Order.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/containers/Order.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/redux/actions/OrderActions.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/redux/actions/OrderActions.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/redux/reducers/OrderReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/redux/reducers/OrderReducer.js" afterDir="false" />
     </list>
@@ -113,7 +119,7 @@
       <workItem from="1595801771306" duration="8752000" />
       <workItem from="1596562210939" duration="33821000" />
       <workItem from="1597351318425" duration="17101000" />
-      <workItem from="1597585624332" duration="26213000" />
+      <workItem from="1597585624332" duration="31676000" />
     </task>
     <servers />
   </component>

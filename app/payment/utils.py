@@ -28,7 +28,7 @@ def create_payment(order):
     idempotence_key = str(uuid.uuid4())
     yandex_payment = YandexPayment.create({
         'amount': {
-            'value': '10.00',
+            'value': str(order.total_cost),
             'currency': 'RUB',
         },
         'description': f'Платеж по заказу {order.id}',

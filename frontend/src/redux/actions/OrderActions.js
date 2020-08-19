@@ -15,6 +15,7 @@ export const SUBMIT_ORDER = 'SUBMIT_ORDER'
 export const ORDER_SUBMITTED = 'ORDER_SUBMITTED'
 export const CLEAR_ORDER = 'CLEAR_ORDER'
 export const ORDER_LOADED = 'ORDER_LOADED'
+export const UNSUBMIT_ORDER = 'UNSUBMIT_ORDER'
 
 
 export function addItem(item) {
@@ -137,6 +138,12 @@ export function submitOrder(orderData, redirect) {
                     payload: result
                 });
                 redirect();
+            })
+            .catch(error => {
+                console.log(error);
+                dispatch({
+                    type: UNSUBMIT_ORDER
+                })
             });
     };
 }

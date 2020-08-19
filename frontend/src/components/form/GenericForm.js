@@ -123,7 +123,7 @@ export default class GenericForm extends React.Component {
                     })
                 })}
                 <FormButton submit onClick={() => this.validate(this.props)}>
-                    Далее
+                    {this.props.submitText ?? "Далее"}
                 </FormButton>
                 {
                     this.props.returnBack ? (

@@ -1,9 +1,11 @@
+from django.db import transaction
 from django.shortcuts import render, get_object_or_404
 from django.utils.crypto import get_random_string
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import serializers, viewsets
 from rest_framework.response import Response
 
+from delivery.utils import get_optimal_delivery
 from payment.utils import get_or_create_payment
 from shop.models import Shop, Item, Order, OrderItem
 
@@ -54,7 +56,18 @@ class OrderSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Order
         fields = [
-            'id', 'name', 'email', 'phone', 'items', 'address', 'delivery_option', 'token', 'status', 'payment'
+            'id',
+            'name',
+            'email',
+            'phone',
+            'items',
+            'address',
+            'delivery_option',
+            'token',
+            'status',
+            'payment',
+            'delivery_cost',
+            'items_cost',
         ]
 
 
@@ -62,6 +75,7 @@ class OrderViewSet(viewsets.ModelViewSet):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
 
+    @transaction.atomic
     def create(self, request, *args, **kwargs):
         order_serializer = self.get_serializer(data=request.data)
         order_serializer.is_valid(raise_exception=True)
@@ -69,7 +83,14 @@ class OrderViewSet(viewsets.ModelViewSet):
 
         item_serializer = OrderItemCreateSerializer(data=request.data['items'], many=True)
         item_serializer.is_valid(raise_exception=True)
-        item_serializer.save(order=order)
+        order_items = item_serializer.save(order=order)
+
+        for order_item in order_items:
+            order.items_cost += order_item.quantity * order_item.item.price
+
+        optimal_delivery = get_optimal_delivery(order.address['value'], order.delivery_option, order.items_cost)
+        order.delivery_cost = optimal_delivery['cost']['delivery'] if optimal_delivery else 0
+        order.save(update_fields=['items_cost', 'delivery_cost'])
 
         data = self.get_serializer(order).data
 

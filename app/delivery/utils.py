@@ -1,5 +1,7 @@
 import datetime
+import json
 
+import requests
 from django.utils import timezone
 
 months = [
@@ -39,3 +41,46 @@ def convert_option(option):
         'cost': option['cost']['delivery'],
         'date': delivery_date(delivery_date_min, delivery_date_max)
     }
+
+
+def get_optimal_delivery(address, delivery_type, assesed_value):
+    data = {
+        'senderId': 500001942,
+        'from': {
+            'location': 'г.Москва, ул. Складочная, д. 1',
+            'geoId': 213
+        },
+        'to': {
+            'location': address
+        },
+        'dimensions': {
+            'length': 26,
+            'height': 17,
+            'width': 8,
+            'weight': 0.2
+        },
+        'deliveryType': delivery_type,
+        'shipment': {
+            'date': '2020-08-10',
+            'type': 'WITHDRAW',
+            'warehouseId': 10001565560
+        },
+        'cost': {
+            'assesedValue': assesed_value,
+            'itemsSum': 0,
+            'manualDeliveryForCustomer': 0,
+            'fullyPrepaid': True
+        }
+    }
+
+    response = requests.put(
+        'https://api.delivery.yandex.ru/delivery-options',
+        headers={
+            'Content-Type': 'application/json',
+            'Authorization': 'OAuth AgAAAABDt7svAAaJeBQNRE36jEfHi32Bl2XK5Lc'
+        },
+        data=json.dumps(data).encode('utf-8')
+    )
+    result = response.json()
+    print(result)
+    return None if len(result) == 0 else result[0]

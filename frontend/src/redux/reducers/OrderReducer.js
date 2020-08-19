@@ -9,11 +9,14 @@ import {
     SUBMIT_CONTACTS,
     SUBMIT_ORDER,
     ADD_ITEM,
-    CLEAR_CART, ORDER_LOADED, REMOVE_ITEM, DELETE_ITEM
+    CLEAR_CART, ORDER_LOADED, REMOVE_ITEM, DELETE_ITEM,
+    UNSUBMIT_ORDER
 } from "../actions/OrderActions";
 
 const initialState = {
-    cart: {},
+    cartTotal: 0,
+    cart: {
+    },
     step: 0, // 0 - Contact, 1 - Address, 2 - Waiting redirect to payment
     contacts: {
         name: null,
@@ -26,6 +29,10 @@ const initialState = {
     orders: {},
 };
 
+function recalculateCartTotal(cart) {
+    return Object.values(cart).reduce((acc, current) => acc + current.quantity * current.item.price, 0)
+}
+
 export function orderReducer(state = initialState, action) {
     let id;
 
@@ -33,69 +40,70 @@ export function orderReducer(state = initialState, action) {
 
         case ADD_ITEM:
             id = action.payload.id;
+            const newStep = Object.keys(state.cart).length === 0 ? 0 : state.step
 
+            let newCart = null;
             if (id in state.cart) {
-                return {
-                    ...state,
-                    cart: {
-                        ...state.cart,
-                        [id]: {
-                            item: action.payload,
-                            quantity: state.cart[id].quantity + 1,
-                        }
+                newCart = {
+                    ...state.cart,
+                    [id]: {
+                        item: action.payload,
+                        quantity: state.cart[id].quantity + 1,
                     }
-                };
+                }
             } else {
-                return {
-                    ...state,
-                    step: Object.keys(state.cart).length === 0 ? 0 : state.step,
-                    cart: {
-                        ...state.cart,
-                        [id]: {
-                            item: action.payload,
-                            quantity: 1,
-                        }
+                newCart = {
+                    ...state.cart,
+                    [id]: {
+                        item: action.payload,
+                        quantity: 1,
                     }
-                };
+                }
+            }
+
+            return {
+                ...state,
+                cartTotal: recalculateCartTotal(newCart),
+                step: newStep,
+                cart: newCart,
             }
 
         case REMOVE_ITEM:
             id = action.payload.id;
 
+            newCart = state.cart;
+
             if (id in state.cart) {
                 if (state.cart[id].quantity === 1) {
-                    let newCart = {...state.cart};
                     delete newCart[id];
-
-                    return {
-                        ...state,
-                        cart: newCart
-                    }
                 } else {
-                    return {
-                        ...state,
-                        cart: {
-                            ...state.cart,
-                            [id]: {
-                                item: action.payload,
-                                quantity: state.cart[id].quantity - 1
-                            }
+                    newCart = {
+                        ...state.cart,
+                        [id]: {
+                            item: action.payload,
+                            quantity: state.cart[id].quantity - 1
                         }
                     }
                 }
             }
 
-            return state;
+            return {
+                ...state,
+                cartTotal: recalculateCartTotal(newCart),
+                cart: newCart
+            }
 
         case DELETE_ITEM:
             id = action.payload.id;
 
             if (id in state.cart) {
                 let newCart = {...state.cart};
+                const quantity = newCart[id].quantity;
                 delete newCart[id];
 
                 return {
                     ...state,
+                    cartTotal: recalculateCartTotal(newCart),
                     cart: newCart
                 }
             }
@@ -147,6 +155,12 @@ export function orderReducer(state = initialState, action) {
                 step: 0,
             };
 
+        case UNSUBMIT_ORDER:
+            return {
+                ...state,
+                step: 1
+            }
+
         case SET_ADDRESS:
             return {
                 ...state,
@@ -171,6 +185,7 @@ export function orderReducer(state = initialState, action) {
             return {
                 ...state,
                 cart: {},
+                cartTotal: 0,
                 lastOrderId: action.payload.id,
                 orders: {
                     ...state.orders,

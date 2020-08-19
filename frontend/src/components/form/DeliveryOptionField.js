@@ -11,18 +11,23 @@ import Box from "@material-ui/core/Box";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
 function OptionCard(props) {
+
     let description = <Typography variant="body2">Недоступно</Typography>
+
+
     if (props.loading) {
         description = (
-            <Box display="flex">
-                <CircularProgress size={20} />
-                <Typography style={{paddingLeft: 10}} variant="body2">Загрузка...</Typography>
+            <Box display="flex" flexDirection="column" justifyContent="center">
+                <Box display="flex" style={{paddingTop: 9, paddingBottom: 9}}>
+                    <CircularProgress size={18} />
+                    <Typography style={{paddingLeft: 10}} variant="body2">Загрузка...</Typography>
+                </Box>
             </Box>
         );
     }
     if (props.option) {
         description = (
-            <Box>
+            <Box display="flex" flexDirection="column">
                 <Typography variant="body2">Стоимость: {props.option.cost} ₽</Typography>
                 <Typography variant="body2">Дата доставки: {props.option.date}</Typography>
             </Box>
@@ -37,10 +42,8 @@ function OptionCard(props) {
     )
 }
 
-function fetchOptions(address, callback) {
-    console.log("Fetching options for address " + address);
-
-    fetch(`http://${window.location.hostname}/api/delivery/options/?value=${1000}&address=${address.value}`)
+function fetchOptions(address, itemsValue, callback) {
+    fetch(`http://${window.location.hostname}/api/delivery/options/?value=${itemsValue}&address=${address.value}`)
         .then(r => r.json())
         .then(result => callback(result));
 }
@@ -51,28 +54,21 @@ export default function DeliveryOptionField(props) {
 
     const getOptions = React.useMemo(
         () =>
-            throttle((address, callback) => fetchOptions(address, callback), 2000),
+            throttle((address, itemsValue, callback) => fetchOptions(address, itemsValue, callback), 2000),
         [],
     );
 
     React.useEffect(() => {
         if (props.address && props.address.hasCity) {
-            console.log("WILL fetch");
             setHasCity(true);
             setOptions(null);
 
-            console.log("Getting options");
-            getOptions(props.address, (result) => { console.log("Fetched " + result); setOptions(result); });
+            getOptions(props.address, props.itemsValue, (result) => setOptions(result));
         } else {
-            console.log("WONT fetch, no address or not city");
             setHasCity(false);
             setOptions(null);
         }
-    }, [props.address, getOptions]);
-
-    console.log(options);
-    console.log("Null options " + (options == null));
-    console.log("Value: " + (props.value ? props.value.type : 'null'));
+    }, [props.address, props.itemsValue, getOptions]);
 
     return (
         <FormControl
@@ -89,7 +85,8 @@ export default function DeliveryOptionField(props) {
                     props.resetError();
                     props.setValue({
                         type: event.target.value,
-                        option: options[event.target.value]
+                        option: options[event.target.value],
+                        name: props.options.find(option => option.type === event.target.value).name
                     });
                 }}
             >
