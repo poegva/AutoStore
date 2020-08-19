@@ -2,7 +2,6 @@ import Cookies from 'js-cookie'
 
 export const ADD_ITEM = 'ADD_ITEM'
 export const REMOVE_ITEM = 'REMOVE_ITEM'
-export const SET_ITEM = 'SET_ITEM'
 export const DELETE_ITEM = 'DELETE_ITEM'
 export const CLEAR_CART = 'CLEAR_CART'
 export const SET_NAME = 'SET_NAME'
@@ -11,8 +10,7 @@ export const SET_EMAIL = 'SET_EMAIL'
 export const SUBMIT_CONTACTS = 'SUBMIT_CONTACTS'
 export const RETURN_TO_CONTACTS = 'RETURN_TO_CONTACTS'
 export const SET_ADDRESS = 'SET_ADDRESS'
-export const SET_OPTIONS = 'SET_OPTIONS'
-export const SET_DELIVERY_SELECTED = 'SET_DELIVERY_SELECTED'
+export const SET_DELIVERY_OPTION = 'SET_DELIVERY_OPTION'
 export const SUBMIT_ORDER = 'SUBMIT_ORDER'
 export const ORDER_SUBMITTED = 'ORDER_SUBMITTED'
 export const CLEAR_ORDER = 'CLEAR_ORDER'
@@ -45,18 +43,6 @@ export function deleteItem(item) {
         });
     };
 }
-
-/*export function setItem(item, quantity) {
-    return dispatch => {
-        dispatch({
-            type: ADD_ITEM,
-            payload: {
-                item: item,
-                quantity: quantity,
-            },
-        });
-    };
-}*/
 
 export function clearCart() {
     return dispatch => {
@@ -115,29 +101,13 @@ export function setAddress(address) {
             type: SET_ADDRESS,
             payload: address
         });
-
-        if (address && address.addressComponents.some(c => c.kind === "HOUSE")) {
-            fetch(`http://${window.location.hostname}/api/delivery/options/?value=${1000}&address=${address.address}`)
-                .then(r => r.json())
-                .then(result => {
-                    dispatch({
-                        type: SET_OPTIONS,
-                        payload: result
-                    });
-                });
-        } else {
-            dispatch({
-                type: SET_OPTIONS,
-                payload: null
-            })
-        }
     }
 }
 
-export function setDeliverySelected(selected) {
+export function setDeliveryOption(selected) {
     return dispatch => {
         dispatch({
-            type: SET_DELIVERY_SELECTED,
+            type: SET_DELIVERY_OPTION,
             payload: selected
         });
     };
@@ -151,8 +121,6 @@ export function submitOrder(orderData, redirect) {
 
         const csrftoken = Cookies.get('csrftoken');
 
-        console.log("Sending CSRF " + csrftoken);
-
         fetch(`http://${window.location.hostname}/api/orders/`, {
             method: 'post',
             body: JSON.stringify(orderData),
@@ -164,8 +132,6 @@ export function submitOrder(orderData, redirect) {
         })
             .then(result => result.json())
             .then(result => {
-                console.log("Res")
-                console.log(result)
                 dispatch({
                     type: ORDER_SUBMITTED,
                     payload: result

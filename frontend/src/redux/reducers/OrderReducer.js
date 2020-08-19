@@ -2,9 +2,9 @@ import {
     ORDER_SUBMITTED,
     RETURN_TO_CONTACTS,
     SET_ADDRESS,
-    SET_DELIVERY_SELECTED,
+    SET_DELIVERY_OPTION,
     SET_EMAIL,
-    SET_NAME, SET_OPTIONS,
+    SET_NAME,
     SET_PHONE,
     SUBMIT_CONTACTS,
     SUBMIT_ORDER,
@@ -21,10 +21,7 @@ const initialState = {
         email: null,
     },
     address: null,
-    delivery: {
-        options: null,
-        selected: null
-    },
+    deliveryOption: null,
     lastOrderId: null,
     orders: {},
 };
@@ -154,16 +151,7 @@ export function orderReducer(state = initialState, action) {
             return {
                 ...state,
                 address: action.payload,
-            };
-
-        case SET_OPTIONS:
-            return {
-                ...state,
-                delivery: {
-                    ...state.delivery,
-                    options: action.payload,
-                    selected: null,
-                }
+                deliveryOption: null,
             };
 
         case SUBMIT_ORDER:
@@ -172,13 +160,10 @@ export function orderReducer(state = initialState, action) {
                 step: 2,
             };
 
-        case SET_DELIVERY_SELECTED:
+        case SET_DELIVERY_OPTION:
             return {
                 ...state,
-                delivery: {
-                    ...state.delivery,
-                    selected: action.payload
-                }
+                deliveryOption: action.payload
             };
 
         case ORDER_SUBMITTED:
@@ -190,7 +175,8 @@ export function orderReducer(state = initialState, action) {
                 orders: {
                     ...state.orders,
                     [action.payload.id]: action.payload
-                }
+                },
+                deliveryOption: null,
             };
 
         case ORDER_LOADED:

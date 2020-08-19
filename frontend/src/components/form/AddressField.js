@@ -3,6 +3,22 @@ import React from "react";
 import TextField from "@material-ui/core/TextField";
 import throttle from 'lodash/throttle';
 
+function suggestAddress(inputValue, callback) {
+    const suggestProviderUrl = 'http://ahunter.ru/site/suggest/address?output=json;query='
+    fetch(suggestProviderUrl + inputValue)
+        .then(result => result.json())
+        .then(result => {
+            callback(result.suggestions.map(suggestion => {
+                return {
+                    value: suggestion.value,
+                    hasCity: suggestion.value.startsWith("г ") || suggestion.value.includes(" г ") || suggestion.value.includes(" д "),
+                    hasHouse: suggestion.value.includes(" дом "),
+                    postcode: suggestion.zip
+                };
+            }))
+        });
+}
+
 export default function AddressField(props) {
 
     const [inputValue, setInputValue] = React.useState('');
@@ -10,18 +26,12 @@ export default function AddressField(props) {
 
     const getOptions = React.useMemo(
         () =>
-            throttle((inputValue, callback) => {
-                fetch(`http://${window.location.hostname}/api/delivery/complete/?address=${inputValue}`)
-                    .then(result => result.json())
-                    .then(callback)
-            }, 500),
+            throttle((inputValue, callback) => suggestAddress(inputValue, callback), 1000),
         [],
     );
 
     React.useEffect(() => {
         let active = true;
-
-        console.log(inputValue);
 
         if (inputValue === '') {
             setOptions(props.value ? [props.value] : []);
@@ -49,7 +59,7 @@ export default function AddressField(props) {
     return (
         <Autocomplete
             id="address"
-            getOptionLabel={(option) => option.address}
+            getOptionLabel={(option) => option.value}
             filterOptions={(x) => x}
             options={options}
             noOptionsText="Адрес не найден"

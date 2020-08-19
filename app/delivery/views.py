@@ -1,10 +1,10 @@
 import json
 
 import requests
-from django.shortcuts import render
 from rest_framework import viewsets
 from rest_framework.response import Response
-from rest_framework.views import APIView
+
+from delivery.utils import convert_option
 
 
 class CompleteView(viewsets.ViewSet):
@@ -71,6 +71,6 @@ class OptionsView(viewsets.ViewSet):
         optimal_courier = self.get_optimal_option(address, value, 'COURIER')
 
         return Response({
-            'POST': optimal_post,
-            'COURIER': optimal_courier
+            'POST': convert_option(optimal_post),
+            'COURIER': convert_option(optimal_courier)
         })

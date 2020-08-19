@@ -48,7 +48,7 @@ function CartDialog(props) {
         );
     } else {
         dialogContent = (
-            <ItemsLoading loadingText="Создание заказа..." />
+            <ItemsLoading loadingText="Создание заказа..." style={{paddingTop: 40, paddingBottom: 40}} />
         );
     }
 

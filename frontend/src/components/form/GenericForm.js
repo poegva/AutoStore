@@ -87,7 +87,7 @@ export default class GenericForm extends React.Component {
                 this.setState({
                     [child.props.id]: {
                         error: true,
-                        helperText: "Некорректное значение"
+                        helperText: child.props.validationText ?? "Некорректное значение"
                     }
                 });
             } else {

@@ -1,7 +1,7 @@
 import {
     returnToContacts,
     setAddress,
-    setDeliverySelected,
+    setDeliveryOption,
     submitOrder
 } from "../redux/actions/OrderActions";
 import {connect} from "react-redux";
@@ -36,6 +36,9 @@ function DeliveryForm(props) {
         props.submitOrder(orderData, () => history.push('/order'));
     }
 
+    console.log("order state");
+    console.log(props.order);
+
     return (
         <Container style={{paddingTop: 20, paddingBottom: 20}}>
             <Typography component="h5" variant="h5" align="center" style={{paddingBottom: 40}}>
@@ -47,14 +50,20 @@ function DeliveryForm(props) {
                     label="Адрес"
                     value={props.order.address}
                     setValue={props.setAddress}
+                    validate={(value) => value.hasHouse}
+                    validationText="Введите полный адрес"
                     required
                 />
                 <DeliveryOptionField
                     id="options"
                     label="Способ доставки"
-                    value={props.order.delivery.selected}
-                    setValue={props.setDeliverySelected}
-                    options={props.order.delivery.options}
+                    address={props.order.address}
+                    value={props.order.deliveryOption}
+                    setValue={props.setDeliveryOption}
+                    options={[
+                        {type: "COURIER", name: "Курьер"},
+                        {type: "POST", name: "Почта"},
+                    ]}
                     required
                 />
             </GenericForm>
@@ -72,7 +81,7 @@ const mapDispatchToProps = dispatch => {
     return {
         returnToContacts: () => dispatch(returnToContacts()),
         setAddress: (address) => dispatch(setAddress(address)),
-        setDeliverySelected: (selected) => dispatch(setDeliverySelected(selected)),
+        setDeliveryOption: (selected) => dispatch(setDeliveryOption(selected)),
         submitOrder: (orderData, redirect) => dispatch(submitOrder(orderData, redirect)),
     };
 }
