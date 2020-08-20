@@ -34,27 +34,26 @@ function recalculateCartTotal(cart) {
 }
 
 export function orderReducer(state = initialState, action) {
-    let id;
 
     switch (action.type) {
 
         case ADD_ITEM:
-            id = action.payload.id;
+            const add_id = action.payload.id;
             const newStep = Object.keys(state.cart).length === 0 ? 0 : state.step
 
             let newCart = null;
-            if (id in state.cart) {
+            if (add_id in state.cart) {
                 newCart = {
                     ...state.cart,
-                    [id]: {
+                    [add_id]: {
                         item: action.payload,
-                        quantity: state.cart[id].quantity + 1,
+                        quantity: state.cart[add_id].quantity + 1,
                     }
                 }
             } else {
                 newCart = {
                     ...state.cart,
-                    [id]: {
+                    [add_id]: {
                         item: action.payload,
                         quantity: 1,
                     }
@@ -69,19 +68,19 @@ export function orderReducer(state = initialState, action) {
             }
 
         case REMOVE_ITEM:
-            id = action.payload.id;
+            const remove_id = action.payload.id;
 
-            newCart = state.cart;
+            let newCart2 = state.cart;
 
-            if (id in state.cart) {
-                if (state.cart[id].quantity === 1) {
-                    delete newCart[id];
+            if (remove_id in state.cart) {
+                if (state.cart[remove_id].quantity === 1) {
+                    delete newCart[remove_id];
                 } else {
-                    newCart = {
+                    newCart2 = {
                         ...state.cart,
-                        [id]: {
+                        [remove_id]: {
                             item: action.payload,
-                            quantity: state.cart[id].quantity - 1
+                            quantity: state.cart[remove_id].quantity - 1
                         }
                     }
                 }
@@ -89,17 +88,16 @@ export function orderReducer(state = initialState, action) {
 
             return {
                 ...state,
-                cartTotal: recalculateCartTotal(newCart),
-                cart: newCart
+                cartTotal: recalculateCartTotal(newCart2),
+                cart: newCart2
             }
 
         case DELETE_ITEM:
-            id = action.payload.id;
+            const delete_id = action.payload.id;
 
-            if (id in state.cart) {
+            if (delete_id in state.cart) {
                 let newCart = {...state.cart};
-                const quantity = newCart[id].quantity;
-                delete newCart[id];
+                delete newCart[delete_id];
 
                 return {
                     ...state,

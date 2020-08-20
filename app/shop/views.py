@@ -3,6 +3,7 @@ from django.shortcuts import render, get_object_or_404
 from django.utils.crypto import get_random_string
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import serializers, viewsets
+from rest_framework.exceptions import ParseError, ValidationError
 from rest_framework.response import Response
 
 from delivery.utils import get_optimal_delivery
@@ -29,12 +30,18 @@ class OrderItemSerializer(serializers.ModelSerializer):
         fields = ['item', 'quantity']
 
 
+def validate_enough_items(order_item):
+    if order_item['quantity'] > order_item['item'].shop_quantity:
+        raise ValidationError('Недостаточно товара')
+
+
 class OrderItemCreateSerializer(serializers.ModelSerializer):
     item = serializers.PrimaryKeyRelatedField(queryset=Item.objects.all())
 
     class Meta:
         model = OrderItem
         fields = ['item', 'quantity']
+        validators = [validate_enough_items]
 
 
 class OrderSerializer(serializers.HyperlinkedModelSerializer):
@@ -87,6 +94,8 @@ class OrderViewSet(viewsets.ModelViewSet):
 
         for order_item in order_items:
             order.items_cost += order_item.quantity * order_item.item.price
+            order_item.item.shop_quantity -= order_item.quantity
+            order_item.item.save(update_fields=['items_quantity'])
 
         optimal_delivery = get_optimal_delivery(order.address['value'], order.delivery_option, order.items_cost)
         order.delivery_cost = optimal_delivery['cost']['delivery'] if optimal_delivery else 0

@@ -84,7 +84,7 @@ function OrderDetails(props) {
             <Typography align="center">Имя: {props.order.name}</Typography>
             <Typography align="center">Телефон: {props.order.phone}</Typography>
             <Typography align="center">Email: {props.order.email}</Typography>
-            <Typography align="center">Адрес: {props.order.address.address}</Typography>
+            <Typography align="center">Адрес: {props.order.address.value}</Typography>
         </Box>
     )
 }

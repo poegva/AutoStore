@@ -1,4 +1,5 @@
 from django.db import models
+from django_extensions.db.models import TimeStampedModel
 
 
 class Shop(models.Model):
@@ -13,16 +14,18 @@ class Item(models.Model):
     shop = models.ForeignKey(Shop, on_delete=models.CASCADE, verbose_name='Магазин')
 
     name = models.CharField(max_length=200, verbose_name='Название')
-    description = models.TextField(verbose_name='Описание')
+    description = models.TextField(blank=True, verbose_name='Описание')
     price = models.PositiveIntegerField(verbose_name='Стоимость')
 
-    image = models.FileField(upload_to='items', null=True, verbose_name='Изображение')
+    image = models.FileField(upload_to='items', null=True, blank=True, verbose_name='Изображение')
+
+    shop_quantity = models.PositiveIntegerField(default=0, blank=True, verbose_name='Количество на складе')
 
     def __str__(self):
         return f'{self.name} - {self.shop.name}'
 
 
-class Order(models.Model):
+class Order(TimeStampedModel):
     name = models.CharField(max_length=200, verbose_name='Имя покупателя', blank=True)
     email = models.EmailField(verbose_name='Почта покупателя', blank=True)
     phone = models.CharField(max_length=50, verbose_name='Телефон покупателя', blank=True)
@@ -53,7 +56,7 @@ class Order(models.Model):
         max_length=20, choices=STATUS_CHOiCES, default=CREATED, verbose_name='Статус'
     )
 
-    token = models.CharField(max_length=32, default='NO_TOKEN', verbose_name='Токен доступа к заказу')
+    token = models.CharField(max_length=32, blank=True, default='NO_TOKEN', verbose_name='Токен доступа к заказу')
 
     items_cost = models.IntegerField(default=0, verbose_name='Стоимость товаров')
     delivery_cost = models.IntegerField(default=0, verbose_name='Стоимость доставки')

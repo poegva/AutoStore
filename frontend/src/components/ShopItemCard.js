@@ -64,7 +64,10 @@ export default function ShopItemCard(props) {
                     </Typography>
                     <Box>
                         <Box display="flex" flexDirection="row" justifyContent="space-around" bgcolor="background.paper">
-                            <Button className={classes.buyButton} onClick={props.addItem}>
+                            <Button className={classes.buyButton} onClick={(event) => {
+                                event.preventDefault();
+                                props.addItem();
+                            }}>
                                 Купить
                             </Button>
                         </Box>
