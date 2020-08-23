@@ -8,6 +8,8 @@ import {Provider} from "react-redux";
 import { store, persistor } from './redux/configureStore';
 import { PersistGate } from 'redux-persist/integration/react'
 
+document.title = "HQD Store";
+
 ReactDOM.render(
   <React.StrictMode>
       <Provider store={store}>

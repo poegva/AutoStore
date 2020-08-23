@@ -11,6 +11,7 @@ import CartDialog from "./CartDialog";
 import CartButton from "./CartButton";
 import {connect} from "react-redux";
 import Order from "./Order";
+import Home from "../components/Home";
 
 function App(props) {
     const [cartOpen, setCartOpen] = React.useState(false);
@@ -19,7 +20,7 @@ function App(props) {
         {
             title: 'Главная',
             url: '/',
-            component: <p>Главная</p>
+            component: <Home />
         },
         {
             title: 'Магазин',
@@ -48,7 +49,7 @@ function App(props) {
             />
             <CartButton setCartOpen={setCartOpen} floating />
             <CartDialog cartOpen={cartOpen} setCartOpen={setCartOpen} />
-            <Container disableGutters style={{backgroundColor: "#f6f6f6"}} >
+            <Container disableGutters style={{backgroundColor: "#f6f6f6", maxWidth: "100%"}} >
                 <Switch>
                     {sections.map(value => (
                         <Route strict exact path={value.url} key={value.url}>

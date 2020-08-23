@@ -1,10 +1,11 @@
-import TextBlock from "../components/TextBlock";
+import TextBlock from "../components/layout/TextBlock";
 import Container from "@material-ui/core/Container";
 import React from "react";
 import {connect} from "react-redux";
 import {addItem} from "../redux/actions/OrderActions";
 import ShopItemGrid from "../components/ShopItemGrid";
 import ItemsLoading from "../components/ItemsLoading";
+import FooterBlock from "../components/layout/FooterBlock";
 
 
 function Shop(props) {
@@ -27,7 +28,9 @@ function Shop(props) {
             <TextBlock title="HQD Cuvie" subtitle="Успей попробовать все вкусы!" />
             {items ?
                 <ShopItemGrid cart={props.cart} items={items} addItem={props.addItem} /> :
-                <ItemsLoading error={error} errorText="Что-то пошло не так" loadingText="Загрузка..." />}
+                <ItemsLoading error={error} errorText="Что-то пошло не так" loadingText="Загрузка..." />
+            }
+            <FooterBlock />
         </Container>
     )
 }

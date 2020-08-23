@@ -48,7 +48,7 @@ services:
       dockerfile: Dockerfile
     volumes:
       - './frontend:/src/frontend'
-      - '/src/frontend/node_modules'
+      - 'node_modules:/src/frontend/node_modules'
     ports:
       - 3001:3000
     environment:
@@ -56,3 +56,4 @@ services:
     tty: true
 volumes:
   postgres_data:
+  node_modules:

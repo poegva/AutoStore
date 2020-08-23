@@ -2,7 +2,7 @@ import {connect} from "react-redux";
 import Container from "@material-ui/core/Container";
 import React from "react";
 import ItemsLoading from "../components/ItemsLoading";
-import TextBlock from "../components/TextBlock";
+import TextBlock from "../components/layout/TextBlock";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 import CartItemCard from "../components/CartItemCard";
