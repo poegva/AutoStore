@@ -1,13 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:fix" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:fix" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="47897e9c-1e32-4683-9b93-11bcf88e51a5" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/shop/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/shop/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/delivery/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/delivery/utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/delivery/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/delivery/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/shop/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/shop/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/CartItemCard.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/CartItemCard.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/components/ShopItemCard.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/ShopItemCard.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/containers/Order.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/containers/Order.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/redux/reducers/OrderReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/redux/reducers/OrderReducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/ShopItemGrid.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/ShopItemGrid.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/form/DeliveryOptionField.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/form/DeliveryOptionField.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/containers/Shop.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/containers/Shop.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/redux/actions/OrderActions.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/redux/actions/OrderActions.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,26 +80,29 @@
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/static" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/cabinet/src/components" />
+    <property name="nodejs_package_manager_path" value="npm" />
     <property name="run.code.analysis.last.selected.profile" value="aDefault" />
     <property name="settings.editor.selected.configurable" value="preferences.fileTypes" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/cabinet/src/containers" />
+      <recent name="$PROJECT_DIR$/app/frontend/src" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/cabinet/src/components" />
       <recent name="$PROJECT_DIR$/app/static" />
       <recent name="$PROJECT_DIR$/app" />
       <recent name="$PROJECT_DIR$/app/store" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/app/frontend/src" />
     </key>
   </component>
   <component name="RunManager">
@@ -111,11 +147,26 @@
       <workItem from="1596562210939" duration="33821000" />
       <workItem from="1597351318425" duration="17101000" />
       <workItem from="1597585624332" duration="35481000" />
+      <workItem from="1597945021536" duration="1316000" />
+      <workItem from="1598007237684" duration="1246000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="WindowStateProjectService">
     <state x="304" y="111" width="1071" height="848" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1597594097694">
@@ -128,6 +179,10 @@
       <screen x="0" y="23" width="1680" height="934" />
     </state>
     <state x="546" y="300" key="#com.intellij.fileTypes.FileTypeChooser/0.23.1680.934@0.23.1680.934" timestamp="1597599271491" />
+    <state x="578" y="244" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1597945393093">
+      <screen x="0" y="23" width="1680" height="941" />
+    </state>
+    <state x="578" y="244" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.23.1680.941@0.23.1680.941" timestamp="1597945393093" />
     <state x="16" y="40" key="#store" timestamp="1597594068685">
       <screen x="0" y="23" width="1680" height="934" />
     </state>

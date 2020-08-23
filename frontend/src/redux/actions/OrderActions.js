@@ -131,7 +131,35 @@ export function submitOrder(orderData, redirect) {
                 'Content-Type': 'application/json',
             }
         })
-            .then(result => result.json())
+            .then(response => {
+                if (response.ok) {
+                    response.json()
+                        .then(result => {
+                            dispatch({
+                                type: ORDER_SUBMITTED,
+                                payload: result
+                            });
+                            redirect();
+                        })
+                        .catch(error => {
+                            console.log(error);
+                            dispatch({
+                                type: UNSUBMIT_ORDER
+                            })
+                        })
+                } else {
+                    console.log(response);
+                    dispatch({
+                        type: UNSUBMIT_ORDER
+                    })
+                }
+            })
+            /*.catch(error => {
+                console.log(error);
+                dispatch({
+                    type: UNSUBMIT_ORDER
+                })
+            })
             .then(result => {
                 dispatch({
                     type: ORDER_SUBMITTED,
@@ -144,7 +172,7 @@ export function submitOrder(orderData, redirect) {
                 dispatch({
                     type: UNSUBMIT_ORDER
                 })
-            });
+            });*/
     };
 }
 

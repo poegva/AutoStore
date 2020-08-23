@@ -30,6 +30,8 @@ const useStyles = makeStyles((theme) => ({
 
 function ItemQuantity(props) {
     if (props.cart) {
+        const canAdd = props.quantity < props.item.shop_quantity;
+
         return (
             <Box display="flex">
                 <IconButton size="small" onClick={props.removeItem}>
@@ -42,7 +44,7 @@ function ItemQuantity(props) {
                 >
                     {props.quantity}
                 </Typography>
-                <IconButton size="small" onClick={props.addItem}>
+                <IconButton disabled={!canAdd} size="small" onClick={props.addItem}>
                     <AddIcon />
                 </IconButton>
             </Box>
@@ -83,6 +85,7 @@ export default function CartItemCard(props) {
                 <Box display="flex" justifyContent="space-between" width="100%">
                     <ItemQuantity
                         quantity={props.quantity}
+                        item={props.item}
                         cart={props.cart}
                         removeItem={props.removeItem}
                         addItem={props.addItem}

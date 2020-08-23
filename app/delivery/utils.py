@@ -43,7 +43,22 @@ def convert_option(option):
     }
 
 
+def get_complete_address(address):
+    response = requests.get(
+        f'https://api.delivery.yandex.ru/location?term={address}',
+        headers={
+            'Content-Type': 'application/json',
+            'Authorization': 'OAuth AgAAAABDt7svAAaJeBQNRE36jEfHi32Bl2XK5Lc'
+        }
+    )
+    result = response.json()
+
+    return None if len(result) == 0 else result[0]
+
+
 def get_optimal_delivery(address, delivery_type, assesed_value):
+    complete_address = get_complete_address(address)
+
     data = {
         'senderId': 500001942,
         'from': {
@@ -51,7 +66,8 @@ def get_optimal_delivery(address, delivery_type, assesed_value):
             'geoId': 213
         },
         'to': {
-            'location': address
+            'location': address,
+            'geoId': complete_address['geoId'] if complete_address else None
         },
         'dimensions': {
             'length': 26,
@@ -73,6 +89,8 @@ def get_optimal_delivery(address, delivery_type, assesed_value):
         }
     }
 
+    print(data)
+
     response = requests.put(
         'https://api.delivery.yandex.ru/delivery-options',
         headers={
@@ -82,5 +100,7 @@ def get_optimal_delivery(address, delivery_type, assesed_value):
         data=json.dumps(data).encode('utf-8')
     )
     result = response.json()
+
     print(result)
-    return None if len(result) == 0 else result[0]
+
+    return None if not isinstance(result, list) or len(result) == 0 else result[0]

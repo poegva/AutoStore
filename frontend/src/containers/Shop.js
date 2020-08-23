@@ -26,14 +26,16 @@ function Shop(props) {
         <Container style={{paddingTop: 20}} >
             <TextBlock title="HQD Cuvie" subtitle="Успей попробовать все вкусы!" />
             {items ?
-                <ShopItemGrid items={items} addItem={props.addItem} /> :
+                <ShopItemGrid cart={props.cart} items={items} addItem={props.addItem} /> :
                 <ItemsLoading error={error} errorText="Что-то пошло не так" loadingText="Загрузка..." />}
         </Container>
     )
 }
 
 const mapStateToProps = store => {
-    return {};
+    return {
+        cart: store.order.cart
+    };
 }
 
 const mapDispatchToProps = dispatch => {

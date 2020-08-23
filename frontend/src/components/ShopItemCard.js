@@ -17,11 +17,32 @@ const useStyles = makeStyles((theme) => ({
         }
     },
     buyButton: {
-        backgroundColor: "black",
+        /*backgroundColor: "black",
         color: "white",
         '&:hover': {
             backgroundColor: "gray",
         }
+        boxShadow: 'none',
+        textTransform: 'none',
+        fontSize: 16,
+        padding: '6px 12px',
+        border: '1px solid',
+        lineHeight: 1.5,
+        borderColor: '#0063cc',
+        backgroundColor: "black",
+        '&:hover': {
+            backgroundColor: '#0069d9',
+            borderColor: '#0062cc',
+            boxShadow: 'none',
+        },
+        '&:active': {
+            boxShadow: 'none',
+            backgroundColor: '#0062cc',
+            borderColor: '#005cbf',
+        },
+        '&:focus': {
+            boxShadow: '0 0 0 0.2rem rgba(0,123,255,.5)',
+        },*/
     },
     itemCard: {
         height: '100%',
@@ -35,7 +56,9 @@ export default function ShopItemCard(props) {
     const theme = useTheme();
     const matches = useMediaQuery(theme.breakpoints.up('sm'));
 
-    let content = null
+    let content = null;
+
+    const allUsed = props.item.shop_quantity === 0 || props.cartItem && props.cartItem.quantity >= props.item.shop_quantity;
 
     if (matches) {
         content = (
@@ -45,7 +68,7 @@ export default function ShopItemCard(props) {
                         {props.item.name}
                     </Typography>
                     <Box display="flex" flexDirection="row" justifyContent="space-around" bgcolor="background.paper">
-                        <Button className={classes.buyButton} onClick={props.addItem}>
+                        <Button variant="outlined" disabled={allUsed} className={classes.buyButton} onClick={props.addItem}>
                             Купить
                         </Button>
                         <Typography gutterBottom variant="h6" component="h6" align='center'>
@@ -64,7 +87,7 @@ export default function ShopItemCard(props) {
                     </Typography>
                     <Box>
                         <Box display="flex" flexDirection="row" justifyContent="space-around" bgcolor="background.paper">
-                            <Button className={classes.buyButton} onClick={(event) => {
+                            <Button variant="outlined" disabled={allUsed} className={classes.buyButton} onClick={(event) => {
                                 event.preventDefault();
                                 props.addItem();
                             }}>

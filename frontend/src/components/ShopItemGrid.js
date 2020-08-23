@@ -19,7 +19,7 @@ export default function ItemGrid(props) {
             <Grid container spacing={2} >
                 {props.items.map(item => (
                     <Grid item xs={6} sm={4} md={3} key={item.id} className={classes.itemCard}>
-                        <ShopItemCard item={item} addItem={() => props.addItem(item)}/>
+                        <ShopItemCard cartItem={props.cart[item.id]} item={item} addItem={() => props.addItem(item)}/>
                     </Grid>
                 ))}
             </Grid>

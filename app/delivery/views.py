@@ -2,24 +2,20 @@ import json
 
 import requests
 from rest_framework import viewsets
+from rest_framework.exceptions import ParseError
 from rest_framework.response import Response
 
-from delivery.utils import convert_option, get_optimal_delivery
+from delivery.utils import convert_option, get_optimal_delivery, get_complete_address
 
 
 class CompleteView(viewsets.ViewSet):
     def list(self, request, format=None):
-        address = request.query_params['address']
+        address = request.query_params.get('address')
 
-        response = requests.get(
-            f'https://api.delivery.yandex.ru/location?term={address}',
-            headers={
-                'Content-Type': 'application/json',
-                'Authorization': 'OAuth AgAAAABDt7svAAaJeBQNRE36jEfHi32Bl2XK5Lc'
-            }
-        )
+        if not address:
+            raise ParseError(detail='No address')
 
-        return Response(response.json())
+        return Response(get_complete_address(address))
 
 
 class OptionsView(viewsets.ViewSet):
@@ -31,6 +27,6 @@ class OptionsView(viewsets.ViewSet):
         optimal_courier = get_optimal_delivery(address, 'COURIER',  value)
 
         return Response({
-            'POST': convert_option(optimal_post),
-            'COURIER': convert_option(optimal_courier)
+            'POST': convert_option(optimal_post) if optimal_post else None,
+            'COURIER': convert_option(optimal_courier) if optimal_courier else None
         })

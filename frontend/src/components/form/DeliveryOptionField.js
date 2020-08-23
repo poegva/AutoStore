@@ -91,7 +91,7 @@ export default function DeliveryOptionField(props) {
                 }}
             >
                 {props.options.map(option => {
-                    return (!options || options[option.type]) ? (
+                    return (
                         <OptionCard
                             option={options ? options[option.type] : null}
                             name={option.name}
@@ -99,7 +99,7 @@ export default function DeliveryOptionField(props) {
                             loading={hasCity && options == null}
                             key={option.type}
                         />
-                    ) : null;
+                    );
                 })}
             </RadioGroup>
             <FormHelperText error>{props.helperText}</FormHelperText>

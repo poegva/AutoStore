@@ -14,11 +14,11 @@ from shop.models import Shop, Item, Order, OrderItem
 class ItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = Item
-        fields = ['id', 'name', 'description', 'price', 'image']
+        fields = ['id', 'name', 'description', 'price', 'image', 'shop_quantity']
 
 
 class ItemViewSet(viewsets.ModelViewSet):
-    queryset = Item.objects.all()
+    queryset = Item.objects.order_by('-shop_quantity').all()
     serializer_class = ItemSerializer
 
 
@@ -95,7 +95,7 @@ class OrderViewSet(viewsets.ModelViewSet):
         for order_item in order_items:
             order.items_cost += order_item.quantity * order_item.item.price
             order_item.item.shop_quantity -= order_item.quantity
-            order_item.item.save(update_fields=['items_quantity'])
+            order_item.item.save(update_fields=['shop_quantity'])
 
         optimal_delivery = get_optimal_delivery(order.address['value'], order.delivery_option, order.items_cost)
         order.delivery_cost = optimal_delivery['cost']['delivery'] if optimal_delivery else 0
