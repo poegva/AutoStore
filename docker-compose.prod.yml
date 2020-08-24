@@ -48,6 +48,8 @@ services:
       dockerfile: Dockerfile.prod
     ports:
       - 5001:80
+    environment:
+      - NODE_ENV=production
     volumes:
       - ./frontend:/src/frontend
       - front:/src/frontend/build

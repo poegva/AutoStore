@@ -64,7 +64,7 @@ export default function Home(props) {
             />
             <ShowcaseBlock
                 title="Выбирайте из множества вкусов"
-                itemsUrl={`http://${window.location.hostname}/api/items/`}
+                itemsUrl={window.location.protocol + "//" + window.location.hostname + "/api/items/"}
                 buttonText="Больше вкусов"
                 buttonLink="/shop"
             />

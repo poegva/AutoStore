@@ -122,7 +122,7 @@ export function submitOrder(orderData, redirect) {
 
         const csrftoken = Cookies.get('csrftoken');
 
-        fetch(`http://${window.location.hostname}/api/orders/`, {
+        fetch(window.location.protocol + "//" + window.location.hostname + "/api/orders/", {
             method: 'post',
             body: JSON.stringify(orderData),
             credentials: "same-origin",
@@ -178,7 +178,7 @@ export function submitOrder(orderData, redirect) {
 
 export function loadOrder(id, token, callback) {
     return dispatch => {
-        fetch(`http://${window.location.hostname}/api/orders/${id}/?token=${token}`)
+        fetch(window.location.protocol + "//" + window.location.hostname + `/api/orders/${id}/?token=${token}`)
             .then(result => result.json())
             .then(result => {
                 dispatch({

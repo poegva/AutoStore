@@ -20,7 +20,6 @@ const useStyles = makeStyles((theme) => ({
 export default function ShowcaseBlock(props) {
     const classes = useStyles();
     const [items, setItems] = React.useState([]);
-    const [error, setError] = React.useState(false);
 
     React.useEffect(() => {
         if (items.length === 0) {
@@ -28,7 +27,7 @@ export default function ShowcaseBlock(props) {
                 .then(res => res.json())
                 .then(
                     (result) => setItems(result.slice(0, 3)),
-                    (error) => setError(true)
+                    (error) => console.log(error)
                 )
         }
     }, [items]);
@@ -48,7 +47,7 @@ export default function ShowcaseBlock(props) {
             </Typography>
             <Grid container>
                 {items.map(item => (
-                    <Grid item xs={12} md={4} style={{padding: 20, paddingLeft: 40, paddingRight: 40}} >
+                    <Grid item xs={12} md={4} key={item.id} style={{padding: 20, paddingLeft: 40, paddingRight: 40}} >
                         <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center" >
                             <Box
                                 style={{

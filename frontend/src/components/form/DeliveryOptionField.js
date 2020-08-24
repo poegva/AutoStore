@@ -43,7 +43,9 @@ function OptionCard(props) {
 }
 
 function fetchOptions(address, itemsValue, callback) {
-    fetch(`http://${window.location.hostname}/api/delivery/options/?value=${itemsValue}&address=${address.value}`)
+    const optionsEndpoint = window.location.protocol + "//" + window.location.hostname + "/api/delivery/options/"
+
+    fetch(optionsEndpoint + `?value=${itemsValue}&address=${address.value}`)
         .then(r => r.json())
         .then(result => callback(result));
 }

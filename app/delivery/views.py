@@ -15,7 +15,15 @@ class CompleteView(viewsets.ViewSet):
         if not address:
             raise ParseError(detail='No address')
 
-        return Response(get_complete_address(address))
+        ahunter_response = requests.get(
+            "http://ahunter.ru/site/suggest/address",
+            params={'output': 'json', 'query': address}
+        )
+
+        if ahunter_response.status_code == 200:
+            return Response(ahunter_response.json())
+        else:
+            return Response(status=ahunter_response.status_code)
 
 
 class OptionsView(viewsets.ViewSet):

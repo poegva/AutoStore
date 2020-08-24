@@ -14,7 +14,7 @@ function Shop(props) {
 
     React.useEffect(() => {
         if (!items) {
-            fetch(`http://${window.location.hostname}/api/items/`)
+            fetch(window.location.protocol + "//" + window.location.hostname + "/api/items/")
                 .then(res => res.json())
                 .then(
                     (result) => setItems(result),

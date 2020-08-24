@@ -44,7 +44,7 @@ function App(props) {
         <BrowserRouter>
             <AppMenu
                 sections={sections}
-                image={`http://${window.location.hostname}/static/logo.png`}
+                image={window.location.protocol + "//" + window.location.hostname + "/static/logo.png"}
                 setCartOpen={setCartOpen}
             />
             <CartButton setCartOpen={setCartOpen} floating />

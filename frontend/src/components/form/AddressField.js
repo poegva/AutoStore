@@ -4,8 +4,8 @@ import TextField from "@material-ui/core/TextField";
 import throttle from 'lodash/throttle';
 
 function suggestAddress(inputValue, callback) {
-    const suggestProviderUrl = 'http://ahunter.ru/site/suggest/address?output=json;query='
-    fetch(suggestProviderUrl + inputValue)
+    const suggestUrl= window.location.protocol + "//" + window.location.hostname + "/api/delivery/complete?address=" + inputValue;
+    fetch(suggestUrl)
         .then(result => result.json())
         .then(result => {
             callback(result.suggestions.map(suggestion => {
