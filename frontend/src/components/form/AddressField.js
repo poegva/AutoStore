@@ -11,7 +11,7 @@ function suggestAddress(inputValue, callback) {
             callback(result.suggestions.map(suggestion => {
                 return {
                     value: suggestion.value,
-                    hasCity: suggestion.value.startsWith("г ") || suggestion.value.includes(" г ") || suggestion.value.includes(" д "),
+                    hasCity: suggestion.value.startsWith("г ") || suggestion.value.includes(" г ") || suggestion.value.includes(" д ") || suggestion.value.includes(" п "),
                     hasHouse: suggestion.value.includes(" дом "),
                     postcode: suggestion.zip
                 };

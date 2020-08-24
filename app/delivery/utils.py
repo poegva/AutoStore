@@ -4,6 +4,8 @@ import json
 import requests
 from django.utils import timezone
 
+from store import settings
+
 months = [
     'ничего',
     'января',
@@ -45,10 +47,10 @@ def convert_option(option):
 
 def get_complete_address(address):
     response = requests.get(
-        f'https://api.delivery.yandex.ru/location?term={address}',
+        settings.YANDEX_DELIVERY_API_ENDPOINT + f'/location?term={address}',
         headers={
             'Content-Type': 'application/json',
-            'Authorization': 'OAuth AgAAAABDt7svAAaJeBQNRE36jEfHi32Bl2XK5Lc'
+            'Authorization': settings.YANDEX_DELIVERY_OAUTH_TOKEN
         }
     )
     result = response.json()
@@ -60,26 +62,17 @@ def get_optimal_delivery(address, delivery_type, assesed_value):
     complete_address = get_complete_address(address)
 
     data = {
-        'senderId': 500001942,
-        'from': {
-            'location': 'г.Москва, ул. Складочная, д. 1',
-            'geoId': 213
-        },
+        'senderId': settings.YANDEX_DELIVERY_CLIENT_ID,
+        'from': settings.YANDEX_DELIVERY_WAREHOUSE_LOCATION,
         'to': {
             'location': address,
             'geoId': complete_address['geoId'] if complete_address else None
         },
-        'dimensions': {
-            'length': 26,
-            'height': 17,
-            'width': 8,
-            'weight': 0.2
-        },
+        'dimensions': settings.YANDEX_DELIVERY_DIMENSIONS,
         'deliveryType': delivery_type,
         'shipment': {
-            'date': '2020-08-10',
             'type': 'WITHDRAW',
-            'warehouseId': 10001565560
+            'warehouseId': settings.YANDEX_DELIVERY_WAREHOUSE_ID
         },
         'cost': {
             'assesedValue': assesed_value,
@@ -89,18 +82,18 @@ def get_optimal_delivery(address, delivery_type, assesed_value):
         }
     }
 
-    print(data)
-
     response = requests.put(
-        'https://api.delivery.yandex.ru/delivery-options',
+        settings.YANDEX_DELIVERY_API_ENDPOINT + '/delivery-options',
         headers={
             'Content-Type': 'application/json',
-            'Authorization': 'OAuth AgAAAABDt7svAAaJeBQNRE36jEfHi32Bl2XK5Lc'
+            'Authorization': settings.YANDEX_DELIVERY_OAUTH_TOKEN
         },
         data=json.dumps(data).encode('utf-8')
     )
     result = response.json()
 
-    print(result)
+    if not isinstance(result, list):
+        print(result)
+        return None
 
-    return None if not isinstance(result, list) or len(result) == 0 else result[0]
+    return None if len(result) == 0 else result[0]

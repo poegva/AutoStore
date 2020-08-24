@@ -1,7 +1,6 @@
 from django.db import transaction
 from django.shortcuts import render, get_object_or_404
 from django.utils.crypto import get_random_string
-from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import serializers, viewsets
 from rest_framework.exceptions import ParseError, ValidationError
 from rest_framework.response import Response
@@ -53,9 +52,6 @@ class OrderSerializer(serializers.HyperlinkedModelSerializer):
     items = OrderItemSerializer(many=True, read_only=True)
     token = serializers.ReadOnlyField()
     payment = serializers.SerializerMethodField(method_name='get_payment')
-
-    def get_state(self, order):
-        return 'PAYMENT'
 
     def get_payment(self, order):
         payment, new, reason = get_or_create_payment(order)

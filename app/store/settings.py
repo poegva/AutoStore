@@ -170,3 +170,19 @@ CORS_ORIGIN_ALLOW_ALL = True
 YANDEX_CHECKOUT_CLIENT_ID = '700410'
 YANDEX_CHECKOUT_SECRET_KEY = 'test_XbyGEojSENZukjDeWrl0M8Yppr9fEr03iqc8mDpVpRs'
 
+# Yandex Delivery
+
+YANDEX_DELIVERY_OAUTH_TOKEN = 'OAuth AgAAAABDt7svAAaJeBQNRE36jEfHi32Bl2XK5Lc'
+YANDEX_DELIVERY_CLIENT_ID = 500001942
+YANDEX_DELIVERY_WAREHOUSE_LOCATION = {
+    'location': 'г.Москва, ул. Складочная, д. 1',
+    'geoId': 213
+}
+YANDEX_DELIVERY_WAREHOUSE_ID = 10001565560
+YANDEX_DELIVERY_DIMENSIONS = {
+    'length': 26,
+    'height': 17,
+    'width': 8,
+    'weight': 0.2
+}
+YANDEX_DELIVERY_API_ENDPOINT = 'https://api.delivery.yandex.ru'
