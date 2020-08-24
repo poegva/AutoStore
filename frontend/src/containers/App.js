@@ -49,7 +49,7 @@ function App(props) {
             />
             <CartButton setCartOpen={setCartOpen} floating />
             <CartDialog cartOpen={cartOpen} setCartOpen={setCartOpen} />
-            <Container disableGutters style={{backgroundColor: "#f6f6f6", maxWidth: "100%"}} >
+            <Container disableGutters style={{backgroundColor: "#ffffff", maxWidth: "100%"}} >
                 <Switch>
                     {sections.map(value => (
                         <Route strict exact path={value.url} key={value.url}>

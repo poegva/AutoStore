@@ -46,9 +46,11 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile.prod
+    ports:
+      - 5001:80
     volumes:
       - ./frontend:/src/frontend
-      - www:/src/frontend/build
+      - front:/src/frontend/build
   nginx:
     build: ./nginx
     ports:
@@ -58,11 +60,11 @@ services:
       - backend
       - frontend
     volumes:
-      - www:/www
       - assets:/src/app/assets
       - media:/src/app/media
+      - front:/src/frontend/build
 volumes:
   postgres_data:
-  www:
   media:
   assets:
+  front:

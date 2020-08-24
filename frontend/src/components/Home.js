@@ -6,6 +6,9 @@ import TextBlock from "./layout/TextBlock";
 import BatteryChargingFullIcon from '@material-ui/icons/BatteryChargingFull';
 import DriveEtaIcon from '@material-ui/icons/DriveEta';
 import AppleIcon from '@material-ui/icons/Apple';
+import PerksBlock from "./layout/PerksBlock";
+import ShowcaseBlock from "./layout/ShowcaseBlock";
+import FooterBlock from "./layout/FooterBlock";
 
 import hqdfront from "../hqdfront.png";
 import hqdfront2 from "../hqdfront2.png";
@@ -13,9 +16,6 @@ import hqdfront3 from "../hqdfront3.png";
 import imageblock from "../imageblock.jpg";
 import cigarettes from "../cigarettes.png";
 import imageblock2 from "../imageblock2.jpg";
-import PerksBlock from "./layout/PerksBlock";
-import ShowcaseBlock from "./layout/ShowcaseBlock";
-import FooterBlock from "./layout/FooterBlock";
 
 
 export default function Home(props) {

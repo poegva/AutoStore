@@ -14,7 +14,25 @@ const useStyles = makeStyles((theme) => ({
         height: 350,
         [theme.breakpoints.down('sm')]: {
             height: "150px"
+        },
+        "&:hover": {
+            "overlay": {
+                opacity: 1
+            }
         }
+    },
+    itemCard: {
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+    },
+    overlay: {
+        transition: ".5s ease",
+        opacity: 0.5,
+        top: "50%",
+        left: "50%",
+        transform: "translate(-50%, -50%)",
+        "-ms-transform": "translate(-50%, -50%)"
     },
     buyButton: {
         /*backgroundColor: "black",
@@ -43,11 +61,6 @@ const useStyles = makeStyles((theme) => ({
         '&:focus': {
             boxShadow: '0 0 0 0.2rem rgba(0,123,255,.5)',
         },*/
-    },
-    itemCard: {
-        height: '100%',
-        display: 'flex',
-        flexDirection: 'column',
     },
 }));
 

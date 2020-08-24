@@ -31,23 +31,52 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="47897e9c-1e32-4683-9b93-11bcf88e51a5" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/frontend/src/components/Home.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/components/layout/CarouselBlock.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/components/layout/FooterBlock.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/components/layout/ImageBlock.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/components/layout/PerksBlock.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/components/layout/ShowcaseBlock.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/static/logo2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/nginx/nginx.conf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/ShopItemGrid.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/ShopItemGrid.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/TextBlock.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/layout/TextBlock.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.prod.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.prod.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.dockerignore" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/.dockerignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/Dockerfile.prod" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/Dockerfile.prod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/build/asset-manifest.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/build/favicon.ico" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/build/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/build/logo192.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/build/logo512.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/build/manifest.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/build/precache-manifest.dd9680bf609b77a7f7b4a87d115caddf.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/build/robots.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/build/service-worker.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/build/static/css/2.316749da.chunk.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/build/static/css/2.316749da.chunk.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/build/static/css/main.3d3471ee.chunk.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/build/static/css/main.3d3471ee.chunk.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/build/static/js/2.68f97d44.chunk.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/build/static/js/2.68f97d44.chunk.js.LICENSE.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/build/static/js/2.68f97d44.chunk.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/build/static/js/main.a1b9a681.chunk.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/build/static/js/main.a1b9a681.chunk.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/build/static/js/runtime-main.c8a21426.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/build/static/js/runtime-main.c8a21426.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/build/static/media/roboto-all-400-italic.c762d850.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/build/static/media/roboto-all-400-normal.a91ad097.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/build/static/media/roboto-cyrillic-400-italic.8266321a.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/build/static/media/roboto-cyrillic-400-normal.8bb64952.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/build/static/media/roboto-cyrillic-ext-400-italic.b3e580d2.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/build/static/media/roboto-cyrillic-ext-400-normal.4743c758.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/build/static/media/roboto-greek-400-italic.469a7840.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/build/static/media/roboto-greek-400-normal.c1e9793c.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/build/static/media/roboto-greek-ext-400-italic.801b64f7.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/build/static/media/roboto-greek-ext-400-normal.182ee6a4.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/build/static/media/roboto-latin-400-italic.51521a2a.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/build/static/media/roboto-latin-400-normal.479970ff.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/build/static/media/roboto-latin-ext-400-italic.dc3871f4.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/build/static/media/roboto-latin-ext-400-normal.455200cb.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/build/static/media/roboto-vietnamese-400-italic.9780bde8.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/build/static/media/roboto-vietnamese-400-normal.a8be5b46.woff2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/Home.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Home.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/ShopItemCard.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/ShopItemCard.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/containers/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/containers/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/containers/Order.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/containers/Order.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/containers/Shop.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/containers/Shop.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/index.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nginx/nginx.conf" beforeDir="false" afterPath="$PROJECT_DIR$/nginx/nginx.conf" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -95,15 +124,15 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/cabinet/src/components" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/static" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="run.code.analysis.last.selected.profile" value="aDefault" />
     <property name="settings.editor.selected.configurable" value="preferences.fileTypes" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/cabinet/src/components" />
       <recent name="$PROJECT_DIR$/app/static" />
+      <recent name="$PROJECT_DIR$/cabinet/src/components" />
       <recent name="$PROJECT_DIR$/app" />
       <recent name="$PROJECT_DIR$/app/store" />
     </key>
@@ -186,10 +215,10 @@
       <screen x="0" y="23" width="1680" height="934" />
     </state>
     <state x="546" y="300" key="#com.intellij.fileTypes.FileTypeChooser/0.23.1680.934@0.23.1680.934" timestamp="1597599271491" />
-    <state x="578" y="244" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1597945393093">
+    <state x="578" y="244" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1598270672578">
       <screen x="0" y="23" width="1680" height="941" />
     </state>
-    <state x="578" y="244" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.23.1680.941@0.23.1680.941" timestamp="1597945393093" />
+    <state x="578" y="244" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.23.1680.941@0.23.1680.941" timestamp="1598270672578" />
     <state x="16" y="40" key="#store" timestamp="1597594068685">
       <screen x="0" y="23" width="1680" height="934" />
     </state>
@@ -198,41 +227,41 @@
       <screen x="0" y="23" width="1680" height="934" />
     </state>
     <state x="585" y="353" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.23.1680.934@0.23.1680.934" timestamp="1597599329588" />
-    <state width="1638" height="189" key="GridCell.Tab.0.bottom" timestamp="1597870106467">
+    <state width="1638" height="25" key="GridCell.Tab.0.bottom" timestamp="1598267321601">
       <screen x="0" y="23" width="1680" height="941" />
     </state>
     <state width="1638" height="215" key="GridCell.Tab.0.bottom/0.23.1680.934@0.23.1680.934" timestamp="1597599386423" />
     <state width="1638" height="235" key="GridCell.Tab.0.bottom/0.23.1680.935@0.23.1680.935" timestamp="1595812316366" />
     <state width="1638" height="189" key="GridCell.Tab.0.bottom/0.23.1680.937@0.23.1680.937" timestamp="1597682301791" />
     <state width="1638" height="310" key="GridCell.Tab.0.bottom/0.23.1680.939@0.23.1680.939" timestamp="1595258154579" />
-    <state width="1638" height="189" key="GridCell.Tab.0.bottom/0.23.1680.941@0.23.1680.941" timestamp="1597870106467" />
+    <state width="1638" height="25" key="GridCell.Tab.0.bottom/0.23.1680.941@0.23.1680.941" timestamp="1598267321601" />
     <state width="1638" height="244" key="GridCell.Tab.0.bottom/0.23.1680.947@0.23.1680.947" timestamp="1597240298930" />
-    <state width="1638" height="189" key="GridCell.Tab.0.center" timestamp="1597870106466">
+    <state width="1638" height="25" key="GridCell.Tab.0.center" timestamp="1598267321600">
       <screen x="0" y="23" width="1680" height="941" />
     </state>
     <state width="1638" height="215" key="GridCell.Tab.0.center/0.23.1680.934@0.23.1680.934" timestamp="1597599386421" />
     <state width="1638" height="235" key="GridCell.Tab.0.center/0.23.1680.935@0.23.1680.935" timestamp="1595812316365" />
     <state width="1638" height="189" key="GridCell.Tab.0.center/0.23.1680.937@0.23.1680.937" timestamp="1597682301790" />
     <state width="1638" height="310" key="GridCell.Tab.0.center/0.23.1680.939@0.23.1680.939" timestamp="1595258154578" />
-    <state width="1638" height="189" key="GridCell.Tab.0.center/0.23.1680.941@0.23.1680.941" timestamp="1597870106466" />
+    <state width="1638" height="25" key="GridCell.Tab.0.center/0.23.1680.941@0.23.1680.941" timestamp="1598267321600" />
     <state width="1638" height="244" key="GridCell.Tab.0.center/0.23.1680.947@0.23.1680.947" timestamp="1597240298929" />
-    <state width="1638" height="189" key="GridCell.Tab.0.left" timestamp="1597870106465">
+    <state width="1638" height="25" key="GridCell.Tab.0.left" timestamp="1598267321599">
       <screen x="0" y="23" width="1680" height="941" />
     </state>
     <state width="1638" height="215" key="GridCell.Tab.0.left/0.23.1680.934@0.23.1680.934" timestamp="1597599386420" />
     <state width="1638" height="235" key="GridCell.Tab.0.left/0.23.1680.935@0.23.1680.935" timestamp="1595812316364" />
     <state width="1638" height="189" key="GridCell.Tab.0.left/0.23.1680.937@0.23.1680.937" timestamp="1597682301789" />
     <state width="1638" height="310" key="GridCell.Tab.0.left/0.23.1680.939@0.23.1680.939" timestamp="1595258154578" />
-    <state width="1638" height="189" key="GridCell.Tab.0.left/0.23.1680.941@0.23.1680.941" timestamp="1597870106465" />
+    <state width="1638" height="25" key="GridCell.Tab.0.left/0.23.1680.941@0.23.1680.941" timestamp="1598267321599" />
     <state width="1638" height="244" key="GridCell.Tab.0.left/0.23.1680.947@0.23.1680.947" timestamp="1597240298929" />
-    <state width="1638" height="189" key="GridCell.Tab.0.right" timestamp="1597870106466">
+    <state width="1638" height="25" key="GridCell.Tab.0.right" timestamp="1598267321600">
       <screen x="0" y="23" width="1680" height="941" />
     </state>
     <state width="1638" height="215" key="GridCell.Tab.0.right/0.23.1680.934@0.23.1680.934" timestamp="1597599386422" />
     <state width="1638" height="235" key="GridCell.Tab.0.right/0.23.1680.935@0.23.1680.935" timestamp="1595812316365" />
     <state width="1638" height="189" key="GridCell.Tab.0.right/0.23.1680.937@0.23.1680.937" timestamp="1597682301791" />
     <state width="1638" height="310" key="GridCell.Tab.0.right/0.23.1680.939@0.23.1680.939" timestamp="1595258154579" />
-    <state width="1638" height="189" key="GridCell.Tab.0.right/0.23.1680.941@0.23.1680.941" timestamp="1597870106466" />
+    <state width="1638" height="25" key="GridCell.Tab.0.right/0.23.1680.941@0.23.1680.941" timestamp="1598267321600" />
     <state width="1638" height="244" key="GridCell.Tab.0.right/0.23.1680.947@0.23.1680.947" timestamp="1597240298930" />
     <state width="1638" height="189" key="GridCell.Tab.1.bottom" timestamp="1597870106469">
       <screen x="0" y="23" width="1680" height="941" />
