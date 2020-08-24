@@ -12,6 +12,11 @@ from shop.models import Shop, Item, Order, OrderItem
 
 
 class ItemSerializer(serializers.ModelSerializer):
+    image = serializers.SerializerMethodField()
+
+    def get_image(self, item):
+        return item.image.url
+
     class Meta:
         model = Item
         fields = ['id', 'name', 'description', 'price', 'image', 'shop_quantity']
