@@ -6,6 +6,8 @@ class Shop(models.Model):
     slug = models.SlugField(verbose_name='Слаг магазина')
     name = models.CharField(max_length=200, verbose_name='Название магазина')
 
+    payment_max_time = models.BooleanField(null=True, blank=True, verbose_name='Время на оплату заказа')
+
     def __str__(self):
         return self.name
 
@@ -47,10 +49,16 @@ class Order(TimeStampedModel):
     CREATED = 'CREATED'
     WAITING_PAYMENT = 'WAITING_PAYMENT'
     PAYED = 'PAYED'
+    DELIVERY = 'DELIVERY'
+    COMPLETED = 'COMPLETED'
+    CANCELED = 'CANCELED'
     STATUS_CHOiCES = [
         (CREATED, 'Создан'),
         (WAITING_PAYMENT, 'Ожидает оплаты'),
-        (PAYED, 'Оплачен')
+        (PAYED, 'Оплачен'),
+        (DELIVERY, 'В процессе доставки'),
+        (COMPLETED, 'Выполнен'),
+        (CANCELED, 'Отменен')
     ]
     status = models.CharField(
         max_length=20, choices=STATUS_CHOiCES, default=CREATED, verbose_name='Статус'

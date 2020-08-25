@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_extensions',
     'rest_framework',
+    'django_celery_beat',
     'shop.apps.ShopConfig',
     'delivery.apps.DeliveryConfig',
     'payment.apps.PaymentConfig',

@@ -33,7 +33,17 @@ services:
     container_name: 'celery'
     command: celery -A store worker -B
     volumes:
-      - .:/code
+      - ./app:/src/app
+    links:
+      - redis
+    env_file:
+      - ./.env.prod
+    depends_on:
+      - backend
+      - redis
+  celery-beat:
+    build: ./app
+    command: celery -A store beat --scheduler django_celery_beat.schedulers:DatabaseScheduler -l info
     links:
       - redis
     env_file:
