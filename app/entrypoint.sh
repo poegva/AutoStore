@@ -11,6 +11,9 @@ then
     echo "PostgreSQL started"
 fi
 
-python manage.py collectstatic --no-input --clear
+if [ "$DEBUG" = "0" ]
+then
+    python manage.py collectstatic --no-input --clear
+fi
 
 exec "$@"

@@ -93,14 +93,23 @@ class OrderViewSet(viewsets.ModelViewSet):
         item_serializer.is_valid(raise_exception=True)
         order_items = item_serializer.save(order=order)
 
+        order_shops_ids = set()
+
         for order_item in order_items:
+            order_shops_ids.add(order_item.item.shop_id)
+
             order.items_cost += order_item.quantity * order_item.item.price
+
             order_item.item.shop_quantity -= order_item.quantity
             order_item.item.save(update_fields=['shop_quantity'])
 
+        if len(order_shops_ids) != 1:
+            raise ValidationError('Больше одного магазина в заказе')
+
         optimal_delivery = get_optimal_delivery(order.address['value'], order.delivery_option, order.items_cost)
         order.delivery_cost = optimal_delivery['cost']['delivery'] if optimal_delivery else 0
-        order.save(update_fields=['items_cost', 'delivery_cost'])
+        order.shop_id = list(order_shops_ids)[0]
+        order.save(update_fields=['items_cost', 'delivery_cost', 'shop_id'])
 
         data = self.get_serializer(order).data
 
