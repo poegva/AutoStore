@@ -6,7 +6,7 @@ class Shop(models.Model):
     slug = models.SlugField(verbose_name='Слаг магазина')
     name = models.CharField(max_length=200, verbose_name='Название магазина')
 
-    payment_max_time = models.BooleanField(null=True, blank=True, verbose_name='Время на оплату заказа')
+    payment_max_time = models.PositiveIntegerField(null=True, blank=True, verbose_name='Время на оплату заказа')
 
     def __str__(self):
         return self.name
@@ -27,7 +27,17 @@ class Item(models.Model):
         return f'{self.name} - {self.shop.name}'
 
 
+class OrderQuerySet(models.QuerySet):
+
+    def cancel(self):
+        self.update(status=Order.CANCELED)
+
+
 class Order(TimeStampedModel):
+    objects = models.Manager.from_queryset(OrderQuerySet)()
+
+    shop = models.ForeignKey(Shop, on_delete=models.SET_NULL, null=True, blank=True, verbose_name='Магазин')
+
     name = models.CharField(max_length=200, verbose_name='Имя покупателя', blank=True)
     email = models.EmailField(verbose_name='Почта покупателя', blank=True)
     phone = models.CharField(max_length=50, verbose_name='Телефон покупателя', blank=True)

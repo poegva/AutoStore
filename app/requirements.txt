@@ -13,3 +13,6 @@ requests
 django-cors-headers
 yandex_checkout
 django-celery-beat
+argh
+PyYAML
+watchdog

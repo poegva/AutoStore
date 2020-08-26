@@ -31,7 +31,7 @@ services:
   celery:
     build: ./app
     container_name: 'celery'
-    command: celery -A store worker -B
+    command: watchmedo auto-restart --patterns "*.py" --recursive -- celery -A store worker -B
     volumes:
       - ./app:/src/app
     links:
