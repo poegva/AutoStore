@@ -71,6 +71,8 @@ class OrderSerializer(serializers.HyperlinkedModelSerializer):
             'items',
             'address',
             'delivery_option',
+            'delivery_tariff',
+            'delivery_partner',
             'token',
             'status',
             'payment',

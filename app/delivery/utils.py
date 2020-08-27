@@ -1,10 +1,13 @@
 import datetime
 import json
+import logging
 
 import requests
 from django.utils import timezone
 
 from store import settings
+
+log = logging.getLogger(__name__)
 
 months = [
     'ничего',
@@ -41,6 +44,8 @@ def convert_option(option):
 
     return {
         'cost': option['cost']['delivery'],
+        'tariff': option['tariffId'],
+        'partner': option['delivery']['partner']['id'],
         'date': delivery_date(delivery_date_min, delivery_date_max)
     }
 
@@ -82,6 +87,8 @@ def get_optimal_delivery(address, delivery_type, assesed_value):
         }
     }
 
+    print(data)
+
     response = requests.put(
         settings.YANDEX_DELIVERY_API_ENDPOINT + '/delivery-options',
         headers={
@@ -92,8 +99,10 @@ def get_optimal_delivery(address, delivery_type, assesed_value):
     )
     result = response.json()
 
+    print(result)
+
     if not isinstance(result, list):
-        print(result)
+        log.warning(f"Yandex Delivery options returned {result}")
         return None
 
     return None if len(result) == 0 else result[0]

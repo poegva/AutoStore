@@ -1,5 +1,10 @@
-from django.db import models
+import logging
+
+from django.db import models, transaction
 from django_extensions.db.models import TimeStampedModel
+
+
+log = logging.getLogger(__name__)
 
 
 class Shop(models.Model):
@@ -55,6 +60,8 @@ class Order(TimeStampedModel):
     delivery_option = models.CharField(
         max_length=7, choices=DELIVERY_OPTION_CHOICES, default=NONE, verbose_name='Способ доставки'
     )
+    delivery_tariff = models.IntegerField(null=True, blank=True, verbose_name='Тариф доставки')
+    delivery_partner = models.IntegerField(null=True, blank=True, verbose_name='Партнер по доставке')
 
     CREATED = 'CREATED'
     WAITING_PAYMENT = 'WAITING_PAYMENT'
@@ -82,6 +89,29 @@ class Order(TimeStampedModel):
     @property
     def total_cost(self):
         return self.items_cost + self.delivery_cost
+
+    @transaction.atomic
+    def cancel(self, refund=False):
+        if self.status in (self.CANCELED, self.DELIVERY, self.COMPLETED):
+            log.warning(f'Attempt to cancel order {self.id} with invalid state')
+            return
+
+        for order_item in self.items.all():
+            order_item.item.shop_quantity += order_item.quantity
+            order_item.item.save(update_fields=['shop_quantity'])
+
+        if refund and self.status not in (self.CREATED, self.WAITING_PAYMENT):
+            log.warning(f'Need to refund order {self.id}')
+
+        self.status = self.CANCELED
+        self.save(update_fields=['status'])
+
+    def set_payed(self):
+        if self.status != self.WAITING_PAYMENT:
+            log.warning(f'Attempt to pay order {self.id} second time')
+
+        self.status = self.PAYED
+        self.save(update_fields=['status'])
 
     def __str__(self):
         return f'Заказ №{self.pk} ({self.name})'

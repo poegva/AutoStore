@@ -24,12 +24,15 @@ function DeliveryForm(props) {
     }
 
     function submitOrder() {
+        console.log(props.order.deliveryOption);
         const orderData = {
             name: props.order.contacts.name,
             email: props.order.contacts.email,
             phone: props.order.contacts.phone,
             address: props.order.address,
             delivery_option: props.order.deliveryOption.type,
+            delivery_tariff: props.order.deliveryOption.option.tariff,
+            delivery_partner: props.order.deliveryOption.option.partner,
             items: Object.values(props.order.cart).map(item => convertItemToData(item))
         };
 
