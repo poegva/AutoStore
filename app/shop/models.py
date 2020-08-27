@@ -13,6 +13,22 @@ class Shop(models.Model):
 
     payment_max_time = models.PositiveIntegerField(null=True, blank=True, verbose_name='Время на оплату заказа')
 
+    NONE = 'NONE'
+    YANDEX = 'YANDEX_DELIVERY'
+    DELIVERY_PROIVDER_CHOICES = [
+        (NONE, 'Отсутствует'),
+        (YANDEX, 'Яндекс.Доставка'),
+    ]
+    delivery_provider = models.CharField(
+        max_length=20, choices=DELIVERY_PROIVDER_CHOICES, default=NONE, verbose_name='Провайдер доставки'
+    )
+
+    yandex_client_id = models.BigIntegerField(null=True, blank=True, verbose_name='ID клиента Яндекс.Доставки')
+    yandex_oauth_token = models.CharField(max_length=200, blank=True, verbose_name='OAuth токен Яндекс.Доставки')
+    yandex_warehouse_id = models.BigIntegerField(null=True, blank=True, verbose_name='ID склада Яндекс.Доставки')
+    yandex_warehouse_location = models.JSONField(null=True, blank=True, verbose_name='Адрес склада в Яндекс.Доставке')
+    yandex_dimensions = models.JSONField(null=True, blank=True, verbose_name='Габариты в Яндекс.Доставке')
+
     def __str__(self):
         return self.name
 
@@ -32,14 +48,7 @@ class Item(models.Model):
         return f'{self.name} - {self.shop.name}'
 
 
-class OrderQuerySet(models.QuerySet):
-
-    def cancel(self):
-        self.update(status=Order.CANCELED)
-
-
 class Order(TimeStampedModel):
-    objects = models.Manager.from_queryset(OrderQuerySet)()
 
     shop = models.ForeignKey(Shop, on_delete=models.SET_NULL, null=True, blank=True, verbose_name='Магазин')
 
@@ -47,21 +56,20 @@ class Order(TimeStampedModel):
     email = models.EmailField(verbose_name='Почта покупателя', blank=True)
     phone = models.CharField(max_length=50, verbose_name='Телефон покупателя', blank=True)
 
-    address = models.JSONField(verbose_name='Адрес покупателя', null=True, blank=True)
+    address = models.CharField(max_length=500, null=True, blank=True, verbose_name='Адрес покупателя')
 
     NONE = 'NONE'
     COURIER = 'COURIER'
     POST = 'POST'
-    DELIVERY_OPTION_CHOICES = [
+    DELIVERY_TYPE_CHOICES = [
         (NONE, 'Не выбрано'),
         (COURIER, 'Курьер'),
         (POST, 'Почта')
     ]
-    delivery_option = models.CharField(
-        max_length=7, choices=DELIVERY_OPTION_CHOICES, default=NONE, verbose_name='Способ доставки'
+    delivery_type = models.CharField(
+        max_length=7, choices=DELIVERY_TYPE_CHOICES, default=NONE, verbose_name='Способ доставки'
     )
-    delivery_tariff = models.IntegerField(null=True, blank=True, verbose_name='Тариф доставки')
-    delivery_partner = models.IntegerField(null=True, blank=True, verbose_name='Партнер по доставке')
+    delivery_extra = models.JSONField(null=True, blank=True, verbose_name='Дополнительная информация о доставке')
 
     CREATED = 'CREATED'
     WAITING_PAYMENT = 'WAITING_PAYMENT'

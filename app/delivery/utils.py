@@ -1,13 +1,7 @@
 import datetime
-import json
-import logging
+import math
 
-import requests
 from django.utils import timezone
-
-from store import settings
-
-log = logging.getLogger(__name__)
 
 months = [
     'ничего',
@@ -43,66 +37,20 @@ def convert_option(option):
     delivery_date_max = datetime.datetime.strptime(option['delivery']['calculatedDeliveryDateMax'], "%Y-%m-%d").date()
 
     return {
-        'cost': option['cost']['delivery'],
+        'cost': int(math.ceil(option['cost']['deliveryForSender'])),
         'tariff': option['tariffId'],
         'partner': option['delivery']['partner']['id'],
         'date': delivery_date(delivery_date_min, delivery_date_max)
     }
 
 
-def get_complete_address(address):
-    response = requests.get(
-        settings.YANDEX_DELIVERY_API_ENDPOINT + f'/location?term={address}',
-        headers={
-            'Content-Type': 'application/json',
-            'Authorization': settings.YANDEX_DELIVERY_OAUTH_TOKEN
-        }
-    )
-    result = response.json()
-
-    return None if len(result) == 0 else result[0]
-
-
-def get_optimal_delivery(address, delivery_type, assesed_value):
-    complete_address = get_complete_address(address)
-
-    data = {
-        'senderId': settings.YANDEX_DELIVERY_CLIENT_ID,
-        'from': settings.YANDEX_DELIVERY_WAREHOUSE_LOCATION,
-        'to': {
-            'location': address,
-            'geoId': complete_address['geoId'] if complete_address else None
-        },
-        'dimensions': settings.YANDEX_DELIVERY_DIMENSIONS,
-        'deliveryType': delivery_type,
-        'shipment': {
-            'type': 'WITHDRAW',
-            'warehouseId': settings.YANDEX_DELIVERY_WAREHOUSE_ID
-        },
-        'cost': {
-            'assesedValue': assesed_value,
-            'itemsSum': 0,
-            'manualDeliveryForCustomer': 0,
-            'fullyPrepaid': True
-        }
+def convert_option_for_delivery_creation(option):
+    return {
+        'tariffId': option['tariffId'],
+        'partnerId': option['delivery']['partner']['id'],
+        'delivery': option['cost']['deliveryForSender'],
+        'deliveryForCustomer': 0,
+        'calculatedDeliveryDateMin': option['delivery']['calculatedDeliveryDateMin'],
+        'calculatedDeliveryDateMax': option['delivery']['calculatedDeliveryDateMax'],
+        'services': option['services']
     }
-
-    print(data)
-
-    response = requests.put(
-        settings.YANDEX_DELIVERY_API_ENDPOINT + '/delivery-options',
-        headers={
-            'Content-Type': 'application/json',
-            'Authorization': settings.YANDEX_DELIVERY_OAUTH_TOKEN
-        },
-        data=json.dumps(data).encode('utf-8')
-    )
-    result = response.json()
-
-    print(result)
-
-    if not isinstance(result, list):
-        log.warning(f"Yandex Delivery options returned {result}")
-        return None
-
-    return None if len(result) == 0 else result[0]

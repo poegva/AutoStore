@@ -29,10 +29,9 @@ function DeliveryForm(props) {
             name: props.order.contacts.name,
             email: props.order.contacts.email,
             phone: props.order.contacts.phone,
-            address: props.order.address,
-            delivery_option: props.order.deliveryOption.type,
-            delivery_tariff: props.order.deliveryOption.option.tariff,
-            delivery_partner: props.order.deliveryOption.option.partner,
+            address: props.order.address.value,
+            delivery_type: props.order.deliveryOption.type,
+            delivery_extra: props.order.deliveryOption.option,
             items: Object.values(props.order.cart).map(item => convertItemToData(item))
         };
 

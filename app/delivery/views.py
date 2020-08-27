@@ -5,7 +5,9 @@ from rest_framework import viewsets
 from rest_framework.exceptions import ParseError
 from rest_framework.response import Response
 
-from delivery.utils import convert_option, get_optimal_delivery, get_complete_address
+from delivery.providers.yandex.plugin import YandexDeliveryPlugin
+from delivery.utils import convert_option
+from shop.models import Shop
 
 
 class CompleteView(viewsets.ViewSet):
@@ -31,10 +33,14 @@ class OptionsView(viewsets.ViewSet):
         address = request.query_params['address']
         value = request.query_params['value']
 
-        optimal_post = get_optimal_delivery(address, 'POST', value)
-        optimal_courier = get_optimal_delivery(address, 'COURIER',  value)
+        shop = Shop.objects.first()
 
-        return Response({
-            'POST': convert_option(optimal_post) if optimal_post else None,
-            'COURIER': convert_option(optimal_courier) if optimal_courier else None
-        })
+        if shop.delivery_provider == Shop.YANDEX:
+            optimal_post = YandexDeliveryPlugin.get_optimal_option(shop, 'POST', address, value, sorting=True)
+            optimal_courier = YandexDeliveryPlugin.get_optimal_option(shop, 'COURIER', address, value, sorting=True)
+            return Response({
+                'POST': convert_option(optimal_post) if optimal_post else None,
+                'COURIER': convert_option(optimal_courier) if optimal_courier else None,
+            })
+        else:
+            raise NotImplementedError
