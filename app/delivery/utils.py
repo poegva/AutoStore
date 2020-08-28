@@ -1,7 +1,14 @@
 import datetime
 import math
+import logging
 
 from django.utils import timezone
+
+from dadata import Dadata
+
+from store import settings
+
+log = logging.getLogger(__name__)
 
 months = [
     'ничего',
@@ -54,3 +61,17 @@ def convert_option_for_delivery_creation(option):
         'calculatedDeliveryDateMax': option['delivery']['calculatedDeliveryDateMax'],
         'services': option['services']
     }
+
+
+def get_dadata_suggest(address):
+    dadata = Dadata(settings.DADATA_APIKEY, settings.DADATA_SECRET)
+
+    try:
+        suggestions = dadata.suggest(name='address', query=address)
+        if len(suggestions) == 0:
+            return None
+        else:
+            return suggestions[0]
+    except Exception as e:
+        log.error('Dadata request exception ' + str(e))
+        return None

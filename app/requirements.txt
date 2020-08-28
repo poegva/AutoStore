@@ -16,3 +16,4 @@ django-celery-beat
 argh
 PyYAML
 watchdog
+dadata

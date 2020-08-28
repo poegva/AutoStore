@@ -36,3 +36,6 @@ class Delivery(models.Model):
     status = models.CharField(
         max_length=25, choices=STATUS_CHOICES, default=REQUESTED, db_index=True, verbose_name='Статус доставки'
     )
+
+    def __str__(self):
+        return f'Доставка по заказу {self.order_id} ({self.get_status_display()})'

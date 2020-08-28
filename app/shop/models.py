@@ -28,6 +28,9 @@ class Shop(models.Model):
     yandex_warehouse_id = models.BigIntegerField(null=True, blank=True, verbose_name='ID склада Яндекс.Доставки')
     yandex_warehouse_location = models.JSONField(null=True, blank=True, verbose_name='Адрес склада в Яндекс.Доставке')
     yandex_dimensions = models.JSONField(null=True, blank=True, verbose_name='Габариты в Яндекс.Доставке')
+    yandex_pickup_deadline = models.TimeField(
+        default='21:00', blank=True, verbose_name='Дедлайн для отгрузки в текущий день'
+    )
 
     def __str__(self):
         return self.name

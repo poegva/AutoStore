@@ -6,7 +6,7 @@ import requests
 from django.utils import timezone
 
 from delivery.models import Delivery
-from delivery.utils import convert_option_for_delivery_creation
+from delivery.utils import convert_option_for_delivery_creation, get_dadata_suggest
 from shop.models import Shop, Order
 from store import settings
 
@@ -17,6 +17,32 @@ log = logging.getLogger(__name__)
 class YandexDeliveryPlugin:
     endpoint = settings.YANDEX_DELIVERY_API_ENDPOINT
     code = Shop.YANDEX
+
+    @classmethod
+    def yandex_address_from_dadata(cls, shop, suggestion):
+        data = suggestion['data']
+
+        locality_full = str(data['region_with_type'])
+        if data['settlement_with_type']:
+            locality_full += ', ' + str(data['settlement_with_type'])
+
+        yandex_address = cls.get_complete_address(shop, locality_full)
+
+        if not yandex_address:
+            log.error('Can\'t find address geoId')
+            return None
+
+        return {
+            'geoId': yandex_address['geoId'],
+            'country': data['country'],
+            'region': data['region_with_type'],
+            'locality': data['settlement_with_type'] if data['settlement_with_type'] else data['city_with_type'],
+            'street': data['street_with_type'],
+            'house': data['house'],
+            'housing': data['block'] if data['block_type'] == 'к' else None,
+            'building': data['block'] if data['block_type'] == 'стр' else None,
+            'apartment': data['flat']
+        }
 
     @classmethod
     def get_complete_address(cls, shop, address):
@@ -34,6 +60,16 @@ class YandexDeliveryPlugin:
         result = response.json()
 
         return None if len(result) == 0 else result[0]
+
+    @classmethod
+    def get_pickup_date(cls, shop):
+        deadline = datetime.datetime.combine(
+            timezone.localdate(), shop.yandex_pickup_deadline, tzinfo=timezone.localtime().tzinfo
+        )
+        if timezone.localtime() < deadline:
+            return (timezone.localdate() + timezone.timedelta(days=1)).isoformat()
+        else:
+            return (timezone.localdate() + timezone.timedelta(days=2)).isoformat()
 
     @classmethod
     def get_optimal_option(cls, shop, delivery_type, address, items_value, sorting=True):
@@ -54,6 +90,7 @@ class YandexDeliveryPlugin:
             'deliveryType': delivery_type,
             'shipment': {
                 'type': 'WITHDRAW',
+                'date': cls.get_pickup_date(shop),
                 'includeNonDefault': True,
             },
             'cost': {
@@ -97,9 +134,15 @@ class YandexDeliveryPlugin:
             sorting=True
         )
 
-        print(optimal_option)
-
         converted_option = convert_option_for_delivery_creation(optimal_option)
+
+        dadata_suggestion = get_dadata_suggest(order.address)
+        if not dadata_suggestion:
+            log.error('Dadata returned None, can\'t start delivery')
+            return
+        yandex_address = cls.yandex_address_from_dadata(order.shop, dadata_suggestion)
+        if not yandex_address:
+            log.error('Yandex address is None, can\'t start delivery')
 
         data = {
             'senderId': settings.YANDEX_DELIVERY_CLIENT_ID,
@@ -110,16 +153,7 @@ class YandexDeliveryPlugin:
                 'firstName': order.name,
                 'lastName': '-',
                 'email': order.email,
-                'address': {
-                    'geoId': 213,
-                    'country': 'Россия',
-                    'region': 'Москва',
-                    'locality': 'Москва',
-                    'street': 'ул. Большая Татарская',
-                    'house': '32',
-                    'apartment': '20',
-                    'postalCode': '115184',
-                }
+                'address': yandex_address
             },
             'cost': {
                 'manualDeliveryForCustomer': 0,
@@ -138,7 +172,7 @@ class YandexDeliveryPlugin:
             'deliveryOption': converted_option,
             'shipment': {
                 'type': 'WITHDRAW',
-                'date': timezone.now().date().isoformat(),
+                'date': cls.get_pickup_date(order.shop),
                 'warehouseFrom': settings.YANDEX_DELIVERY_WAREHOUSE_ID,
                 'partnerTo': optimal_option['shipments'][0]['partner']['id'],
             },
