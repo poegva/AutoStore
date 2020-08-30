@@ -7,7 +7,7 @@ from django.core.files.base import ContentFile
 from django.utils import timezone
 
 from delivery.models import Delivery
-from delivery.utils import convert_option_for_delivery_creation, get_dadata_suggest
+from delivery.utils import convert_option_for_delivery_creation, get_dadata_suggest, geo_distance
 from shop.models import Shop, Order
 from store import settings
 
@@ -36,16 +36,19 @@ class YandexDeliveryPlugin:
             log.error('Can\'t find address geoId')
             return None
 
+        address_components = {comp['kind']: comp['name'] for comp in yandex_address['addressComponents']}
+
         return {
             'geoId': yandex_address['geoId'],
-            'country': data['country'],
-            'region': data['region_with_type'],
-            'locality': data['settlement_with_type'] if data['settlement_with_type'] else data['city_with_type'],
+            'country': address_components['COUNTRY'],
+            'region': address_components['PROVINCE'],
+            'locality': address_components['LOCALITY'],
             'street': data['street_with_type'],
             'house': data['house'],
             'housing': data['block'] if data['block_type'] == 'к' else None,
             'building': data['block'] if data['block_type'] == 'стр' else None,
-            'apartment': data['flat']
+            'apartment': data['flat'],
+            'postalCode': data['postal_code'],
         }
 
     @classmethod
@@ -141,6 +144,33 @@ class YandexDeliveryPlugin:
         return None if len(result) == 0 else result[0]
 
     @classmethod
+    def get_closest_pickup(cls, delivery, pickup_ids, lat, lon):
+        data = {
+            'pickupPointIds': pickup_ids
+        }
+        response = requests.put(
+            cls.endpoint + '/pickup-points',
+            headers={
+                'Content-Type': 'application/json',
+                'Authorization': delivery.order.shop.yandex_oauth_token
+            },
+            data=json.dumps(data).encode('utf-8')
+        )
+
+        print(data)
+        print(response.json())
+
+        if response.status_code == 200:
+            result = response.json()
+            if len(result) > 0:
+                return min(
+                    result,
+                    key=lambda p: geo_distance(lat, lon, p['address']['latitude'], p['address']['longitude'])
+                )
+
+        return None
+
+    @classmethod
     def start_delivery(cls, delivery):
         order = delivery.order
 
@@ -157,13 +187,27 @@ class YandexDeliveryPlugin:
             log.error('Yandex address is None, can\'t start delivery')
             return
 
+        pickup_point = None
+
         if order.delivery_type in ('COURIER', 'DIRECT_COURIER'):
             yandex_delivery_type = 'COURIER'
         elif order.delivery_type == 'POST':
             yandex_delivery_type = 'POST'
+            pickup_point = cls.get_closest_pickup(
+                delivery,
+                optimal_option['pickupPointIds'],
+                dadata_suggestion['data']['geo_lat'],
+                dadata_suggestion['data']['geo_lon'],
+            )
         else:
             log.error('Unknown delivery type')
             return
+
+        name_parts = order.name.split()
+        if len(name_parts) == 2:
+            first_name, last_name = name_parts
+        else:
+            first_name, last_name = order.name, '-'
 
         data = {
             'senderId': settings.YANDEX_DELIVERY_CLIENT_ID,
@@ -171,10 +215,11 @@ class YandexDeliveryPlugin:
             'comment': f'Доставка по заказу {order.id}',
             'deliveryType': yandex_delivery_type,
             'recipient': {
-                'firstName': order.name,
-                'lastName': '-',
+                'firstName': first_name,
+                'lastName': last_name,
                 'email': order.email,
-                'address': yandex_address
+                'address': yandex_address,
+                'pickupPointId': pickup_point['id'],
             },
             'cost': {
                 'manualDeliveryForCustomer': 0,
@@ -186,8 +231,8 @@ class YandexDeliveryPlugin:
                 {
                     'type': 'RECIPIENT',
                     'phone': order.phone,
-                    'firstName': order.name,
-                    'lastName': '-'
+                    'firstName': first_name,
+                    'lastName': last_name,
                 }
             ],
             'deliveryOption': converted_option,
@@ -222,8 +267,6 @@ class YandexDeliveryPlugin:
             ]
         }
 
-        print(data)
-
         response = requests.post(
             cls.endpoint + '/orders',
             headers={
@@ -232,6 +275,8 @@ class YandexDeliveryPlugin:
             },
             data=json.dumps(data).encode('utf-8')
         )
+
+        log.warning(data)
 
         if response.status_code == 200:
             delivery.status = Delivery.DRAFT
@@ -271,6 +316,8 @@ class YandexDeliveryPlugin:
             else:
                 delivery.status = Delivery.ERROR
                 log.error(result)
+        else:
+            log.error(response.json())
 
         delivery.save(update_fields=['status'])
 
@@ -297,13 +344,13 @@ class YandexDeliveryPlugin:
                 delivery.save(update_fields=['status'])
                 return
 
-            is_loaded = 'DELIVERY_LOADED' in status_codes
+            is_created = 'CREATED' in status_codes
 
-            if is_loaded and delivery.status in [Delivery.DRAFT, Delivery.SUBMITED]:
+            if is_created and delivery.status in [Delivery.DRAFT, Delivery.SUBMITED]:
                 delivery.status = Delivery.APPROVED
                 delivery.save(update_fields=['status'])
             
-            if not bool(delivery.label) and is_loaded:
+            if not bool(delivery.label) and is_created:
                 label_response = requests.get(
                     cls.endpoint + f'/orders/{delivery.external_id}/label',
                     headers={

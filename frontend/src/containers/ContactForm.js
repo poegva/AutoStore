@@ -22,10 +22,12 @@ function ContactForm(props) {
             <GenericForm submit={props.submitContacts}>
                 <BasicField
                     id="name"
-                    label="Имя"
+                    label="Имя, Фамилия"
                     value={props.order.contacts.name}
                     setValue={props.setName}
                     required
+                    validate={(value) => value.split(' ').length === 2}
+                    validationText="Введите имя и фамилию"
                 />
                 <PhoneField
                     id="phone"
@@ -33,6 +35,7 @@ function ContactForm(props) {
                     value={props.order.contacts.phone}
                     setValue={props.setPhone}
                     required
+                    validate={(value) => value.replace(/\D/g, '').length === 11}
                 />
                 <BasicField
                     id="email"
