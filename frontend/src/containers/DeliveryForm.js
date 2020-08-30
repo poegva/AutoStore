@@ -24,12 +24,14 @@ function DeliveryForm(props) {
     }
 
     function submitOrder() {
+        console.log(props.order.deliveryOption);
         const orderData = {
             name: props.order.contacts.name,
             email: props.order.contacts.email,
             phone: props.order.contacts.phone,
-            address: props.order.address,
-            delivery_option: props.order.deliveryOption.type,
+            address: props.order.address.value,
+            delivery_type: props.order.deliveryOption.type,
+            delivery_extra: props.order.deliveryOption.option,
             items: Object.values(props.order.cart).map(item => convertItemToData(item))
         };
 
@@ -61,6 +63,7 @@ function DeliveryForm(props) {
                     setValue={props.setDeliveryOption}
                     itemsValue={props.order.cartTotal ?? 0}
                     options={[
+                        {type: "DIRECT_COURIER", name: "Экспресс-курьер"},
                         {type: "COURIER", name: "Курьер"},
                         {type: "POST", name: "Почта"},
                     ]}

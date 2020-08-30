@@ -84,7 +84,7 @@ function OrderDetails(props) {
             <Typography align="center">Имя: {props.order.name}</Typography>
             <Typography align="center">Телефон: {props.order.phone}</Typography>
             <Typography align="center">Email: {props.order.email}</Typography>
-            <Typography align="center">Адрес: {props.order.address.value}</Typography>
+            <Typography align="center">Адрес: {props.order.address}</Typography>
         </Box>
     )
 }
@@ -109,20 +109,17 @@ function OrderContent(props) {
 }
 
 function OrderInfo(props) {
-    function stateToText(status) {
-        switch(status) {
-            case 'WAITING_PAYMENT':
-                return 'Ожидание оплаты'
-            case 'PAYED':
-                return 'Оплачен'
-            default:
-                return status
-        }
+    const stateToText = {
+        WAITING_PAYMENT: 'Ожидание оплаты',
+        PAYED: 'Оплачен',
+        DELIVERY: 'В процессе доставки',
+        COMPLETED: 'Выполнен',
+        CANCELED: 'Отменен'
     }
 
     return (
         <Box>
-            <Typography align="center" paragraph>Статус: {stateToText(props.order.status)}</Typography>
+            <Typography align="center" paragraph>Статус: {stateToText[props.order.status]}</Typography>
             <Payment order={props.order} loadOrder={props.loadOrder} />
             <OrderDetails order={props.order} />
             <OrderContent order={props.order} />
@@ -144,7 +141,7 @@ function Order(props) {
             if (!error) {
                 if (!order) {
                     setError(true);
-                    console.log("Need to load shit");
+                    console.error("Order load not implemented");
                 } else {
                     if (!reloaded) {
                         props.loadOrder(id, order.token);
@@ -158,7 +155,6 @@ function Order(props) {
     React.useEffect(() => {
         const interval = setInterval(() => {
             if (order) {
-                console.log("Reloading order");
                 props.loadOrder(id, order.token);
             }
         }, 30000);

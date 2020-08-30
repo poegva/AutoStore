@@ -5,7 +5,6 @@ from django.db import transaction
 from payment.models import Payment
 from yandex_checkout import Configuration, Payment as YandexPayment
 
-from shop.models import Order
 from store import settings
 
 
@@ -14,8 +13,7 @@ def refresh_payment(payment):
     Configuration.configure(settings.YANDEX_CHECKOUT_CLIENT_ID, settings.YANDEX_CHECKOUT_SECRET_KEY)
     yandex_payment = YandexPayment.find_one(payment.yandex_id)
     if payment.status == Payment.PENDING and yandex_payment.status in (Payment.WAITING_FOR_CAPTURE, Payment.SUCCEEDED):
-        payment.order.status = Order.PAYED
-        payment.order.save(update_fields=['status'])
+        payment.order.set_payed()
     payment.status = yandex_payment.status
     if yandex_payment.cancellation_details:
         payment.cancellation_reason = yandex_payment.cancellation_details.reason

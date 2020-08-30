@@ -154,25 +154,6 @@ export function submitOrder(orderData, redirect) {
                     })
                 }
             })
-            /*.catch(error => {
-                console.log(error);
-                dispatch({
-                    type: UNSUBMIT_ORDER
-                })
-            })
-            .then(result => {
-                dispatch({
-                    type: ORDER_SUBMITTED,
-                    payload: result
-                });
-                redirect();
-            })
-            .catch(error => {
-                console.log(error);
-                dispatch({
-                    type: UNSUBMIT_ORDER
-                })
-            });*/
     };
 }
 

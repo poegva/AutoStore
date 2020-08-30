@@ -1,11 +1,13 @@
+import math
+
 from django.db import transaction
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import get_object_or_404
 from django.utils.crypto import get_random_string
 from rest_framework import serializers, viewsets
 from rest_framework.exceptions import ParseError, ValidationError
 from rest_framework.response import Response
 
-from delivery.utils import get_optimal_delivery
+from delivery.providers.yandex.plugin import YandexDeliveryPlugin
 from payment.utils import get_or_create_payment
 from shop.models import Shop, Item, Order, OrderItem
 
@@ -70,7 +72,8 @@ class OrderSerializer(serializers.HyperlinkedModelSerializer):
             'phone',
             'items',
             'address',
-            'delivery_option',
+            'delivery_type',
+            'delivery_extra',
             'token',
             'status',
             'payment',
@@ -106,9 +109,13 @@ class OrderViewSet(viewsets.ModelViewSet):
         if len(order_shops_ids) != 1:
             raise ValidationError('Больше одного магазина в заказе')
 
-        optimal_delivery = get_optimal_delivery(order.address['value'], order.delivery_option, order.items_cost)
-        order.delivery_cost = optimal_delivery['cost']['delivery'] if optimal_delivery else 0
-        order.shop_id = list(order_shops_ids)[0]
+        shop = Shop.objects.get(id__in=order_shops_ids)
+
+        optimal_delivery = YandexDeliveryPlugin.get_optimal_option(
+            shop, order.delivery_type, order.address, order.items_cost
+        )
+        order.delivery_cost = math.ceil(optimal_delivery['cost']['deliveryForSender']) if optimal_delivery else 0
+        order.shop = shop
         order.save(update_fields=['items_cost', 'delivery_cost', 'shop_id'])
 
         data = self.get_serializer(order).data

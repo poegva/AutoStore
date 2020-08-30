@@ -1,5 +1,10 @@
-from django.db import models
+import logging
+
+from django.db import models, transaction
 from django_extensions.db.models import TimeStampedModel
+
+
+log = logging.getLogger(__name__)
 
 
 class Shop(models.Model):
@@ -7,6 +12,26 @@ class Shop(models.Model):
     name = models.CharField(max_length=200, verbose_name='Название магазина')
 
     payment_max_time = models.PositiveIntegerField(null=True, blank=True, verbose_name='Время на оплату заказа')
+
+    NONE = 'NONE'
+    YANDEX = 'YANDEX_DELIVERY'
+    DELIVERY_PROIVDER_CHOICES = [
+        (NONE, 'Отсутствует'),
+        (YANDEX, 'Яндекс.Доставка'),
+    ]
+    delivery_provider = models.CharField(
+        max_length=20, choices=DELIVERY_PROIVDER_CHOICES, default=NONE, verbose_name='Провайдер доставки'
+    )
+
+    yandex_client_id = models.BigIntegerField(null=True, blank=True, verbose_name='ID клиента Яндекс.Доставки')
+    yandex_oauth_token = models.CharField(max_length=200, blank=True, verbose_name='OAuth токен Яндекс.Доставки')
+    yandex_warehouse_id = models.BigIntegerField(null=True, blank=True, verbose_name='ID склада Яндекс.Доставки')
+    yandex_warehouse_location = models.JSONField(null=True, blank=True, verbose_name='Адрес склада в Яндекс.Доставке')
+    yandex_dimensions = models.JSONField(null=True, blank=True, verbose_name='Габариты в Яндекс.Доставке')
+    yandex_pickup_deadline = models.TimeField(
+        default='21:00', blank=True, verbose_name='Дедлайн для отгрузки в текущий день'
+    )
+    yandex_direct_addcost = models.PositiveIntegerField(default=0, blank=True, verbose_name='Доп')
 
     def __str__(self):
         return self.name
@@ -27,14 +52,7 @@ class Item(models.Model):
         return f'{self.name} - {self.shop.name}'
 
 
-class OrderQuerySet(models.QuerySet):
-
-    def cancel(self):
-        self.update(status=Order.CANCELED)
-
-
 class Order(TimeStampedModel):
-    objects = models.Manager.from_queryset(OrderQuerySet)()
 
     shop = models.ForeignKey(Shop, on_delete=models.SET_NULL, null=True, blank=True, verbose_name='Магазин')
 
@@ -42,19 +60,22 @@ class Order(TimeStampedModel):
     email = models.EmailField(verbose_name='Почта покупателя', blank=True)
     phone = models.CharField(max_length=50, verbose_name='Телефон покупателя', blank=True)
 
-    address = models.JSONField(verbose_name='Адрес покупателя', null=True, blank=True)
+    address = models.CharField(max_length=500, null=True, blank=True, verbose_name='Адрес покупателя')
 
     NONE = 'NONE'
     COURIER = 'COURIER'
+    DIRECT_COURIER = 'DIRECT_COURIER'
     POST = 'POST'
-    DELIVERY_OPTION_CHOICES = [
+    DELIVERY_TYPE_CHOICES = [
         (NONE, 'Не выбрано'),
         (COURIER, 'Курьер'),
+        (DIRECT_COURIER, 'Прямой курьер'),
         (POST, 'Почта')
     ]
-    delivery_option = models.CharField(
-        max_length=7, choices=DELIVERY_OPTION_CHOICES, default=NONE, verbose_name='Способ доставки'
+    delivery_type = models.CharField(
+        max_length=20, choices=DELIVERY_TYPE_CHOICES, default=NONE, verbose_name='Способ доставки'
     )
+    delivery_extra = models.JSONField(null=True, blank=True, verbose_name='Дополнительная информация о доставке')
 
     CREATED = 'CREATED'
     WAITING_PAYMENT = 'WAITING_PAYMENT'
@@ -82,6 +103,29 @@ class Order(TimeStampedModel):
     @property
     def total_cost(self):
         return self.items_cost + self.delivery_cost
+
+    @transaction.atomic
+    def cancel(self, refund=False):
+        if self.status in (self.CANCELED, self.DELIVERY, self.COMPLETED):
+            log.warning(f'Attempt to cancel order {self.id} with invalid state')
+            return
+
+        for order_item in self.items.all():
+            order_item.item.shop_quantity += order_item.quantity
+            order_item.item.save(update_fields=['shop_quantity'])
+
+        if refund and self.status not in (self.CREATED, self.WAITING_PAYMENT):
+            log.warning(f'Need to refund order {self.id}')
+
+        self.status = self.CANCELED
+        self.save(update_fields=['status'])
+
+    def set_payed(self):
+        if self.status != self.WAITING_PAYMENT:
+            log.warning(f'Attempt to pay order {self.id} second time')
+
+        self.status = self.PAYED
+        self.save(update_fields=['status'])
 
     def __str__(self):
         return f'Заказ №{self.pk} ({self.name})'

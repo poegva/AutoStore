@@ -14,5 +14,5 @@ def cancel_unpayed_orders():
         shop__payment_max_time__isnull=False,
         created__lt=timezone.now() - timezone.timedelta(minutes=1) * F('shop__payment_max_time')
     )
-    print(f"Canceling {orders_to_cancel.count()} orders")
-    orders_to_cancel.cancel()
+    for order in orders_to_cancel:
+        order.cancel()

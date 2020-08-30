@@ -187,3 +187,8 @@ YANDEX_DELIVERY_DIMENSIONS = {
     'weight': 0.2
 }
 YANDEX_DELIVERY_API_ENDPOINT = 'https://api.delivery.yandex.ru'
+
+# Dadata
+
+DADATA_APIKEY = 'a5a96ecb3e6efff3f1ed26843783fc1599dd5546'
+DADATA_SECRET = '095540bfdc9c76dc95e57e3369b0b4dd9abea715'
