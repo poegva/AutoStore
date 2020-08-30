@@ -18,7 +18,7 @@ class CompleteView(viewsets.ViewSet):
             raise ParseError(detail='No address')
 
         ahunter_response = requests.get(
-            "http://ahunter.ru/site/suggest/address",
+            'http://ahunter.ru/site/suggest/address',
             params={'output': 'json', 'query': address}
         )
 
@@ -36,11 +36,15 @@ class OptionsView(viewsets.ViewSet):
         shop = Shop.objects.first()
 
         if shop.delivery_provider == Shop.YANDEX:
-            optimal_post = YandexDeliveryPlugin.get_optimal_option(shop, 'POST', address, value, sorting=True)
-            optimal_courier = YandexDeliveryPlugin.get_optimal_option(shop, 'COURIER', address, value, sorting=True)
+            delivery_types = YandexDeliveryPlugin.supported_types
+            delivery_options = {
+                delivery_type: YandexDeliveryPlugin.get_optimal_option(shop, delivery_type, address, value)
+                for delivery_type in delivery_types
+            }
             return Response({
-                'POST': convert_option(optimal_post) if optimal_post else None,
-                'COURIER': convert_option(optimal_courier) if optimal_courier else None,
+                delivery_type: convert_option(delivery_options[delivery_type], delivery_type)
+                for delivery_type in delivery_types
+                if delivery_options[delivery_type]
             })
         else:
             raise NotImplementedError

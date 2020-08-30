@@ -63,6 +63,7 @@ function DeliveryForm(props) {
                     setValue={props.setDeliveryOption}
                     itemsValue={props.order.cartTotal ?? 0}
                     options={[
+                        {type: "DIRECT_COURIER", name: "Экспресс-курьер"},
                         {type: "COURIER", name: "Курьер"},
                         {type: "POST", name: "Почта"},
                     ]}

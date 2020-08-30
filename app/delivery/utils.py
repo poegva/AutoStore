@@ -39,9 +39,12 @@ def delivery_date(min_date, max_date):
     return f'{min_date.day} {min_date.month} - {max_date.day} {max_date.month}'
 
 
-def convert_option(option):
+def convert_option(option, type):
     delivery_date_min = datetime.datetime.strptime(option['delivery']['calculatedDeliveryDateMin'], "%Y-%m-%d").date()
     delivery_date_max = datetime.datetime.strptime(option['delivery']['calculatedDeliveryDateMax'], "%Y-%m-%d").date()
+
+    if type == 'DIRECT_COURIER':
+        option['cost']['deliveryForSender'] += 300
 
     return {
         'cost': int(math.ceil(option['cost']['deliveryForSender'])),

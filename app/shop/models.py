@@ -31,6 +31,7 @@ class Shop(models.Model):
     yandex_pickup_deadline = models.TimeField(
         default='21:00', blank=True, verbose_name='Дедлайн для отгрузки в текущий день'
     )
+    yandex_direct_addcost = models.PositiveIntegerField(default=0, blank=True, verbose_name='Доп')
 
     def __str__(self):
         return self.name
@@ -63,14 +64,16 @@ class Order(TimeStampedModel):
 
     NONE = 'NONE'
     COURIER = 'COURIER'
+    DIRECT_COURIER = 'DIRECT_COURIER'
     POST = 'POST'
     DELIVERY_TYPE_CHOICES = [
         (NONE, 'Не выбрано'),
         (COURIER, 'Курьер'),
+        (DIRECT_COURIER, 'Прямой курьер'),
         (POST, 'Почта')
     ]
     delivery_type = models.CharField(
-        max_length=7, choices=DELIVERY_TYPE_CHOICES, default=NONE, verbose_name='Способ доставки'
+        max_length=20, choices=DELIVERY_TYPE_CHOICES, default=NONE, verbose_name='Способ доставки'
     )
     delivery_extra = models.JSONField(null=True, blank=True, verbose_name='Дополнительная информация о доставке')
 

@@ -1,7 +1,7 @@
 import math
 
 from django.db import transaction
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import get_object_or_404
 from django.utils.crypto import get_random_string
 from rest_framework import serializers, viewsets
 from rest_framework.exceptions import ParseError, ValidationError
@@ -112,8 +112,7 @@ class OrderViewSet(viewsets.ModelViewSet):
         shop = Shop.objects.get(id__in=order_shops_ids)
 
         optimal_delivery = YandexDeliveryPlugin.get_optimal_option(
-            shop, order.delivery_type, order.address, order.items_cost,
-            sorting=True
+            shop, order.delivery_type, order.address, order.items_cost
         )
         order.delivery_cost = math.ceil(optimal_delivery['cost']['deliveryForSender']) if optimal_delivery else 0
         order.shop = shop

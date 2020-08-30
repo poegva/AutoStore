@@ -20,22 +20,30 @@ class Delivery(models.Model):
 
     REQUESTED = 'REQUESTED'
     DRAFT = 'DRAFT'
-    CREATED = 'CREATED'
-    SHIPMENT_ORDERED = 'SHIPMENT_ORDERED'
+    SUBMITED = 'SUBMITED'
+    APPROVED = 'APPROVED'
     IN_DELIVERY = 'IN_DELIVERY'
     COMPLETED = 'COMPLETED'
+    ERROR = 'ERROR'
+    CANCELED = 'CANCELED'
     STATUS_CHOICES = [
         (REQUESTED, 'Запрошена'),
         (DRAFT, 'Черновик'),
-        (CREATED, 'Создана'),
-        (SHIPMENT_ORDERED, 'Заказана отгрузка'),
+        (SUBMITED, 'Оформлена'),
+        (APPROVED, 'Подтверждена'),
         (IN_DELIVERY, 'В доставке у провайдера'),
-        (COMPLETED, 'Выполнена')
+        (COMPLETED, 'Выполнена'),
+        (ERROR, 'Ошибка'),
+        (CANCELED, 'Отменена')
     ]
 
     status = models.CharField(
         max_length=25, choices=STATUS_CHOICES, default=REQUESTED, db_index=True, verbose_name='Статус доставки'
     )
+
+    shipment_partner = models.BigIntegerField(null=True, blank=True, db_index=True, verbose_name='Партнер отгрузки')
+
+    label = models.FileField(upload_to='labels', null=True, blank=True, verbose_name='Ярлык')
 
     def __str__(self):
         return f'Доставка по заказу {self.order_id} ({self.get_status_display()})'

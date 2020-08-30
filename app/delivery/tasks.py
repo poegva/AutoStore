@@ -46,3 +46,20 @@ def start_yandex_deliveries():
 def start_yandex_delivery(delivery_id):
     delivery = Delivery.objects.get(id=delivery_id)
     YandexDeliveryPlugin.start_delivery(delivery)
+
+
+@task()
+def submit_yandex_delivery_drafts():
+    deliveries_to_submit = Delivery.objects.filter(provider=Delivery.YANDEX, status=Delivery.DRAFT)
+    for delivery in deliveries_to_submit:
+        YandexDeliveryPlugin.submit_delivery(delivery)
+
+
+@task()
+def refresh_yandex_deliveries():
+    for delivery in (
+        Delivery.objects
+        .filter(provider=Delivery.YANDEX)
+        .exclude(status__in=[Delivery.REQUESTED, Delivery.CANCELED, Delivery.COMPLETED])
+    ):
+        YandexDeliveryPlugin.refresh_delivery(delivery)
