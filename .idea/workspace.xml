@@ -33,8 +33,6 @@
     <list default="true" id="47897e9c-1e32-4683-9b93-11bcf88e51a5" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/delivery/providers/yandex/plugin.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/delivery/providers/yandex/plugin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/delivery/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/delivery/utils.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/form/BasicField.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/form/BasicField.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/containers/ContactForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/containers/ContactForm.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -90,16 +88,16 @@
     <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/frontend/src/components/layout" />
-      <recent name="$PROJECT_DIR$/cabinet/src/containers" />
-      <recent name="$PROJECT_DIR$/app/frontend/src" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/app/static" />
       <recent name="$PROJECT_DIR$/cabinet/src/components" />
       <recent name="$PROJECT_DIR$/app" />
       <recent name="$PROJECT_DIR$/app/store" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/frontend/src/components/layout" />
+      <recent name="$PROJECT_DIR$/cabinet/src/containers" />
+      <recent name="$PROJECT_DIR$/app/frontend/src" />
     </key>
   </component>
   <component name="RunManager">
@@ -157,13 +155,12 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State>
-              <option name="COLUMN_ORDER" />
-            </State>
+            <State />
           </value>
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
     <state x="304" y="109" width="1071" height="848" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1598478957675">

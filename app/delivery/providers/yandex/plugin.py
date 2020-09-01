@@ -219,7 +219,7 @@ class YandexDeliveryPlugin:
                 'lastName': last_name,
                 'email': order.email,
                 'address': yandex_address,
-                'pickupPointId': pickup_point['id'],
+                'pickupPointId': pickup_point['id'] if pickup_point else None,
             },
             'cost': {
                 'manualDeliveryForCustomer': 0,
@@ -344,13 +344,8 @@ class YandexDeliveryPlugin:
                 delivery.save(update_fields=['status'])
                 return
 
-            is_created = 'CREATED' in status_codes
-
-            if is_created and delivery.status in [Delivery.DRAFT, Delivery.SUBMITED]:
-                delivery.status = Delivery.APPROVED
-                delivery.save(update_fields=['status'])
-            
-            if not bool(delivery.label) and is_created:
+            is_loaded = 'DELIVERY_LOADED' in status_codes
+            if not bool(delivery.label) and is_loaded:
                 label_response = requests.get(
                     cls.endpoint + f'/orders/{delivery.external_id}/label',
                     headers={
@@ -360,4 +355,8 @@ class YandexDeliveryPlugin:
 
                 if label_response.status_code == 200:
                     delivery.label.save(f'label_{delivery.id}.pdf', ContentFile(label_response.content))
-                    delivery.save(update_fields=['label'])
+                    if is_loaded and delivery.status in [Delivery.DRAFT, Delivery.SUBMITED]:
+                        delivery.status = Delivery.APPROVED
+                    delivery.save(update_fields=['label', 'status'])
+                else:
+                    log.error(f"Can't fetch label for delivery {delivery.id}")

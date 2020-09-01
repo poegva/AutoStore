@@ -14,6 +14,11 @@ function ContactForm(props) {
         return re.test(String(email).toLowerCase());
     }
 
+    function validateFullName(fullName) {
+        const split = fullName.split(' ');
+        return (split.length === 2 && split.every(elem => elem.length > 0));
+    }
+
     return (
         <Container style={{paddingTop: 20, paddingBottom: 20}}>
             <Typography component="h5" variant="h5" align="center" style={{paddingBottom: 40}}>
@@ -26,7 +31,7 @@ function ContactForm(props) {
                     value={props.order.contacts.name}
                     setValue={props.setName}
                     required
-                    validate={(value) => value.split(' ').length === 2}
+                    validate={validateFullName}
                     validationText="Введите имя и фамилию"
                 />
                 <PhoneField
@@ -43,7 +48,7 @@ function ContactForm(props) {
                     value={props.order.contacts.email}
                     setValue={props.setEmail}
                     required
-                    validate={(value) => validateEmail(value)}
+                    validate={validateEmail}
                 />
             </GenericForm>
         </Container>
