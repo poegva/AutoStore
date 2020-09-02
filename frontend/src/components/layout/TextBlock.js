@@ -24,15 +24,15 @@ export default function TextBlock(props) {
             }}
         >
             <Typography
-                variant={matches ? "h2" : "h4"}
+                variant="h2"
                 gutterBottom
                 align='center'
                 component="h2"
-                style={{paddingBottom: props.padding, fontWeight: "bold"}}
+                style={{paddingBottom: props.padding, fontWeight: "bold", fontSize: matches ? "5rem" : "3rem"}}
             >
                 {props.title}
             </Typography>
-            <Typography variant={matches ? "h4" : "h6"} gutterBottom align='center'>
+            <Typography variant={matches ? "h5" : "h6"} gutterBottom align='center' style={{maxWidth: matches ? "50%" : "90%"}}>
                 {props.subtitle}
             </Typography>
             {props.image ? (

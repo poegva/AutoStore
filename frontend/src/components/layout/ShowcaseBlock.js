@@ -3,9 +3,9 @@ import React from "react";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
-import Button from "@material-ui/core/Button";
 import {Link} from "react-router-dom";
 import makeStyles from "@material-ui/core/styles/makeStyles";
+import Button from "./Button";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -51,7 +51,7 @@ export default function ShowcaseBlock(props) {
                         <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center" >
                             <Box
                                 style={{
-                                    backgroundImage: `url(${item.image})`,
+                                    backgroundImage: `url(${window.location.protocol + "//" + window.location.hostname + item.image})`,
                                     width: "100%",
                                     backgroundSize: "cover",
                                     backgroundRepeat: "no-repeat",
@@ -67,20 +67,7 @@ export default function ShowcaseBlock(props) {
                     </Grid>
                 ))}
             </Grid>
-            <Button
-                size="large"
-                component={Link}
-                style={{
-                    backgroundColor: "black",
-                    color: "white",
-                    borderRadius: 25,
-                    margin: 20,
-                    paddingLeft: 40, paddingRight: 40, paddingTop: 10, paddingBottom: 10,
-                    maxWidth: 300
-                }}
-                href={props.buttonLink}
-                to={props.buttonLink}
-            >
+            <Button link={props.buttonLink}>
                 {props.buttonText}
             </Button>
         </Container>

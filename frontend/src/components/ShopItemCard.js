@@ -119,9 +119,10 @@ export default function ShopItemCard(props) {
     return (
         <Card style={{height: "100%", flexFlow: "column", display: "flex"}}>
             <CardMedia
-                image={props.item.image}
+                image={window.location.protocol + "//" + window.location.hostname + props.item.image}
                 title={props.item.name}
                 className={classes.media}
+                style={matches ? {} : {minHeight: 200}}
             />
             {content}
         </Card>

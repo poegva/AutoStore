@@ -71,7 +71,7 @@ export default function CartItemCard(props) {
         <Card className={classes.itemCard}>
             <CardMedia
                 className={classes.itemImage}
-                image={props.item.image}
+                image={window.location.protocol + "//" + window.location.hostname + props.item.image}
                 title={props.item.name}
             />
             <CardContent className={classes.itemContent} style={{padding: 16}}>

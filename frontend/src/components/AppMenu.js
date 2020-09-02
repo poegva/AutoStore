@@ -11,6 +11,8 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Container from "@material-ui/core/Container";
 import CartButton from "../containers/CartButton";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
 
 const useStyles = makeStyles((theme) => ({
     appLogo: {
@@ -38,7 +40,9 @@ export default function AppMenu(props) {
                 <AppBar position="static" style={{backgroundColor: "white", boxShadow: 'none', paddingTop: 20}} >
                     <Container>
                     <Toolbar style={{justifyContent: matches ? "flex-start" : "space-between"}}>
-                        <img src={props.image} className={classes.appLogo} alt=""/>
+                        <RouterLink to="/">
+                            <img src={props.image} className={classes.appLogo} alt=""/>
+                        </RouterLink>
                         <Box>
                             {props.sections.map((section) => (
                                 <Link
@@ -61,12 +65,21 @@ export default function AppMenu(props) {
     return (
         <AppBar position="sticky" style={{backgroundColor: "white", boxShadow: 'none'}} >
             <Toolbar style={{justifyContent: "space-between"}}>
-                <img src={props.image} className={classes.appLogo} alt=""/>
-                    <CartButton setCartOpen={props.setCartOpen}/>
-                    <MenuIcon style={{color: "black"}} fontSize="large" onClick={() => setOpen(true)}/>
-                <Drawer open={open} onClose={() => setOpen(false)}>
-                    <Box display="flex" flexDirection="column">
+                <RouterLink to="/">
+                    <img src={props.image} className={classes.appLogo} alt=""/>
+                </RouterLink>
+                <CartButton setCartOpen={props.setCartOpen}/>
+                <MenuIcon style={{color: "black"}} fontSize="large" onClick={() => setOpen(true)}/>
+                <Drawer
+                    open={open}
+                    onClose={() => setOpen(false)}
+                    PaperProps={{
+                        style: {width: "80%"}
+                    }}
+                >
+                    <List>
                         {props.sections.map((section) => (
+                            <ListItem>
                             <Link
                                 key={section.title}
                                 href={section.url}
@@ -77,10 +90,11 @@ export default function AppMenu(props) {
                             >
                                 {section.title}
                             </Link>
+                            </ListItem>
                         ))}
-                    </Box>
+                    </List>
                 </Drawer>
             </Toolbar>
         </AppBar>
-    )
+    );
 }

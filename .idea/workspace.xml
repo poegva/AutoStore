@@ -31,11 +31,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="47897e9c-1e32-4683-9b93-11bcf88e51a5" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/frontend/src/components/layout/Button.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/delivery/providers/yandex/plugin.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/delivery/providers/yandex/plugin.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/components/AppMenu.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/AppMenu.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/CartItemCard.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/CartItemCard.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/Home.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Home.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/ShopItemCard.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/ShopItemCard.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/layout/Button.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/layout/Button.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/components/layout/CarouselBlock.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/layout/CarouselBlock.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/layout/ShowcaseBlock.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/layout/ShowcaseBlock.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/layout/TextBlock.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/layout/TextBlock.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -90,16 +95,16 @@
     <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/frontend/src/components/layout" />
-      <recent name="$PROJECT_DIR$/cabinet/src/containers" />
-      <recent name="$PROJECT_DIR$/app/frontend/src" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/app/static" />
       <recent name="$PROJECT_DIR$/cabinet/src/components" />
       <recent name="$PROJECT_DIR$/app" />
       <recent name="$PROJECT_DIR$/app/store" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/frontend/src/components/layout" />
+      <recent name="$PROJECT_DIR$/cabinet/src/containers" />
+      <recent name="$PROJECT_DIR$/app/frontend/src" />
     </key>
   </component>
   <component name="RunManager">
@@ -157,13 +162,12 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State>
-              <option name="COLUMN_ORDER" />
-            </State>
+            <State />
           </value>
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
     <state x="304" y="109" width="1071" height="848" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1598478957675">
@@ -268,11 +272,11 @@
     </state>
     <state width="840" height="469" key="XDebugger.FullValuePopup/0.23.1680.939@0.23.1680.939" timestamp="1595257153443" />
     <state width="840" height="470" key="XDebugger.FullValuePopup/0.23.1680.941@0.23.1680.941" timestamp="1596928616415" />
-    <state x="498" y="251" width="754" height="680" key="find.popup" timestamp="1598707675424">
-      <screen x="0" y="23" width="1680" height="949" />
+    <state x="498" y="249" width="864" height="490" key="find.popup" timestamp="1599077202358">
+      <screen x="0" y="23" width="1680" height="941" />
     </state>
     <state x="498" y="249" width="683" height="486" key="find.popup/0.23.1680.939@0.23.1680.939" timestamp="1595015612775" />
-    <state x="498" y="249" width="864" height="490" key="find.popup/0.23.1680.941@0.23.1680.941" timestamp="1598357469797" />
+    <state x="498" y="249" width="864" height="490" key="find.popup/0.23.1680.941@0.23.1680.941" timestamp="1599077202358" />
     <state x="498" y="250" width="754" height="676" key="find.popup/0.23.1680.944@0.23.1680.944" timestamp="1598567572152" />
     <state x="498" y="251" width="754" height="680" key="find.popup/0.23.1680.949@0.23.1680.949" timestamp="1598707675424" />
     <state x="505" y="229" width="670" height="682" key="search.everywhere.popup" timestamp="1598274116804">

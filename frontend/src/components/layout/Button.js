@@ -12,7 +12,7 @@ export default function Button(props) {
                 color: "white",
                 borderRadius: 35,
                 margin: 20,
-                paddingLeft: 60, paddingRight: 60, paddingTop: 10, paddingBottom: 10,
+                paddingLeft: 40, paddingRight: 40, paddingTop: 10, paddingBottom: 10,
                 fontSize: "1.5rem",
             }}
             href={props.link}

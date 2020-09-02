@@ -32,7 +32,7 @@ export default function Home(props) {
             <ImageBlock image={imageblock} />
             <TextBlock
                 title={<text>300 затяжек <br /> в каждом девайсе</text>}
-                subtitle="В одном HQD поде находится 1,25 мл жидкости с солевой крепостью 50 мг"
+                subtitle="В одном HQD находится 1,25 мл жидкости с солевой крепостью 50 мг"
                 padding={40}
                 image={cigarettes}
                 buttonText="В магазин"
