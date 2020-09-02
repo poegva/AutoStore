@@ -335,10 +335,7 @@ class YandexDeliveryPlugin:
             result = response.json()
             status_codes = [s['code'] for s in result['statuses']]
 
-            print(result)
-
             canceled = 'CANCELLED' in status_codes
-
             if canceled:
                 delivery.status = Delivery.CANCELED
                 delivery.save(update_fields=['status'])
@@ -358,5 +355,3 @@ class YandexDeliveryPlugin:
                     if is_loaded and delivery.status in [Delivery.DRAFT, Delivery.SUBMITED]:
                         delivery.status = Delivery.APPROVED
                     delivery.save(update_fields=['label', 'status'])
-                else:
-                    log.error(f"Can't fetch label for delivery {delivery.id}")

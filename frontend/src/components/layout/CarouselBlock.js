@@ -3,12 +3,12 @@ import React from "react";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
-import Button from "@material-ui/core/Button";
 import {Link} from "react-router-dom";
 import SwipeableViews from 'react-swipeable-views';
 import { autoPlay, virtualize } from 'react-swipeable-views-utils';
 import { mod } from 'react-swipeable-views-core';
 import makeStyles from "@material-ui/core/styles/makeStyles";
+import Button from "./Button";
 
 const VirtualizeAutoPlaySwipeableViews = virtualize(autoPlay(SwipeableViews));
 
@@ -47,21 +47,25 @@ export default function CarouselBlock(props) {
         <Grid container>
             <Grid item xs={12} md={6} className={classes.carousel}>
                 <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center" height="100%">
-                    <Typography variant="h2" gutterBottom align='center' component="h2" style={{fontWeight: "bold"}}>{props.title}</Typography>
-                    <Typography variant="h4" gutterBottom align='center' component="h4">{props.subtitle}</Typography>
-                    <Button
-                        size="large"
-                        component={Link}
-                        style={{
-                            backgroundColor: "black",
-                            color: "white",
-                            borderRadius: 25,
-                            margin: 20,
-                            paddingLeft: 40, paddingRight: 40, paddingTop: 10, paddingBottom: 10
-                        }}
-                        href={props.buttonLink}
-                        to={props.buttonLink}
+                    <Typography
+                        variant="h2"
+                        gutterBottom
+                        align='center'
+                        component="h1"
+                        style={{fontWeight: "bold", fontSize: "5rem"}}
                     >
+                        {props.title}
+                    </Typography>
+                    <Typography
+                        variant="h4"
+                        gutterBottom
+                        align='center'
+                        component="h3"
+                        style={{fontWeight: "bold", fontSize: "2.5rem"}}
+                    >
+                        {props.subtitle}
+                    </Typography>
+                    <Button link={props.buttonLink}>
                         {props.buttonText}
                     </Button>
                 </Box>

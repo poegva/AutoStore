@@ -5,7 +5,7 @@ import useMediaQuery from "@material-ui/core/useMediaQuery";
 import useTheme from "@material-ui/core/styles/useTheme";
 import Box from "@material-ui/core/Box";
 import {Link} from "react-router-dom";
-import Button from "@material-ui/core/Button";
+import Button from "./Button";
 
 export default function TextBlock(props) {
     const theme = useTheme();
@@ -54,20 +54,7 @@ export default function TextBlock(props) {
                 </Box>
             ) : null}
             {props.buttonText ? (
-                <Button
-                    size="large"
-                    component={Link}
-                    style={{
-                        backgroundColor: "black",
-                        color: "white",
-                        borderRadius: 25,
-                        margin: 20,
-                        paddingLeft: 40, paddingRight: 40, paddingTop: 10, paddingBottom: 10,
-                        maxWidth: 200
-                    }}
-                    href={props.buttonLink}
-                    to={props.buttonLink}
-                >
+                <Button link={props.buttonLink}>
                     {props.buttonText}
                 </Button>
             ) : null}

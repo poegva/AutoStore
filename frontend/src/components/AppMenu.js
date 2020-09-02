@@ -35,7 +35,7 @@ export default function AppMenu(props) {
 
     if (matches) {
         return (
-                <AppBar position="static" style={{backgroundColor: "white", boxShadow: 'none'}} >
+                <AppBar position="static" style={{backgroundColor: "white", boxShadow: 'none', paddingTop: 20}} >
                     <Container>
                     <Toolbar style={{justifyContent: matches ? "flex-start" : "space-between"}}>
                         <img src={props.image} className={classes.appLogo} alt=""/>
