@@ -70,11 +70,7 @@ def get_dadata_suggest(address):
     dadata = Dadata(settings.DADATA_APIKEY, settings.DADATA_SECRET)
 
     try:
-        suggestions = dadata.suggest(name='address', query=address)
-        if len(suggestions) == 0:
-            return None
-        else:
-            return suggestions[0]
+        return dadata.suggest(name='address', query=address)
     except Exception as e:
         log.error('Dadata request exception ' + str(e))
         return None

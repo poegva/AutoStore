@@ -6,8 +6,11 @@ import {setEmail, setName, setPhone, submitContacts} from "../redux/actions/Orde
 import PhoneField from "../components/form/PhoneField";
 import GenericForm from "../components/form/GenericForm";
 import BasicField from "../components/form/BasicField";
+import CheckboxField from "../components/form/CheckboxField";
 
 function ContactForm(props) {
+
+    const [age, setAge] = React.useState(false);
 
     function validateEmail(email) {
         const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -49,6 +52,13 @@ function ContactForm(props) {
                     setValue={props.setEmail}
                     required
                     validate={validateEmail}
+                />
+                <CheckboxField
+                    id="age"
+                    label="Подтверждаю что мне есть 18 лет"
+                    value={age}
+                    setValue={setAge}
+                    required
                 />
             </GenericForm>
         </Container>

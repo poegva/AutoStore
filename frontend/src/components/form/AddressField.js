@@ -8,18 +8,11 @@ function suggestAddress(inputValue, callback) {
     fetch(suggestUrl)
         .then(result => result.json())
         .then(result => {
-            callback(result.suggestions.map(suggestion => {
+            callback(result.map(suggestion => {
                 return {
                     value: suggestion.value,
-                    hasCity: (
-                        suggestion.value.startsWith("г ") ||
-                        suggestion.value.includes(" г ") ||
-                        suggestion.value.includes(" д ") ||
-                        suggestion.value.includes(" п ") ||
-                        suggestion.value.includes(" с ")
-                    ),
-                    hasHouse: suggestion.value.includes(" дом "),
-                    postcode: suggestion.zip
+                    hasCity: suggestion.data.city || suggestion.data.settlement,
+                    hasHouse: suggestion.data.house != null
                 };
             }))
         });

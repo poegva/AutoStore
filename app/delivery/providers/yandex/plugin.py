@@ -178,10 +178,11 @@ class YandexDeliveryPlugin:
 
         converted_option = convert_option_for_delivery_creation(optimal_option)
 
-        dadata_suggestion = get_dadata_suggest(order.address)
-        if not dadata_suggestion:
-            log.error('Dadata returned None, can\'t start delivery')
+        dadata_suggest = get_dadata_suggest(order.address)
+        if not dadata_suggest or len(dadata_suggest) == 0:
+            log.error('Dadata returned nothing, can\'t start delivery')
             return
+        dadata_suggestion = dadata_suggest[0]
         yandex_address = cls.yandex_address_from_dadata(order.shop, dadata_suggestion)
         if not yandex_address:
             log.error('Yandex address is None, can\'t start delivery')
@@ -210,8 +211,8 @@ class YandexDeliveryPlugin:
             first_name, last_name = order.name, '-'
 
         data = {
-            'senderId': settings.YANDEX_DELIVERY_CLIENT_ID,
-            'externalId': order.id,
+            'senderId': order.shop.yandex_client_id,
+            'externalId': order.id if not settings.DEBUG else f'DEBUG_{order.id}',
             'comment': f'Доставка по заказу {order.id}',
             'deliveryType': yandex_delivery_type,
             'recipient': {
@@ -239,7 +240,7 @@ class YandexDeliveryPlugin:
             'shipment': {
                 'type': 'WITHDRAW',
                 'date': cls.get_shipment_date(order.shop),
-                'warehouseFrom': settings.YANDEX_DELIVERY_WAREHOUSE_ID,
+                'warehouseFrom': order.shop.yandex_warehouse_id,
                 'partnerTo': optimal_option['shipments'][0]['partner']['id'],
             },
             'places': [

@@ -6,7 +6,7 @@ from rest_framework.exceptions import ParseError
 from rest_framework.response import Response
 
 from delivery.providers.yandex.plugin import YandexDeliveryPlugin
-from delivery.utils import convert_option
+from delivery.utils import convert_option, get_dadata_suggest
 from shop.models import Shop
 
 
@@ -17,15 +17,8 @@ class CompleteView(viewsets.ViewSet):
         if not address:
             raise ParseError(detail='No address')
 
-        ahunter_response = requests.get(
-            'http://ahunter.ru/site/suggest/address',
-            params={'output': 'json', 'query': address}
-        )
-
-        if ahunter_response.status_code == 200:
-            return Response(ahunter_response.json())
-        else:
-            return Response(status=ahunter_response.status_code)
+        dadata_suggest = get_dadata_suggest(address)
+        return Response(dadata_suggest)
 
 
 class OptionsView(viewsets.ViewSet):

@@ -20,10 +20,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '@#z^7@6*+(+4_dkst!)#lna8g*+-fn2#e7!=jh9y)6j1pp&^b_'
+SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get("DEBUG", False)
 
 ALLOWED_HOSTS = ['*']
 
@@ -168,27 +168,14 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 # Yandex Checkout
 
-YANDEX_CHECKOUT_CLIENT_ID = '700410'
-YANDEX_CHECKOUT_SECRET_KEY = 'test_XbyGEojSENZukjDeWrl0M8Yppr9fEr03iqc8mDpVpRs'
+YANDEX_CHECKOUT_CLIENT_ID = os.environ.get('YANDEX_CHECKOUT_CLIENT_ID')
+YANDEX_CHECKOUT_SECRET_KEY = os.environ.get('YANDEX_CHECKOUT_SECRET_KEY')
 
 # Yandex Delivery
 
-YANDEX_DELIVERY_OAUTH_TOKEN = 'OAuth AgAAAABDt7svAAaJeBQNRE36jEfHi32Bl2XK5Lc'
-YANDEX_DELIVERY_CLIENT_ID = 500001942
-YANDEX_DELIVERY_WAREHOUSE_LOCATION = {
-    'location': 'г.Москва, ул. Складочная, д. 1',
-    'geoId': 213
-}
-YANDEX_DELIVERY_WAREHOUSE_ID = 10001565560
-YANDEX_DELIVERY_DIMENSIONS = {
-    'length': 26,
-    'height': 17,
-    'width': 8,
-    'weight': 0.2
-}
 YANDEX_DELIVERY_API_ENDPOINT = 'https://api.delivery.yandex.ru'
 
 # Dadata
 
-DADATA_APIKEY = 'a5a96ecb3e6efff3f1ed26843783fc1599dd5546'
-DADATA_SECRET = '095540bfdc9c76dc95e57e3369b0b4dd9abea715'
+DADATA_APIKEY = os.environ.get('DADATA_APIKEY')
+DADATA_SECRET = os.environ.get('DADATA_SECRET')
