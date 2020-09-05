@@ -1,5 +1,6 @@
 import logging
 
+from django.core.mail import send_mail
 from django.db import models, transaction
 from django_extensions.db.models import TimeStampedModel
 
@@ -32,6 +33,13 @@ class Shop(models.Model):
         default='21:00', blank=True, verbose_name='Дедлайн для отгрузки в текущий день'
     )
     yandex_direct_addcost = models.PositiveIntegerField(default=0, blank=True, verbose_name='Доп')
+
+    noreply_email_address = models.EmailField(null=True, blank=True, verbose_name='Рабочий email')
+    noreply_email_password = models.CharField(
+        max_length=200, null=True, blank=True, verbose_name='Пароль рабочего email'
+    )
+
+    url = models.CharField(max_length=200, null=True, blank=True, verbose_name='URL-адрес магазина')
 
     def __str__(self):
         return self.name
@@ -127,8 +135,10 @@ class Order(TimeStampedModel):
         self.status = self.PAYED
         self.save(update_fields=['status'])
 
+        OrderNotification.objects.create(order=self)
+
     def __str__(self):
-        return f'Заказ №{self.pk} ({self.name})'
+        return f'Заказ №{self.pk} ({self.name}) - {self.get_status_display()}'
 
 
 class OrderItem(models.Model):
@@ -138,3 +148,19 @@ class OrderItem(models.Model):
 
     def __str__(self):
         return f'{self.item} - {self.quantity} шт. ({self.order})'
+
+
+class OrderNotification(models.Model):
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, verbose_name='Заказ')
+
+    REQUESTED = 'REQUESTED'
+    SENT = 'SENT'
+    STATUS_CHOICES = [
+        (REQUESTED, 'Запрошено'),
+        (SENT, 'Отправлено')
+    ]
+
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default=REQUESTED, verbose_name='Статус')
+
+    def __str__(self):
+        return f'Уведомление по заказу {self.order_id} ({self.get_status_display()})'

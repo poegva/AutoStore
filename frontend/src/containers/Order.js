@@ -8,6 +8,7 @@ import Typography from "@material-ui/core/Typography";
 import CartItemCard from "../components/CartItemCard";
 import {loadOrder} from "../redux/actions/OrderActions";
 import DeliveryCard from "../components/DeliveryCard";
+import {useParams} from "react-router-dom";
 
 function PaymentWidget(props) {
     const [display, setDisplay] = React.useState(true);
@@ -128,23 +129,28 @@ function OrderInfo(props) {
 }
 
 function Order(props) {
-    const [error, setError] = React.useState(!props.order.lastOrderId);
-    const [reloaded, setReloaded] = React.useState(false);
+    const urlParams = new URLSearchParams(window.location.search);
+    let id = urlParams.get('id');
+    let token = urlParams.get('token');
 
-    const id = props.order.lastOrderId;
+    if (!id) {
+        id = props.order.lastOrderId;
+    }
     const order = props.order.orders[id];
+
+    const [error, setError] = React.useState(id ? false : "Заказ не найден");
+    const [reloaded, setReloaded] = React.useState(false);
 
     React.useEffect(() => {
         if (!error && !id) {
-            setError(true);
+            setError("Ошибка загрузки");
         } else {
             if (!error) {
                 if (!order) {
-                    setError(true);
-                    console.error("Order load not implemented");
+                    setError( "Заказ не найден");
                 } else {
                     if (!reloaded) {
-                        props.loadOrder(id, order.token);
+                        props.loadOrder(id, token ?? order.token);
                         setReloaded(true);
                     }
                 }
@@ -164,7 +170,7 @@ function Order(props) {
     let content = null;
 
     if (error) {
-        content = <ItemsLoading error />;
+        content = <ItemsLoading error errorText={error} />;
     } else {
         let subContent = null;
 

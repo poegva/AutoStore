@@ -135,8 +135,14 @@ STATICFILES_DIRS = [
 # Redirect to home URL after login (Default redirects to /accounts/profile/)
 LOGIN_REDIRECT_URL = '/'
 
-# Log emails to console
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# Email settings
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+EMAIL_HOST = 'smtp.yandex.ru'
+EMAIL_PORT = '465'
+EMAIL_USE_SSL = True
+EMAIL_HOST_USER = 'poegva2@yandex.ru'
+EMAIL_HOST_PASSWORD = 'xwzrfiniwdgvpeth'
 
 # Celery settings
 CELERY_BROKER_URL = 'redis://redis:6379/0'

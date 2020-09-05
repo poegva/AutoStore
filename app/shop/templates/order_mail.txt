@@ -1,0 +1,10 @@
+Здравствуйте, {{ first_name }}
+Благодарим за оформление заказа. Ваши товары уже готовятся к отправке.
+Отслеживать информацию по заказу можно по ссылке: https://hqdvape.ru/order?token={{order.token}}
+
+Состав заказа:
+{% for item in items %}
+{{ item.item.name }} - {{ item.quantity }}
+{% endfor %}
+
+Команда hqdvape
