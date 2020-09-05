@@ -22,6 +22,7 @@ class Delivery(models.Model):
     DRAFT = 'DRAFT'
     SUBMITED = 'SUBMITED'
     APPROVED = 'APPROVED'
+    IN_FULFILLMENT = 'IN_FULFILLMENT'
     IN_DELIVERY = 'IN_DELIVERY'
     COMPLETED = 'COMPLETED'
     ERROR = 'ERROR'
@@ -31,6 +32,7 @@ class Delivery(models.Model):
         (DRAFT, 'Черновик'),
         (SUBMITED, 'Оформлена'),
         (APPROVED, 'Подтверждена'),
+        (IN_FULFILLMENT, 'Передана в фулфиллмент'),
         (IN_DELIVERY, 'В доставке у провайдера'),
         (COMPLETED, 'Выполнена'),
         (ERROR, 'Ошибка'),

@@ -8,7 +8,6 @@ import Typography from "@material-ui/core/Typography";
 import CartItemCard from "../components/CartItemCard";
 import {loadOrder} from "../redux/actions/OrderActions";
 import DeliveryCard from "../components/DeliveryCard";
-import {useParams} from "react-router-dom";
 
 function PaymentWidget(props) {
     const [display, setDisplay] = React.useState(true);

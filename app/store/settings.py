@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'shop.apps.ShopConfig',
     'delivery.apps.DeliveryConfig',
     'payment.apps.PaymentConfig',
+    'fulfillment.apps.FulfillmentConfig',
 ]
 
 MIDDLEWARE = [
@@ -185,3 +186,8 @@ YANDEX_DELIVERY_API_ENDPOINT = 'https://api.delivery.yandex.ru'
 
 DADATA_APIKEY = os.environ.get('DADATA_APIKEY')
 DADATA_SECRET = os.environ.get('DADATA_SECRET')
+
+# Fulfillment
+
+FULFILLMENT_EMAIL = os.environ.get('FULFILLMENT_EMAIL')
+FULFILLMENT_PASSWORD = os.environ.get('FULFILLMENT_PASSWORD')

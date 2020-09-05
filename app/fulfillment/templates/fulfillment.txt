@@ -1,0 +1,10 @@
+Здравствуйте!
+
+Запрошена сборка заказа {{order.id}} для HQD Russia.
+
+Содержимое заказа:
+{% for item in items %}
+{{ item.item.name }} - {{ item.quantity }} шт.
+{% endfor %}
+
+Ярлык заказа приложен к письму.

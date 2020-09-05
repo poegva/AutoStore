@@ -41,6 +41,8 @@ class Shop(models.Model):
 
     url = models.CharField(max_length=200, null=True, blank=True, verbose_name='URL-адрес магазина')
 
+    warehouse_email = models.CharField(max_length=200, null=True, blank=True, verbose_name='Email склада')
+
     def __str__(self):
         return self.name
 
