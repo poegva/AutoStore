@@ -1,69 +1,11 @@
-import datetime
 import logging
-from math import sin, cos, sqrt, atan2, radians, ceil
-
-from django.utils import timezone
+from math import sin, cos, sqrt, atan2, radians
 
 from dadata import Dadata
 
 from store import settings
 
 log = logging.getLogger(__name__)
-
-months = [
-    'ничего',
-    'января',
-    'февраля',
-    'марта',
-    'апреля',
-    'мая',
-    'июня',
-    'июля',
-    'августа',
-    'сентября',
-    'октября',
-    'ноября',
-    'декабря'
-]
-
-
-def delivery_date(min_date, max_date):
-    if max_date == timezone.now().date():
-        return 'cегодня'
-    if max_date == (timezone.now() + timezone.timedelta(days=1)).date():
-        return 'завтра'
-    if min_date == max_date:
-        return f'{max_date.day} {months[max_date.month]}'
-    if min_date.month == max_date.month:
-        return f'{min_date.day}-{max_date.day} {months[max_date.month]}'
-    return f'{min_date.day} {min_date.month} - {max_date.day} {max_date.month}'
-
-
-def convert_option(option, type):
-    delivery_date_min = datetime.datetime.strptime(option['delivery']['calculatedDeliveryDateMin'], "%Y-%m-%d").date()
-    delivery_date_max = datetime.datetime.strptime(option['delivery']['calculatedDeliveryDateMax'], "%Y-%m-%d").date()
-
-    if type == 'DIRECT_COURIER':
-        option['cost']['deliveryForSender'] += 300
-
-    return {
-        'cost': int(ceil(option['cost']['deliveryForSender'])),
-        'tariff': option['tariffId'],
-        'partner': option['delivery']['partner']['id'],
-        'date': delivery_date(delivery_date_min, delivery_date_max)
-    }
-
-
-def convert_option_for_delivery_creation(option):
-    return {
-        'tariffId': option['tariffId'],
-        'partnerId': option['delivery']['partner']['id'],
-        'delivery': option['cost']['deliveryForSender'],
-        'deliveryForCustomer': option['cost']['deliveryForCustomer'],
-        'calculatedDeliveryDateMin': option['delivery']['calculatedDeliveryDateMin'],
-        'calculatedDeliveryDateMax': option['delivery']['calculatedDeliveryDateMax'],
-        'services': option['services']
-    }
 
 
 def get_dadata_suggest(address):

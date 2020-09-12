@@ -1,16 +1,12 @@
-import json
 import logging
 
-import requests
 from celery.task import task
 from django.db import transaction
-from django.utils import timezone
 
-from delivery.models import Delivery
-from delivery.providers.yandex.plugin import YandexDeliveryPlugin
-from shop.models import Order, Shop
-from store import settings
-
+from delivery.models import Delivery, Address, Recipient, Package, MANUAL
+from delivery.providers import PROVIDERS
+from delivery.providers.yandex import YandexDeliveryPlugin
+from shop.models import Order
 
 log = logging.getLogger(__name__)
 
@@ -26,40 +22,69 @@ def request_deliveries():
 @transaction.atomic
 def request_delivery_for_order(order_id):
     order = Order.objects.get(id=order_id)
-    Delivery.objects.create(order=order, provider=order.shop.delivery_provider, status=Delivery.REQUESTED)
+
+    if order.status != Order.PAYED or hasattr(order, 'delivery'):
+        log.warning(f'Requesting delivery second time for order {order.id}')
+        return
+
+    delivery_type = order.shop.delivery_types.get(code=order.delivery_type)
+
+    to = Address.objects.get_or_create(order.address)
+
+    first_name, last_name = order.name.split()[:2]
+    recipient = Recipient.objects.create(
+        first_name=first_name,
+        last_name=last_name,
+        phone=order.phone,
+        email=order.email,
+    )
+
+    package = Package.objects.filter(shop=order.shop).first()
+
+    Delivery.objects.create(
+        order=order,
+        type=delivery_type,
+        to=to,
+        recipient=recipient,
+        package=package,
+        cost=order.delivery_cost
+    )
+
     order.status = Order.DELIVERY
     order.save(update_fields=['status'])
 
 
 @task()
-def start_yandex_deliveries():
+def submit_deliveries():
     deliveries_to_start_ids = (
         Delivery.objects
-        .filter(provider=Delivery.YANDEX, status=Delivery.REQUESTED)
+        .filter(status=Delivery.REQUESTED)
+        .exclude(type__provider=MANUAL)
         .values_list('id', flat=True)
     )
     for delivery_id in deliveries_to_start_ids:
-        start_yandex_delivery.delay(delivery_id)
+        submit_delivery.delay(delivery_id)
 
 
 @task()
-def start_yandex_delivery(delivery_id):
+def submit_delivery(delivery_id):
     delivery = Delivery.objects.get(id=delivery_id)
-    YandexDeliveryPlugin.start_delivery(delivery)
+    PROVIDERS[delivery.type.provider].submit_delivery(delivery)
 
 
 @task()
-def submit_yandex_delivery_drafts():
-    deliveries_to_submit = Delivery.objects.filter(provider=Delivery.YANDEX, status=Delivery.DRAFT)
-    for delivery in deliveries_to_submit:
-        YandexDeliveryPlugin.submit_delivery(delivery)
-
-
-@task()
-def refresh_yandex_deliveries():
-    for delivery in (
+def refresh_deliveries():
+    for delivery_id in (
         Delivery.objects
-        .filter(provider=Delivery.YANDEX)
+        .exclude(type__isnull=True)
+        .exclude(type__provider=MANUAL)
         .exclude(status__in=[Delivery.REQUESTED, Delivery.CANCELED, Delivery.COMPLETED])
+        .values_list('id', flat=True)
     ):
-        YandexDeliveryPlugin.refresh_delivery(delivery)
+        refresh_delivery.delay(delivery_id)
+
+
+@task()
+def refresh_delivery(delivery_id):
+    delivery = Delivery.objects.get(id=delivery_id)
+    PROVIDERS[delivery.type.provider].refresh_delivery(delivery)

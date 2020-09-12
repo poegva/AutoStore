@@ -11,20 +11,8 @@ import Box from "@material-ui/core/Box";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
 function OptionCard(props) {
-
     let description = <Typography variant="body2">Недоступно</Typography>
 
-
-    if (props.loading) {
-        description = (
-            <Box display="flex" flexDirection="column" justifyContent="center">
-                <Box display="flex" style={{paddingTop: 9, paddingBottom: 9}}>
-                    <CircularProgress size={18} />
-                    <Typography style={{paddingLeft: 10}} variant="body2">Загрузка...</Typography>
-                </Box>
-            </Box>
-        );
-    }
     if (props.option) {
         description = (
             <Box display="flex" flexDirection="column">
@@ -32,6 +20,24 @@ function OptionCard(props) {
                 <Typography variant="body2">Дата доставки: {props.option.date}</Typography>
             </Box>
         )
+    } else {
+        let text = "Недоступно";
+        let loading = false;
+        if (!props.hasCity) {
+            text = "Введите город";
+        } else if (!props.hasOptions) {
+            text = "Загрузка...";
+            loading = true;
+        }
+
+        description = (
+            <Box display="flex" flexDirection="column" justifyContent="center">
+                <Box display="flex" style={{paddingTop: 9, paddingBottom: 9}}>
+                    {loading ? <CircularProgress size={18} /> : null}
+                    <Typography style={{paddingLeft: 10}} variant="body2">{text}</Typography>
+                </Box>
+            </Box>
+        );
     }
 
     return (
@@ -43,7 +49,7 @@ function OptionCard(props) {
 }
 
 function fetchOptions(address, itemsValue, callback) {
-    const optionsEndpoint = window.location.protocol + "//" + window.location.hostname + "/api/delivery/options/"
+    const optionsEndpoint = window.location.protocol + "//" + window.location.hostname + "/api/delivery/options/";
 
     fetch(optionsEndpoint + `?value=${itemsValue}&address=${address.value}`)
         .then(r => r.json())
@@ -52,6 +58,7 @@ function fetchOptions(address, itemsValue, callback) {
 
 export default function DeliveryOptionField(props) {
     const [hasCity, setHasCity] = React.useState(false);
+    const [types, setTypes] = React.useState(null);
     const [options, setOptions] = React.useState(null);
 
     const getOptions = React.useMemo(
@@ -59,6 +66,13 @@ export default function DeliveryOptionField(props) {
             throttle((address, itemsValue, callback) => fetchOptions(address, itemsValue, callback), 2000),
         [],
     );
+
+    React.useEffect(() => {
+        if (types == null) {
+            const typesEndpoint =  window.location.protocol + "//" + window.location.hostname + "/api/delivery/types";
+            fetch(typesEndpoint).then(r => r.json()).then(r => setTypes(r));
+        }
+    })
 
     React.useEffect(() => {
         if (props.address && props.address.hasCity) {
@@ -88,21 +102,22 @@ export default function DeliveryOptionField(props) {
                     props.setValue({
                         type: event.target.value,
                         option: options[event.target.value],
-                        name: props.options.find(option => option.type === event.target.value).name
+                        name: types.find(type => type.code === event.target.value).name
                     });
                 }}
             >
-                {props.options.map(option => {
+                {types != null ? types.map(type => {
                     return (
                         <OptionCard
-                            option={options ? options[option.type] : null}
-                            name={option.name}
-                            value={option.type}
-                            loading={hasCity && options == null}
-                            key={option.type}
+                            option={options ? options[type.code] : null}
+                            name={type.name}
+                            value={type.code}
+                            hasCity={hasCity}
+                            hasOptions={options != null}
+                            key={type.code}
                         />
                     );
-                })}
+                }) : null}
             </RadioGroup>
             <FormHelperText error>{props.helperText}</FormHelperText>
         </FormControl>

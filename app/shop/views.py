@@ -4,10 +4,12 @@ from django.db import transaction
 from django.shortcuts import get_object_or_404
 from django.utils.crypto import get_random_string
 from rest_framework import serializers, viewsets
-from rest_framework.exceptions import ParseError, ValidationError
+from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
 
-from delivery.providers.yandex.plugin import YandexDeliveryPlugin
+from delivery.models import Address
+from delivery.providers import PROVIDERS
+from delivery.providers.yandex import YandexDeliveryPlugin
 from payment.utils import get_or_create_payment
 from shop.models import Shop, Item, Order, OrderItem
 
@@ -96,30 +98,22 @@ class OrderViewSet(viewsets.ModelViewSet):
         item_serializer.is_valid(raise_exception=True)
         order_items = item_serializer.save(order=order)
 
-        order_shops_ids = set()
-
+        order.items_cost = 0
         for order_item in order_items:
-            order_shops_ids.add(order_item.item.shop_id)
-
             order.items_cost += order_item.quantity * order_item.item.price
-
             order_item.item.shop_quantity -= order_item.quantity
             order_item.item.save(update_fields=['shop_quantity'])
 
-        if len(order_shops_ids) != 1:
-            raise ValidationError('Больше одного магазина в заказе')
+        shop = Shop.objects.get()
+        delivery_type = shop.delivery_types.get(code=order.delivery_type)
+        to = Address.objects.get_or_create(order.address)
 
-        shop = Shop.objects.get(id__in=order_shops_ids)
-
-        optimal_delivery = YandexDeliveryPlugin.get_optimal_option(
-            shop, order.delivery_type, order.address, order.items_cost
-        )
-        order.delivery_cost = math.ceil(optimal_delivery['cost']['deliveryForSender']) if optimal_delivery else 0
+        optimal_delivery = PROVIDERS[delivery_type.provider].get_optimal(delivery_type, to, order.items_cost)
+        order.delivery_cost = math.ceil(optimal_delivery.cost)
         order.shop = shop
         order.save(update_fields=['items_cost', 'delivery_cost', 'shop_id'])
 
         data = self.get_serializer(order).data
-
         return Response(data, status=200)
 
     def retrieve(self, request, pk=None, *args, **kwargs):

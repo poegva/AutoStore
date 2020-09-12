@@ -72,18 +72,8 @@ class Order(TimeStampedModel):
 
     address = models.CharField(max_length=500, null=True, blank=True, verbose_name='Адрес покупателя')
 
-    NONE = 'NONE'
-    COURIER = 'COURIER'
-    DIRECT_COURIER = 'DIRECT_COURIER'
-    POST = 'POST'
-    DELIVERY_TYPE_CHOICES = [
-        (NONE, 'Не выбрано'),
-        (COURIER, 'Курьер'),
-        (DIRECT_COURIER, 'Прямой курьер'),
-        (POST, 'Почта')
-    ]
     delivery_type = models.CharField(
-        max_length=20, choices=DELIVERY_TYPE_CHOICES, default=NONE, verbose_name='Способ доставки'
+        max_length=50, null=True, verbose_name='Способ доставки'
     )
     delivery_extra = models.JSONField(null=True, blank=True, verbose_name='Дополнительная информация о доставке')
 
@@ -130,15 +120,6 @@ class Order(TimeStampedModel):
         self.status = self.CANCELED
         self.save(update_fields=['status'])
 
-    def set_payed(self):
-        if self.status != self.WAITING_PAYMENT:
-            log.warning(f'Attempt to pay order {self.id} second time')
-
-        self.status = self.PAYED
-        self.save(update_fields=['status'])
-
-        OrderNotification.objects.create(order=self)
-
     def __str__(self):
         return f'Заказ №{self.pk} ({self.name}) - {self.get_status_display()}'
 
@@ -153,7 +134,7 @@ class OrderItem(models.Model):
 
 
 class OrderNotification(models.Model):
-    order = models.ForeignKey(Order, on_delete=models.CASCADE, verbose_name='Заказ')
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='notifications', verbose_name='Заказ')
 
     REQUESTED = 'REQUESTED'
     SENT = 'SENT'

@@ -11,8 +11,10 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+import datetime
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
@@ -181,6 +183,7 @@ YANDEX_CHECKOUT_SECRET_KEY = os.environ.get('YANDEX_CHECKOUT_SECRET_KEY')
 # Yandex Delivery
 
 YANDEX_DELIVERY_API_ENDPOINT = 'https://api.delivery.yandex.ru'
+YANDEX_DELIVERY_SHIPMENT_DEADLINE = datetime.time(hour=20)  # 1-hour interval to assure stability
 
 # Dadata
 

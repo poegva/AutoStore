@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
 
-from delivery.views import CompleteView, OptionsView
+from delivery.views import CompleteView, OptionsView, TypesView
 
 from shop.views import ItemViewSet, OrderViewSet
 from store import settings
@@ -30,6 +30,7 @@ api_router.register(r'orders', OrderViewSet)
 
 api_router.register(r'delivery/complete', CompleteView, basename='complete')
 api_router.register(r'delivery/options', OptionsView, basename='options')
+api_router.register(r'delivery/types', TypesView, basename='types')
 
 urlpatterns = static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + [
     path('admin/', admin.site.urls),
