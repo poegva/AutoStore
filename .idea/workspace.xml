@@ -31,21 +31,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="47897e9c-1e32-4683-9b93-11bcf88e51a5" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/delivery/templates/shipment.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/delivery/templates/shipment.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/store/utils.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/delivery/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/delivery/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/delivery/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/delivery/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/delivery/providers/base.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/delivery/providers/base.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/delivery/providers/yandex.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/delivery/providers/yandex.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/delivery/tasks.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/delivery/tasks.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/fulfillment/tasks.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/fulfillment/tasks.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/fulfillment/templates/fulfillment.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/fulfillment/templates/fulfillment.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/shop/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/shop/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/shop/tasks.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/shop/tasks.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/shop/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/shop/utils.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/Home.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Home.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/store/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/store/settings.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -173,12 +160,13 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
     <state x="304" y="109" width="1071" height="848" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1598478957675">
