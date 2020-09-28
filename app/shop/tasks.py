@@ -1,11 +1,9 @@
-
 from celery.task import task
-from django.core.mail import send_mail
 from django.db.models import F
 from django.utils import timezone
 
 from shop.models import Order, OrderNotification
-from shop.utils import send_template_mail
+from store.utils import send_template_mail
 
 
 @task()

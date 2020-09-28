@@ -1,6 +1,6 @@
 from math import ceil
 
-from delivery.models import Address, DeliveryType, Delivery
+from delivery.models import Address, DeliveryType, Delivery, Shipment
 from shop.models import Shop
 
 
@@ -38,5 +38,9 @@ class ProviderPluginBase:
         pass
 
     @classmethod
-    def refresh_shipments(cls):
+    def request_shipments(cls):
+        pass
+
+    @classmethod
+    def refresh_shipment(cls, shipment: Shipment):
         pass

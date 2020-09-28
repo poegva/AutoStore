@@ -2,7 +2,7 @@ from celery.task import task
 
 from delivery.models import Delivery
 from fulfillment.models import Fulfillment
-from shop.utils import send_template_mail
+from store.utils import send_template_mail
 from store import settings
 
 

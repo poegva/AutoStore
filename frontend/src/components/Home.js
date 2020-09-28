@@ -5,7 +5,6 @@ import ImageBlock from "./layout/ImageBlock";
 import TextBlock from "./layout/TextBlock";
 import BatteryChargingFullIcon from '@material-ui/icons/BatteryChargingFull';
 import DriveEtaIcon from '@material-ui/icons/DriveEta';
-import AppleIcon from '@material-ui/icons/Apple';
 import PerksBlock from "./layout/PerksBlock";
 import ShowcaseBlock from "./layout/ShowcaseBlock";
 import FooterBlock from "./layout/FooterBlock";
@@ -16,6 +15,8 @@ import hqdfront3 from "../hqdfront3.png";
 import imageblock from "../imageblock.jpg";
 import cigarettes from "../cigarettes.png";
 import imageblock2 from "../imageblock2.jpg";
+import {ReactComponent as pineapple} from "../pineapple.svg";
+import SvgIcon from "@material-ui/core/SvgIcon";
 
 
 export default function Home(props) {
@@ -43,7 +44,7 @@ export default function Home(props) {
                 title="HQD - это просто и вкусно"
                 perks={[
                     {
-                        icon: <AppleIcon style={{fontSize: 60}} />,
+                        icon: <SvgIcon component={pineapple} viewBox="0 0 525 525" style={{fontSize: 60}} />,
                         iconColor: "gold",
                         title: "Много вкусов",
                         description: "У нас в магазине вы найдете самые редкие и яркие вкусы."

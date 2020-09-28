@@ -14,26 +14,6 @@ class Shop(models.Model):
 
     payment_max_time = models.PositiveIntegerField(null=True, blank=True, verbose_name='Время на оплату заказа')
 
-    NONE = 'NONE'
-    YANDEX = 'YANDEX_DELIVERY'
-    DELIVERY_PROIVDER_CHOICES = [
-        (NONE, 'Отсутствует'),
-        (YANDEX, 'Яндекс.Доставка'),
-    ]
-    delivery_provider = models.CharField(
-        max_length=20, choices=DELIVERY_PROIVDER_CHOICES, default=NONE, verbose_name='Провайдер доставки'
-    )
-
-    yandex_client_id = models.BigIntegerField(null=True, blank=True, verbose_name='ID клиента Яндекс.Доставки')
-    yandex_oauth_token = models.CharField(max_length=200, blank=True, verbose_name='OAuth токен Яндекс.Доставки')
-    yandex_warehouse_id = models.BigIntegerField(null=True, blank=True, verbose_name='ID склада Яндекс.Доставки')
-    yandex_warehouse_location = models.JSONField(null=True, blank=True, verbose_name='Адрес склада в Яндекс.Доставке')
-    yandex_dimensions = models.JSONField(null=True, blank=True, verbose_name='Габариты в Яндекс.Доставке')
-    yandex_pickup_deadline = models.TimeField(
-        default='21:00', blank=True, verbose_name='Дедлайн для отгрузки в текущий день'
-    )
-    yandex_direct_addcost = models.PositiveIntegerField(default=0, blank=True, verbose_name='Доп')
-
     noreply_email_address = models.EmailField(null=True, blank=True, verbose_name='Рабочий email')
     noreply_email_password = models.CharField(
         max_length=200, null=True, blank=True, verbose_name='Пароль рабочего email'

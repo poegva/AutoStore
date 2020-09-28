@@ -70,20 +70,6 @@ class Address(models.Model):
         return self.value
 
 
-class Warehouse(models.Model):
-    name = models.CharField(max_length=200, null=True, blank=True, verbose_name='Название')
-    shop = models.OneToOneField('shop.Shop', on_delete=models.CASCADE, verbose_name='Магазин')
-
-    address = models.ForeignKey(Address, null=True, on_delete=models.SET_NULL, verbose_name='Адрес')
-
-    email = models.EmailField(null=True, blank=True, verbose_name='Почтовый адрес')
-
-    extra = models.JSONField(default=get_empty_dict, blank=True, verbose_name='Дополнительная информация')
-
-    def __str__(self):
-        return f'Склад магазина {self.shop}'
-
-
 class DeliveryProviderConfiguration(models.Model):
     shop = models.ForeignKey('shop.Shop', on_delete=models.CASCADE, verbose_name='Магазин')
     provider = models.CharField(max_length=20, choices=PROVIDER_CHOICES, default=MANUAL, verbose_name='Тип провайдера')
@@ -106,11 +92,13 @@ class DeliveryType(models.Model):
 
     provider = models.CharField(max_length=20, choices=PROVIDER_CHOICES, default=MANUAL, verbose_name='Тип провайдера')
 
+    added_price_percent = models.PositiveIntegerField(default=0, verbose_name='Дополнительная стоимость в процентах')
+    added_price_fixed = models.PositiveIntegerField(default=0, verbose_name='Дополнительная стоимость в рублях')
+
     NO_TYPE = 'NO_TYPE'
     POST = 'POST'
     COURIER = 'COURIER'
     PICKUP = 'PICKUP'
-
     TYPE_CHOICES = [
         (NO_TYPE, 'Нет типа'),
         (POST, 'Почта'),
@@ -170,7 +158,7 @@ class Delivery(models.Model):
     package = models.ForeignKey(Package, on_delete=models.SET_NULL, null=True, verbose_name='Упаковка')
 
     REQUESTED = 'REQUESTED'
-    SUBMITED = 'SUBMITED'
+    SUBMITTED = 'SUBMITTED'
     APPROVED = 'APPROVED'
     IN_FULFILLMENT = 'IN_FULFILLMENT'
     IN_DELIVERY = 'IN_DELIVERY'
@@ -179,7 +167,7 @@ class Delivery(models.Model):
     CANCELED = 'CANCELED'
     STATUS_CHOICES = [
         (REQUESTED, 'Запрошена'),
-        (SUBMITED, 'Оформлена'),
+        (SUBMITTED, 'Оформлена'),
         (APPROVED, 'Подтверждена'),
         (IN_FULFILLMENT, 'Передана в фулфиллмент'),
         (IN_DELIVERY, 'В доставке у провайдера'),
@@ -192,7 +180,9 @@ class Delivery(models.Model):
         max_length=25, choices=STATUS_CHOICES, default=REQUESTED, db_index=True, verbose_name='Статус доставки'
     )
 
-    external_id = models.BigIntegerField(null=True, blank=True, db_index=True, verbose_name='ID в системе провайдера')
+    external_id = models.BigIntegerField(
+        null=True, blank=True, unique=True, db_index=True, verbose_name='ID в системе провайдера'
+    )
     cost = models.PositiveIntegerField(default=0, verbose_name='Стоимость')
     label = models.FileField(upload_to='labels', null=True, blank=True, verbose_name='Ярлык')
 
@@ -200,3 +190,40 @@ class Delivery(models.Model):
 
     def __str__(self):
         return f'Доставка по заказу {self.order_id} ({self.get_status_display()})'
+
+
+class Shipment(models.Model):
+    provider = models.CharField(max_length=20, choices=PROVIDER_CHOICES, default=MANUAL, verbose_name='Провайдер')
+    shop = models.ForeignKey('shop.Shop', on_delete=models.SET_NULL, null=True, verbose_name='Магазин')
+    date = models.DateField(verbose_name='Дата отгрузки')
+
+    external_id = models.BigIntegerField(
+        null=True, blank=True, unique=True, db_index=True, verbose_name='ID в системе провайдера'
+    )
+    destination_id = models.BigIntegerField(
+        null=True, blank=True, verbose_name='ID партнера назначения'
+    )
+
+    REQUESTED = 'REQUESTED'
+    DRAFT = 'DRAFT'
+    SUBMITTED = 'SUBMITTED'
+    APPROVED = 'APPROVED'
+    REPORTED = 'REPORTED'
+    COMPLETED = 'COMPLETED'
+    STATUS_CHOICES = [
+        (REQUESTED, 'Запрошена'),
+        (DRAFT, 'Черновик'),
+        (SUBMITTED, 'Оформлена'),
+        (APPROVED, 'Подтверждена'),
+        (REPORTED, 'Репортирована складу'),
+        (COMPLETED, 'Выполнена')
+    ]
+
+    status = models.CharField(
+        max_length=25, choices=STATUS_CHOICES, default=REQUESTED, db_index=True, verbose_name='Статус отгрузки'
+    )
+
+    act = models.FileField(upload_to='acts', null=True, blank=True, verbose_name='Акт передачи')
+
+    def __str__(self):
+        return f'Отгрузка из магазина {self.shop} партнеру {self.destination_id} от {self.date.isoformat()}'

@@ -1,13 +1,14 @@
 import datetime
 import json
 import logging
+from collections import defaultdict
 from typing import Optional
 
 import requests
 from django.core.files.base import ContentFile
 from django.utils import timezone
 
-from delivery.models import Delivery, DeliveryType, Address, DeliveryProviderConfiguration, Package
+from delivery.models import Delivery, DeliveryType, Address, DeliveryProviderConfiguration, Package, Shipment
 from delivery.providers.base import DeliveryOption, ProviderPluginBase
 from delivery.utils import geo_distance
 from store import settings
@@ -45,7 +46,11 @@ def convert_delivery_date(min_date, max_date):
     return f'{min_date.day} {min_date.month} - {max_date.day} {max_date.month}'
 
 
-def delivery_option_from_api_data(api_option):
+def convert_delivery_cost(delivery_type, cost):
+    return cost * ((100 + delivery_type.added_price_percent) / 100) + delivery_type.added_price_fixed
+
+
+def delivery_option_from_api_data(delivery_type, api_option):
     delivery_date_min = datetime.datetime.strptime(
         api_option['delivery']['calculatedDeliveryDateMin'],
         "%Y-%m-%d"
@@ -55,7 +60,7 @@ def delivery_option_from_api_data(api_option):
         "%Y-%m-%d"
     ).date()
     return DeliveryOption(
-        cost=api_option['cost']['deliveryForSender'],
+        cost=convert_delivery_cost(delivery_type, api_option['cost']['deliveryForSender']),
         date=convert_delivery_date(delivery_date_min, delivery_date_max)
     )
 
@@ -127,9 +132,12 @@ class YandexDeliveryPlugin(ProviderPluginBase):
     supported_types = ['POST', 'COURIER', 'PICKUP']
 
     shop_configuration = {
-        'ClientId': 'ID Магазина в Я.Доставке',
+        'ShopId': 'ID Магазина в Я.Доставке',
         'OAuth': 'OAuth-токен',
-        'WarehouseGeoId': 'geoId склада'
+        'WarehouseGeoId': 'geoId склада',
+        'WarehouseId': 'ID склада в Я.Доставке',
+        'CabinetId': 'ID кабинета в Я.Доставке',
+        'ShipmentIntervalId': 'ID интервала времени отгрузки',
     }
 
     type_configuration = {
@@ -142,11 +150,11 @@ class YandexDeliveryPlugin(ProviderPluginBase):
     @classmethod
     def get_optimal(cls, delivery_type: DeliveryType, to: Address, items_value: int) -> Optional[DeliveryOption]:
         assert delivery_type.provider == cls.code
-        config = cls.get_config(delivery_type)
+        config = cls.get_config(delivery_type.shop_id)
 
         optimal_option = cls.request_optimal(delivery_type, to, items_value, config)
 
-        return delivery_option_from_api_data(optimal_option) if optimal_option else None
+        return delivery_option_from_api_data(delivery_type, optimal_option) if optimal_option else None
 
     @classmethod
     def get_pickup_points(cls, delivery_type: DeliveryType, to: Address):
@@ -155,7 +163,7 @@ class YandexDeliveryPlugin(ProviderPluginBase):
     @classmethod
     def submit_delivery(cls, delivery: Delivery):
         assert delivery.type.provider == cls.code
-        config = cls.get_config(delivery.type)
+        config = cls.get_config(delivery.type.shop_id)
 
         status = cls.request_delivery_draft(delivery, config)
         if status:
@@ -164,24 +172,70 @@ class YandexDeliveryPlugin(ProviderPluginBase):
     @classmethod
     def refresh_delivery(cls, delivery: Delivery):
         assert delivery.type.provider == cls.code
-        config = cls.get_config(delivery.type)
+        config = cls.get_config(delivery.type.shop_id)
         cls.request_refresh_delivery(delivery, config)
 
     @classmethod
-    def refresh_shipments(cls):
-        pass
+    def request_shipments(cls):
+        shipment_date = cls.get_shipment_date()
+
+        required_deliveries = Delivery.objects.filter(
+            type__provider=cls.code,
+            status__in=(Delivery.APPROVED, Delivery.IN_FULFILLMENT),
+            extra__shipment_date=shipment_date.isoformat()
+        )
+        shops_to_required_destinations = defaultdict(set)
+        for delivery in required_deliveries:
+            shops_to_required_destinations[delivery.type.shop_id].add(delivery.extra['shipment_id'])
+
+        existing_shipments = Shipment.objects.filter(
+            provider=cls.code,
+            date=shipment_date.isoformat()
+        )
+        shops_to_existing_destinations = defaultdict(set)
+        for shipment in existing_shipments:
+            shops_to_existing_destinations[shipment.shop_id].add(shipment.destination_id)
+
+        for shop_id in shops_to_required_destinations:
+            destinations_to_create = shops_to_required_destinations[shop_id] - shops_to_existing_destinations[shop_id]
+            for destination_id in destinations_to_create:
+                Shipment.objects.create(
+                    provider=cls.code,
+                    shop_id=shop_id,
+                    date=shipment_date,
+                    destination_id=destination_id
+                )
+
+    @classmethod
+    def refresh_shipment(cls, shipment: Shipment):
+        assert shipment.provider == cls.code
+        config = cls.get_config(shipment.shop_id)
+
+        if shipment.status == Shipment.REQUESTED:
+            cls.request_shipment_draft(shipment, config)
+
+        if shipment.status == Shipment.DRAFT:
+            if shipment.date == timezone.localdate():
+                cls.request_shipment_submit(shipment, config)
+
+        if shipment.status == Shipment.SUBMITTED:
+            shipment_data = cls.request_refresh_shipment(shipment, config)
+            print(shipment_data)
+            if shipment_data['hasAcceptanceCertificate']:
+                print("Присутствует акт")
+                cls.request_shipment_act(shipment, config)
 
     # Helper methods
 
     @classmethod
-    def get_config(cls, delivery_type: DeliveryType):
+    def get_config(cls, shop_id):
         provider_configuration = DeliveryProviderConfiguration.objects.get(
-            shop=delivery_type.shop, provider=delivery_type.provider
+            shop_id=shop_id, provider=cls.code
         )
         return provider_configuration.config
 
     @classmethod
-    def get_complete_address(cls, delivery_type: DeliveryType, address: Address, config):
+    def get_complete_address(cls, address: Address, config):
         locality_full = address.region + ', ' + address.settlement
 
         response = requests.get(
@@ -201,9 +255,9 @@ class YandexDeliveryPlugin(ProviderPluginBase):
             timezone.localdate(), settings.YANDEX_DELIVERY_SHIPMENT_DEADLINE, tzinfo=timezone.localtime().tzinfo
         )
         if timezone.localtime() < deadline:
-            return (timezone.localdate() + timezone.timedelta(days=1)).isoformat()
+            return timezone.localdate() + timezone.timedelta(days=1)
         else:
-            return (timezone.localdate() + timezone.timedelta(days=2)).isoformat()
+            return timezone.localdate() + timezone.timedelta(days=2)
 
     @classmethod
     def get_closest_pickup(cls, delivery, pickup_ids, lat, lon, config):
@@ -230,12 +284,12 @@ class YandexDeliveryPlugin(ProviderPluginBase):
     @classmethod
     def request_optimal(cls, delivery_type: DeliveryType, to: Address, items_value: int, config):
 
-        complete_address = cls.get_complete_address(delivery_type, to, config)
+        complete_address = cls.get_complete_address(to, config)
 
         package = Package.objects.filter(shop=delivery_type.shop).first()
 
         data = {
-            'senderId': config['ClientId'],
+            'senderId': config['ShopId'],
             'from': {
                 'geoId': config['WarehouseGeoId']
             },
@@ -247,7 +301,7 @@ class YandexDeliveryPlugin(ProviderPluginBase):
             'deliveryType': delivery_type.type,
             'shipment': {
                 'type': 'WITHDRAW',
-                'date': cls.get_shipment_date(),
+                'date': cls.get_shipment_date().isoformat(),
                 'includeNonDefault': True,
             },
             'cost': {
@@ -290,7 +344,7 @@ class YandexDeliveryPlugin(ProviderPluginBase):
         optimal_option = cls.request_optimal(delivery.type, delivery.to, delivery.order.items_cost, config)
         assert optimal_option is not None
 
-        complete_address = cls.get_complete_address(delivery.type, delivery.to, config)
+        complete_address = cls.get_complete_address(delivery.to, config)
         if not complete_address:
             log.error('Unknown address for delivery')
             delivery.status = Delivery.ERROR
@@ -313,8 +367,10 @@ class YandexDeliveryPlugin(ProviderPluginBase):
             delivery.save(update_fields=['status'])
             return False
 
+        shipment_date = cls.get_shipment_date().isoformat()
+
         data = {
-            'senderId': config['ClientId'],
+            'senderId': config['ShopId'],
             'externalId': delivery.order.id if not settings.DEBUG else f'DEBUG_{delivery.order.id}',
             'comment': f'Доставка по заказу {delivery.order.id}',
             'deliveryType': delivery.type.type,
@@ -336,8 +392,8 @@ class YandexDeliveryPlugin(ProviderPluginBase):
             'deliveryOption': convert_option(optimal_option),
             'shipment': {
                 'type': 'WITHDRAW',
-                'date': cls.get_shipment_date(),
-                'warehouseFrom': delivery.order.shop.yandex_warehouse_id,
+                'date': shipment_date,
+                'warehouseFrom': config['WarehouseId'],
                 'partnerTo': optimal_option['shipments'][0]['partner']['id'],
             },
             'places': [
@@ -363,7 +419,8 @@ class YandexDeliveryPlugin(ProviderPluginBase):
 
         if response.status_code == 200:
             delivery.external_id = response.json()
-            delivery.extra['shipment'] = int(optimal_option['shipments'][0]['partner']['id'])
+            delivery.extra['shipment_id'] = int(optimal_option['shipments'][0]['partner']['id'])
+            delivery.extra['shipment_date'] = shipment_date
             delivery.save(update_fields=['status', 'external_id', 'extra'])
             return True
         else:
@@ -387,7 +444,7 @@ class YandexDeliveryPlugin(ProviderPluginBase):
         if response.status_code == 200:
             result = response.json()[0]
             if result['status'] == 'SUCCESS':
-                delivery.status = Delivery.SUBMITED
+                delivery.status = Delivery.SUBMITTED
                 success = True
             else:
                 delivery.status = Delivery.ERROR
@@ -412,12 +469,10 @@ class YandexDeliveryPlugin(ProviderPluginBase):
 
         if response.status_code == 200:
             status_codes = [s['code'] for s in response.json()['statuses']]
-
-            print(status_codes)
-
+            print(delivery, status_codes)
             can_approve = cls.update_delivery_status(delivery, status_codes)
 
-        if delivery.status == Delivery.SUBMITED and can_approve:
+        if delivery.status == Delivery.SUBMITTED and can_approve:
             cls.update_delivery_label_and_approve(delivery, config)
 
     @classmethod
@@ -455,4 +510,138 @@ class YandexDeliveryPlugin(ProviderPluginBase):
             delivery.save(update_fields=['label', 'status'])
             return True
         else:
+            return False
+
+    @classmethod
+    def request_invervals(cls, shipment, config):
+        response = requests.get(
+            cls.endpoint + '/shipments/intervals/withdraw',
+            {
+                'partnerId': shipment.destination_id,
+                'date': shipment.date.isoformat()
+            },
+            headers={
+                'Authorization': config['OAuth']
+            }
+        )
+
+        if response.status_code == 200:
+            return response.json()
+        else:
+            return []
+
+    @classmethod
+    def request_shipment_draft(cls, shipment, config):
+        intervals = cls.request_invervals(shipment, config)
+
+        data = {
+            'cabinetId': config['CabinetId'],
+            'shipment': {
+                'type': 'WITHDRAW',
+                'date': shipment.date.isoformat(),
+                'warehouseFrom': config['WarehouseId'],
+                'partnerTo': shipment.destination_id,
+            },
+            'intervalId': intervals[0]['id'],
+            'dimensions': {
+                'length': 100,
+                'width': 100,
+                'height': 100,
+                'weight': 1.0,
+            },
+        }
+
+        response = requests.post(
+            cls.endpoint + '/shipments/application',
+            headers={
+                'Content-Type': 'application/json',
+                'Authorization': config['OAuth']
+            },
+            data=json.dumps(data).encode('utf-8')
+        )
+
+        result = response.json()
+        external_id = None
+        if 'application' in result:
+            external_id = result['application']['id']
+        elif 'message' in result and result['message'].startswith('Shipment application for this shipment already exists'):
+            external_id = int(result['message'].split()[-1])
+
+        if external_id:
+            shipment.external_id = external_id
+            shipment.status = Shipment.DRAFT
+            shipment.save(update_fields=['external_id', 'status'])
+            return True
+
+        print("Failed", response.status_code, result)
+        return False
+
+    @classmethod
+    def request_shipment_submit(cls, shipment, config):
+        data = {
+            'cabinetId': config['CabinetId'],
+            'shipmentApplicationIds': [shipment.external_id]
+        }
+
+        response = requests.post(
+            cls.endpoint + '/shipments/application/submit',
+            headers={
+                'Content-Type': 'application/json',
+                'Authorization': config['OAuth']
+            },
+            data=json.dumps(data).encode('utf-8')
+        )
+
+        if response.status_code == 200 and response.json()[0]['status'] == 'SUCCESS':
+            shipment.status = Shipment.SUBMITTED
+            shipment.save(update_fields=['status'])
+            return True
+        else:
+            print(response.json())
+            return False
+
+    @classmethod
+    def request_refresh_shipment(cls, shipment, config):
+        data = {
+            'cabinetId': config['CabinetId'],
+            'dateFrom': shipment.date.isoformat(),
+            'dateTo': shipment.date.isoformat(),
+            'partnerIds': [shipment.destination_id]
+        }
+
+        response = requests.put(
+            cls.endpoint + '/shipments/search',
+            headers={
+                'Content-Type': 'application/json',
+                'Authorization': config['OAuth']
+            },
+            data=json.dumps(data).encode('utf-8')
+        )
+
+        if response.status_code == 200:
+            result = response.json()
+            if len(result['data']) > 0:
+                return result['data'][0]
+
+        return None
+
+    @classmethod
+    def request_shipment_act(cls, shipment, config):
+        act_response = requests.get(
+            cls.endpoint + f'/shipments/applications/{shipment.external_id}/act',
+            {
+                'cabinetId': config['CabinetId']
+            },
+            headers={
+                'Authorization': config['OAuth']
+            }
+        )
+
+        if act_response.status_code == 200:
+            shipment.act.save(f'act_{shipment.id}.pdf', ContentFile(act_response.content))
+            shipment.status = Shipment.APPROVED
+            shipment.save(update_fields=['label', 'status'])
+            return True
+        else:
+            print(act_response)
             return False
