@@ -640,7 +640,7 @@ class YandexDeliveryPlugin(ProviderPluginBase):
         if act_response.status_code == 200:
             shipment.act.save(f'act_{shipment.id}.pdf', ContentFile(act_response.content))
             shipment.status = Shipment.APPROVED
-            shipment.save(update_fields=['label', 'status'])
+            shipment.save(update_fields=['act', 'status'])
             return True
         else:
             print(act_response)
