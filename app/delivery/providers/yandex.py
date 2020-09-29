@@ -584,7 +584,7 @@ class YandexDeliveryPlugin(ProviderPluginBase):
         }
 
         response = requests.post(
-            cls.endpoint + '/shipments/application/submit',
+            cls.endpoint + '/shipments/applications/submit',
             headers={
                 'Content-Type': 'application/json',
                 'Authorization': config['OAuth']
