@@ -52,17 +52,17 @@ services:
       - backend
       - redis
   frontend:
-    container_name: frontend
+    container_name: oldfrontend
     build:
-      context: ./frontend
+      context: oldfrontend
       dockerfile: Dockerfile.prod
     ports:
       - 5001:80
     environment:
       - NODE_ENV=production
     volumes:
-      - ./frontend:/src/frontend
-      - front:/src/frontend/build
+      - ./oldfrontend:/src/oldfrontend
+      - front:/src/oldfrontend/build
   nginx:
     build: ./nginx
     ports:
@@ -74,7 +74,7 @@ services:
     volumes:
       - assets:/src/app/assets
       - media:/src/app/media
-      - front:/src/frontend/build
+      - front:/src/oldfrontend/build
 volumes:
   postgres_data:
   media:

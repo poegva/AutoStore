@@ -31,8 +31,103 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="47897e9c-1e32-4683-9b93-11bcf88e51a5" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/frontend/.babelrc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/components/Layout.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/components/blocks/PerksBlock.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/next.config.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/pages/_app.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/pages/_document.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/pages/order.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/pages/shop.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/nginx/Dockerfile.prod" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/nginx/nginx.prod.conf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/oldfrontend/.dockerignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/oldfrontend/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/oldfrontend/src/cigarettes.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/oldfrontend/src/components/AppMenu.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/oldfrontend/src/components/layout/Button.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/oldfrontend/src/components/layout/CarouselBlock.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/oldfrontend/src/components/layout/FooterBlock.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/oldfrontend/src/components/layout/ImageBlock.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/oldfrontend/src/components/layout/ShowcaseBlock.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/oldfrontend/src/components/layout/TextBlock.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/oldfrontend/src/containers/CartButton.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/oldfrontend/src/hqdfront.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/oldfrontend/src/hqdfront2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/oldfrontend/src/hqdfront3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/oldfrontend/src/imageblock.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/oldfrontend/src/imageblock2.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/oldfrontend/src/logo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/oldfrontend/src/pineapple.svg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/delivery/providers/yandex.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/delivery/providers/yandex.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.prod.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.prod.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/oldfrontend/.idea/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/oldfrontend/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/oldfrontend/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/oldfrontend/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.idea/storefront.iml" beforeDir="false" afterPath="$PROJECT_DIR$/oldfrontend/.idea/storefront.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/oldfrontend/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/Dockerfile.prod" beforeDir="false" afterPath="$PROJECT_DIR$/oldfrontend/Dockerfile.prod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/oldfrontend/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/nginx/nginx.conf" beforeDir="false" afterPath="$PROJECT_DIR$/oldfrontend/nginx/nginx.conf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/oldfrontend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/oldfrontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/public/favicon.ico" beforeDir="false" afterPath="$PROJECT_DIR$/oldfrontend/public/favicon.ico" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/public/favicon.png" beforeDir="false" afterPath="$PROJECT_DIR$/oldfrontend/public/favicon.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/oldfrontend/public/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/public/logo192.png" beforeDir="false" afterPath="$PROJECT_DIR$/oldfrontend/public/logo192.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/public/logo512.png" beforeDir="false" afterPath="$PROJECT_DIR$/oldfrontend/public/logo512.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/public/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/oldfrontend/public/manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/public/robots.txt" beforeDir="false" afterPath="$PROJECT_DIR$/oldfrontend/public/robots.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/cigarettes.png" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/public/cigarettes.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/AppMenu.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/components/AppMenu.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/CartItemCard.js" beforeDir="false" afterPath="$PROJECT_DIR$/oldfrontend/src/components/CartItemCard.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/DeliveryCard.js" beforeDir="false" afterPath="$PROJECT_DIR$/oldfrontend/src/components/DeliveryCard.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/Home.js" beforeDir="false" afterPath="$PROJECT_DIR$/oldfrontend/src/components/Home.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/ItemsLoading.js" beforeDir="false" afterPath="$PROJECT_DIR$/oldfrontend/src/components/ItemsLoading.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/ShopItemCard.js" beforeDir="false" afterPath="$PROJECT_DIR$/oldfrontend/src/components/ShopItemCard.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/ShopItemGrid.js" beforeDir="false" afterPath="$PROJECT_DIR$/oldfrontend/src/components/ShopItemGrid.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/form/AddressField.js" beforeDir="false" afterPath="$PROJECT_DIR$/oldfrontend/src/components/form/AddressField.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/form/BasicField.js" beforeDir="false" afterPath="$PROJECT_DIR$/oldfrontend/src/components/form/BasicField.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/form/CheckboxField.js" beforeDir="false" afterPath="$PROJECT_DIR$/oldfrontend/src/components/form/CheckboxField.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/form/DeliveryOptionField.js" beforeDir="false" afterPath="$PROJECT_DIR$/oldfrontend/src/components/form/DeliveryOptionField.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/form/GenericForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/oldfrontend/src/components/form/GenericForm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/form/PhoneField.js" beforeDir="false" afterPath="$PROJECT_DIR$/oldfrontend/src/components/form/PhoneField.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/layout/Button.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/components/blocks/Button.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/layout/CarouselBlock.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/components/blocks/CarouselBlock.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/layout/FooterBlock.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/components/blocks/FooterBlock.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/layout/ImageBlock.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/components/blocks/ImageBlock.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/layout/PerksBlock.js" beforeDir="false" afterPath="$PROJECT_DIR$/oldfrontend/src/components/layout/PerksBlock.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/layout/ShowcaseBlock.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/components/blocks/ShowcaseBlock.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/layout/TextBlock.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/components/blocks/TextBlock.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/containers/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/oldfrontend/src/containers/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/containers/CartButton.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/components/CartButton.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/containers/CartContent.js" beforeDir="false" afterPath="$PROJECT_DIR$/oldfrontend/src/containers/CartContent.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/containers/CartDialog.js" beforeDir="false" afterPath="$PROJECT_DIR$/oldfrontend/src/containers/CartDialog.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/containers/ContactForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/oldfrontend/src/containers/ContactForm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/containers/DeliveryForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/oldfrontend/src/containers/DeliveryForm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/containers/Order.js" beforeDir="false" afterPath="$PROJECT_DIR$/oldfrontend/src/containers/Order.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/containers/Shop.js" beforeDir="false" afterPath="$PROJECT_DIR$/oldfrontend/src/containers/Shop.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/grapes.svg" beforeDir="false" afterPath="$PROJECT_DIR$/oldfrontend/src/grapes.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/hqdfront.png" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/public/hqdfront.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/hqdfront2.png" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/public/hqdfront2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/hqdfront3.png" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/public/hqdfront3.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/imageblock.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/public/imageblock.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/imageblock2.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/public/imageblock2.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/oldfrontend/src/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/oldfrontend/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/logo.png" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/public/logo.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pineapple.svg" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/public/pineapple.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/redux/actions/OrderActions.js" beforeDir="false" afterPath="$PROJECT_DIR$/oldfrontend/src/redux/actions/OrderActions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/redux/configureStore.js" beforeDir="false" afterPath="$PROJECT_DIR$/oldfrontend/src/redux/configureStore.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/redux/reducers/OrderReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/oldfrontend/src/redux/reducers/OrderReducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/redux/reducers/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/oldfrontend/src/redux/reducers/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/serviceWorker.js" beforeDir="false" afterPath="$PROJECT_DIR$/oldfrontend/src/serviceWorker.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/setupTests.js" beforeDir="false" afterPath="$PROJECT_DIR$/oldfrontend/src/setupTests.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nginx/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/nginx/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nginx/nginx.conf" beforeDir="false" afterPath="$PROJECT_DIR$/nginx/nginx.conf" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,9 +154,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="JavaScript File" />
         <option value="Python Script" />
         <option value="HTML File" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -80,24 +175,25 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/frontend/src" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/nginx" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="run.code.analysis.last.selected.profile" value="aDefault" />
     <property name="settings.editor.selected.configurable" value="preferences.fileTypes" />
     <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/app/static" />
-      <recent name="$PROJECT_DIR$/cabinet/src/components" />
-      <recent name="$PROJECT_DIR$/app" />
-      <recent name="$PROJECT_DIR$/app/store" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/app/delivery/providers" />
       <recent name="$PROJECT_DIR$/frontend/src/components/layout" />
       <recent name="$PROJECT_DIR$/cabinet/src/containers" />
       <recent name="$PROJECT_DIR$/app/frontend/src" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/nginx" />
+      <recent name="$PROJECT_DIR$/frontend/public" />
+      <recent name="$PROJECT_DIR$/frontend/components" />
+      <recent name="$PROJECT_DIR$/app/static" />
+      <recent name="$PROJECT_DIR$/cabinet/src/components" />
     </key>
   </component>
   <component name="RunManager">
@@ -149,25 +245,25 @@
       <workItem from="1600629090630" duration="901000" />
       <workItem from="1601067647982" duration="11826000" />
       <workItem from="1601299296864" duration="2656000" />
-      <workItem from="1601339883133" duration="1081000" />
+      <workItem from="1601339883133" duration="1553000" />
+      <workItem from="1601480741349" duration="621000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="1" />
+    <option name="version" value="2" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
         <entry key="MAIN">
           <value>
-            <State>
-              <option name="COLUMN_ORDER" />
-            </State>
+            <State />
           </value>
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
     <state x="304" y="109" width="1071" height="848" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1598478957675">
@@ -177,10 +273,11 @@
     <state x="304" y="113" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1680.937@0.23.1680.937" timestamp="1597584919897" />
     <state x="304" y="114" width="1071" height="848" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1680.939@0.23.1680.939" timestamp="1595256992486" />
     <state x="304" y="109" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1680.941@0.23.1680.941" timestamp="1598478957675" />
-    <state x="546" y="300" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1597599271491">
-      <screen x="0" y="23" width="1680" height="934" />
+    <state x="546" y="301" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1602076368432">
+      <screen x="0" y="23" width="1680" height="937" />
     </state>
     <state x="546" y="300" key="#com.intellij.fileTypes.FileTypeChooser/0.23.1680.934@0.23.1680.934" timestamp="1597599271491" />
+    <state x="546" y="301" key="#com.intellij.fileTypes.FileTypeChooser/0.23.1680.937@0.23.1680.937" timestamp="1602076368432" />
     <state x="578" y="244" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1598270672578">
       <screen x="0" y="23" width="1680" height="941" />
     </state>
@@ -199,42 +296,42 @@
     <state x="663" y="270" key="FileChooserDialogImpl/0.23.1680.941@0.23.1680.941" timestamp="1599086860995" />
     <state x="663" y="271" key="FileChooserDialogImpl/0.23.1680.944@0.23.1680.944" timestamp="1598273464155" />
     <state x="663" y="272" key="FileChooserDialogImpl/0.23.1680.949@0.23.1680.949" timestamp="1598707658142" />
-    <state width="1638" height="89" key="GridCell.Tab.0.bottom" timestamp="1598805261817">
-      <screen x="0" y="23" width="1680" height="944" />
+    <state width="1659" height="33" key="GridCell.Tab.0.bottom" timestamp="1602017923899">
+      <screen x="0" y="23" width="1680" height="937" />
     </state>
     <state width="1638" height="215" key="GridCell.Tab.0.bottom/0.23.1680.934@0.23.1680.934" timestamp="1597599386423" />
     <state width="1638" height="235" key="GridCell.Tab.0.bottom/0.23.1680.935@0.23.1680.935" timestamp="1595812316366" />
-    <state width="1638" height="189" key="GridCell.Tab.0.bottom/0.23.1680.937@0.23.1680.937" timestamp="1597682301791" />
+    <state width="1659" height="33" key="GridCell.Tab.0.bottom/0.23.1680.937@0.23.1680.937" timestamp="1602017923899" />
     <state width="1638" height="310" key="GridCell.Tab.0.bottom/0.23.1680.939@0.23.1680.939" timestamp="1595258154579" />
     <state width="1638" height="25" key="GridCell.Tab.0.bottom/0.23.1680.941@0.23.1680.941" timestamp="1598267321601" />
     <state width="1638" height="89" key="GridCell.Tab.0.bottom/0.23.1680.944@0.23.1680.944" timestamp="1598805261817" />
     <state width="1638" height="244" key="GridCell.Tab.0.bottom/0.23.1680.947@0.23.1680.947" timestamp="1597240298930" />
-    <state width="1638" height="89" key="GridCell.Tab.0.center" timestamp="1598805261816">
-      <screen x="0" y="23" width="1680" height="944" />
+    <state width="1659" height="33" key="GridCell.Tab.0.center" timestamp="1602017923898">
+      <screen x="0" y="23" width="1680" height="937" />
     </state>
     <state width="1638" height="215" key="GridCell.Tab.0.center/0.23.1680.934@0.23.1680.934" timestamp="1597599386421" />
     <state width="1638" height="235" key="GridCell.Tab.0.center/0.23.1680.935@0.23.1680.935" timestamp="1595812316365" />
-    <state width="1638" height="189" key="GridCell.Tab.0.center/0.23.1680.937@0.23.1680.937" timestamp="1597682301790" />
+    <state width="1659" height="33" key="GridCell.Tab.0.center/0.23.1680.937@0.23.1680.937" timestamp="1602017923898" />
     <state width="1638" height="310" key="GridCell.Tab.0.center/0.23.1680.939@0.23.1680.939" timestamp="1595258154578" />
     <state width="1638" height="25" key="GridCell.Tab.0.center/0.23.1680.941@0.23.1680.941" timestamp="1598267321600" />
     <state width="1638" height="89" key="GridCell.Tab.0.center/0.23.1680.944@0.23.1680.944" timestamp="1598805261816" />
     <state width="1638" height="244" key="GridCell.Tab.0.center/0.23.1680.947@0.23.1680.947" timestamp="1597240298929" />
-    <state width="1638" height="89" key="GridCell.Tab.0.left" timestamp="1598805261815">
-      <screen x="0" y="23" width="1680" height="944" />
+    <state width="1659" height="33" key="GridCell.Tab.0.left" timestamp="1602017923897">
+      <screen x="0" y="23" width="1680" height="937" />
     </state>
     <state width="1638" height="215" key="GridCell.Tab.0.left/0.23.1680.934@0.23.1680.934" timestamp="1597599386420" />
     <state width="1638" height="235" key="GridCell.Tab.0.left/0.23.1680.935@0.23.1680.935" timestamp="1595812316364" />
-    <state width="1638" height="189" key="GridCell.Tab.0.left/0.23.1680.937@0.23.1680.937" timestamp="1597682301789" />
+    <state width="1659" height="33" key="GridCell.Tab.0.left/0.23.1680.937@0.23.1680.937" timestamp="1602017923897" />
     <state width="1638" height="310" key="GridCell.Tab.0.left/0.23.1680.939@0.23.1680.939" timestamp="1595258154578" />
     <state width="1638" height="25" key="GridCell.Tab.0.left/0.23.1680.941@0.23.1680.941" timestamp="1598267321599" />
     <state width="1638" height="89" key="GridCell.Tab.0.left/0.23.1680.944@0.23.1680.944" timestamp="1598805261815" />
     <state width="1638" height="244" key="GridCell.Tab.0.left/0.23.1680.947@0.23.1680.947" timestamp="1597240298929" />
-    <state width="1638" height="89" key="GridCell.Tab.0.right" timestamp="1598805261817">
-      <screen x="0" y="23" width="1680" height="944" />
+    <state width="1659" height="33" key="GridCell.Tab.0.right" timestamp="1602017923899">
+      <screen x="0" y="23" width="1680" height="937" />
     </state>
     <state width="1638" height="215" key="GridCell.Tab.0.right/0.23.1680.934@0.23.1680.934" timestamp="1597599386422" />
     <state width="1638" height="235" key="GridCell.Tab.0.right/0.23.1680.935@0.23.1680.935" timestamp="1595812316365" />
-    <state width="1638" height="189" key="GridCell.Tab.0.right/0.23.1680.937@0.23.1680.937" timestamp="1597682301791" />
+    <state width="1659" height="33" key="GridCell.Tab.0.right/0.23.1680.937@0.23.1680.937" timestamp="1602017923899" />
     <state width="1638" height="310" key="GridCell.Tab.0.right/0.23.1680.939@0.23.1680.939" timestamp="1595258154579" />
     <state width="1638" height="25" key="GridCell.Tab.0.right/0.23.1680.941@0.23.1680.941" timestamp="1598267321600" />
     <state width="1638" height="89" key="GridCell.Tab.0.right/0.23.1680.944@0.23.1680.944" timestamp="1598805261817" />
@@ -281,6 +378,10 @@
     <state x="498" y="249" width="864" height="490" key="find.popup/0.23.1680.941@0.23.1680.941" timestamp="1599523773160" />
     <state x="498" y="250" width="754" height="676" key="find.popup/0.23.1680.944@0.23.1680.944" timestamp="1598567572152" />
     <state x="498" y="251" width="754" height="680" key="find.popup/0.23.1680.949@0.23.1680.949" timestamp="1598707675424" />
+    <state x="505" y="225" key="run.anything.popup" timestamp="1602013850801">
+      <screen x="0" y="23" width="1680" height="937" />
+    </state>
+    <state x="505" y="225" key="run.anything.popup/0.23.1680.937@0.23.1680.937" timestamp="1602013850801" />
     <state x="505" y="229" width="670" height="682" key="search.everywhere.popup" timestamp="1598274116804">
       <screen x="0" y="23" width="1680" height="944" />
     </state>
