@@ -27,7 +27,7 @@ export default function Layout(props) {
                 image=""
                 setCartOpen={setCartOpen}
             />
-            {props.children}
+            {props.children.map(child => child(cartOpen))}
             <FooterBlock />
         </div>
     )

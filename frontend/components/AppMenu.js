@@ -99,18 +99,5 @@ export default function AppMenu(props) {
                 </Toolbar>
             </Container>
         </AppBar>
-    )
-
-    /*return (
-        <AppBar position="sticky" style={{backgroundColor: "white", boxShadow: 'none'}} >
-            <Toolbar style={{justifyContent: "space-between"}}>
-                <Link to="/">
-                    <img src={props.image} className={classes.appLogo} alt=""/>
-                </Link>
-                <CartButton setCartOpen={props.setCartOpen}/>
-                <MenuIcon style={{color: "black"}} fontSize="large" onClick={() => setOpen(true)}/>
-
-            </Toolbar>
-        </AppBar>
-    );*/
+    );
 }

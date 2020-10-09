@@ -4,12 +4,9 @@ import Badge from "@material-ui/core/Badge";
 import useTheme from "@material-ui/core/styles/useTheme";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import Fab from "@material-ui/core/Fab";
+import {connect} from "react-redux";
 
-export default function CartButton() {
-    return null;
-}
-
-/*function CartButton(props) {
+function CartButton(props) {
     const theme = useTheme();
     const matches = !useMediaQuery(theme.breakpoints.down('sm'));
 
@@ -54,4 +51,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(CartButton);*/
+)(CartButton);
