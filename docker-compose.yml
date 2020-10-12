@@ -58,6 +58,7 @@ services:
       dockerfile: Dockerfile
     volumes:
       - './frontend:/src/frontend'
+      - /src/frontend/node_modules
       - /src/frontend/.next
     ports:
       - 3000:3000
@@ -77,10 +78,8 @@ services:
     volumes:
       - assets:/src/app/assets
       - media:/src/app/media
-      - front:/src/oldfrontend/build
 volumes:
   postgres_data:
   node_modules:
   assets:
   media:
-  front:

@@ -31,25 +31,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="47897e9c-1e32-4683-9b93-11bcf88e51a5" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/frontend/Dockerfile.prod" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/redux/actions/GeneralActions.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/redux/reducers/GeneralReducer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.prod.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.prod.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/components/AppMenu.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/components/AppMenu.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/components/CartDialog.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/components/CartDialog.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/components/DeliveryForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/components/DeliveryForm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/components/Layout.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/components/Layout.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/pages/order.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/pages/order.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/pages/shop.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/pages/shop.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/redux/actions/OrderActions.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/redux/actions/OrderActions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/redux/reducers/OrderReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/redux/reducers/OrderReducer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/redux/reducers/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/redux/reducers/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/redux/store.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/redux/store.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nginx/nginx.conf" beforeDir="false" afterPath="$PROJECT_DIR$/nginx/nginx.conf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nginx/nginx.prod.conf" beforeDir="false" afterPath="$PROJECT_DIR$/nginx/nginx.prod.conf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.dockerignore" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/.dockerignore" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -104,18 +87,18 @@
     <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/app/delivery/providers" />
-      <recent name="$PROJECT_DIR$/frontend/src/components/layout" />
-      <recent name="$PROJECT_DIR$/cabinet/src/containers" />
-      <recent name="$PROJECT_DIR$/app/frontend/src" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/frontend" />
       <recent name="$PROJECT_DIR$/frontend/components" />
       <recent name="$PROJECT_DIR$/nginx" />
       <recent name="$PROJECT_DIR$/frontend/public" />
       <recent name="$PROJECT_DIR$/app/static" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app/delivery/providers" />
+      <recent name="$PROJECT_DIR$/frontend/src/components/layout" />
+      <recent name="$PROJECT_DIR$/cabinet/src/containers" />
+      <recent name="$PROJECT_DIR$/app/frontend/src" />
     </key>
   </component>
   <component name="RunManager">
@@ -181,12 +164,13 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
     <state x="304" y="109" width="1071" height="848" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1598478957675">
