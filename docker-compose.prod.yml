@@ -1,70 +1,36 @@
 version: '3.7'
 services:
   redis:
-    image: redis:alpine
-    restart: always
-    container_name: 'redis'
-    command: redis-server
-    ports:
-      - 6379:6379
+    expose: []
   db:
-    image: postgres:latest
-    volumes:
-      - postgres_data:/var/lib/postgresql/data/
+    environment: []
     env_file:
       - ./.env.prod.db
   backend:
-    build: ./app
     command: uwsgi --ini uwsgi.ini
-    expose:
-      - 9000
-    ports:
-      - 9000:9000
     volumes:
       - ./app:/src/app
       - assets:/src/app/assets
       - media:/src/app/media
     env_file:
       - ./.env.prod
-    depends_on:
-      - db
   celery:
-    build: ./app
-    container_name: 'celery'
-    command: celery -A store worker -B
-    volumes:
-      - ./app:/src/app
-    links:
-      - redis
     env_file:
       - ./.env.prod
-    depends_on:
-      - backend
-      - redis
   celery-beat:
-    build: ./app
-    command: celery -A store beat --scheduler django_celery_beat.schedulers:DatabaseScheduler -l info
-    links:
-      - redis
     env_file:
       - ./.env.prod
-    depends_on:
-      - backend
-      - redis
   frontend:
-    container_name: oldfrontend
     build:
-      context: oldfrontend
+      context: frontend
       dockerfile: Dockerfile.prod
-    ports:
-      - 5001:80
     environment:
+      - CHOKIDAR_USEPOLLING=true
       - NODE_ENV=production
-    volumes:
-      - ./oldfrontend:/src/oldfrontend
-      - front:/src/oldfrontend/build
   nginx:
-    build: ./nginx
+    build:
+      context: nginx
+      dockerfile: Dockerfile.prod
     ports:
       - 80:80
       - 443:443

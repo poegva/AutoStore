@@ -24,7 +24,8 @@ const makeStore = ({ isServer }) => {
 
         const persistConfig = {
             key: 'root',
-            storage,
+            storage: storage,
+            whitelist: ['order']
         };
 
         const persistedReducer = persistReducer(persistConfig, combinedReducer); // Create a new reducer with our existing reducer

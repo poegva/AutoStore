@@ -13,6 +13,8 @@ import CartButton from "./CartButton";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import NextLink from 'next/link';
+import {useDispatch} from "react-redux";
+import {setCartOpen} from "../redux/actions/GeneralActions";
 
 const useStyles = makeStyles((theme) => ({
     appLogo: {
@@ -30,6 +32,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function AppMenu(props) {
+    const dispatch = useDispatch();
     const classes = useStyles();
     const theme = useTheme();
     const matches = !useMediaQuery(theme.breakpoints.down('sm'));
@@ -59,7 +62,7 @@ export default function AppMenu(props) {
     } else {
         content = (
             <React.Fragment>
-                <CartButton setCartOpen={props.setCartOpen}/>
+                <CartButton setCartOpen={() => dispatch(setCartOpen(true))}/>
                 <MenuIcon style={{color: "black"}} fontSize="large" onClick={() => setOpen(true)}/>
                 <Drawer
                     open={open}

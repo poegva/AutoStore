@@ -193,6 +193,8 @@ export function orderReducer(state = initialState, action) {
             };
 
         case ORDER_LOADED:
+            console.log("Loaded");
+            console.log(action.payload);
             return {
                 ...state,
                 orders: {

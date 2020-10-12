@@ -1,9 +1,10 @@
 import React from "react";
 import AppMenu from "./AppMenu";
 import FooterBlock from "./blocks/FooterBlock";
+import {useSelector} from "react-redux";
 
 export default function Layout(props) {
-    const [cartOpen, setCartOpen] = React.useState(false);
+    const hasOrder = useSelector(store => store.order.lastOrderId);
 
     let sections = [
         {
@@ -13,21 +14,23 @@ export default function Layout(props) {
         {
             title: 'Магазин',
             url: '/shop'
-        },
-        {
-            title: 'Мой заказ',
-            url: '/order'
         }
     ];
+
+    if (hasOrder) {
+        sections.push({
+            title: 'Мой заказ',
+            url: '/order'
+        });
+    }
 
     return (
         <div>
             <AppMenu
                 sections={sections}
                 image=""
-                setCartOpen={setCartOpen}
             />
-            {props.children.map(child => child(cartOpen))}
+            {props.children}
             <FooterBlock />
         </div>
     )

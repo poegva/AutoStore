@@ -9,11 +9,11 @@ import ShopItemGrid from "../components/ShopItemGrid";
 import ItemsLoading from "../components/ItemsLoading";
 import CartButton from "../components/CartButton";
 import CartDialog from "../components/CartDialog";
+import {setCartOpen} from "../redux/actions/GeneralActions";
 
 function Shop(props) {
     const [items, setItems] = React.useState(null);
     const [error, setError] = React.useState(false);
-    const [cartOpen, setCartOpen] = React.useState(false);
 
     React.useEffect(() => {
         if (!items) {
@@ -28,8 +28,8 @@ function Shop(props) {
 
     return (
         <Container style={{paddingTop: 20}} >
-            <CartButton setCartOpen={setCartOpen} floating />
-            <CartDialog cartOpen={cartOpen} setCartOpen={setCartOpen} />
+            <CartButton setCartOpen={props.setCartOpen} floating />
+            <CartDialog cartOpen={props.cartOpen} setCartOpen={props.setCartOpen} />
             <TextBlock title="HQD Cuvie" subtitle="Успей попробовать все вкусы!" />
             {items ?
                 <ShopItemGrid cart={props.cart} items={items} addItem={props.addItem} /> :
@@ -41,13 +41,15 @@ function Shop(props) {
 
 const mapStateToProps = store => {
     return {
-        cart: store.order.cart
+        cart: store.order.cart,
+        cartOpen: store.general.cartOpen
     };
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        addItem: item => dispatch(addItem(item))
+        addItem: item => dispatch(addItem(item)),
+        setCartOpen: open => dispatch(setCartOpen(open))
     };
 }
 

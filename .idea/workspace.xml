@@ -31,34 +31,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="47897e9c-1e32-4683-9b93-11bcf88e51a5" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/frontend/components/CartContent.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/components/CartDialog.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/components/CartItemCard.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/components/ContactForm.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/components/DeliveryCard.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/components/DeliveryForm.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/components/ItemsLoading.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/components/ShopItemCard.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/components/ShopItemGrid.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/components/form/AddressField.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/components/form/BasicField.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/components/form/CheckboxField.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/components/form/DeliveryOptionField.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/components/form/GenericForm.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/components/form/PhoneField.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/redux/actions/OrderActions.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/redux/reducers/OrderReducer.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/redux/reducers/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/redux/store.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/Dockerfile.prod" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/redux/actions/GeneralActions.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/redux/reducers/GeneralReducer.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.prod.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.prod.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/Dockerfile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/components/AppMenu.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/components/AppMenu.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/components/CartButton.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/components/CartButton.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/components/CartDialog.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/components/CartDialog.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/components/DeliveryForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/components/DeliveryForm.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/components/Layout.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/components/Layout.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/pages/_app.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/pages/_app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/pages/order.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/pages/order.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/pages/shop.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/pages/shop.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/oldfrontend/src/containers/Shop.js" beforeDir="false" afterPath="$PROJECT_DIR$/oldfrontend/src/containers/Shop.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/redux/actions/OrderActions.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/redux/actions/OrderActions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/redux/reducers/OrderReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/redux/reducers/OrderReducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/redux/reducers/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/redux/reducers/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/redux/store.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/redux/store.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nginx/nginx.conf" beforeDir="false" afterPath="$PROJECT_DIR$/nginx/nginx.conf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nginx/nginx.prod.conf" beforeDir="false" afterPath="$PROJECT_DIR$/nginx/nginx.prod.conf" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -106,25 +97,25 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/frontend/components" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/frontend" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="run.code.analysis.last.selected.profile" value="aDefault" />
     <property name="settings.editor.selected.configurable" value="preferences.fileTypes" />
     <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/frontend/components" />
-      <recent name="$PROJECT_DIR$/nginx" />
-      <recent name="$PROJECT_DIR$/frontend/public" />
-      <recent name="$PROJECT_DIR$/app/static" />
-      <recent name="$PROJECT_DIR$/cabinet/src/components" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/app/delivery/providers" />
       <recent name="$PROJECT_DIR$/frontend/src/components/layout" />
       <recent name="$PROJECT_DIR$/cabinet/src/containers" />
       <recent name="$PROJECT_DIR$/app/frontend/src" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/frontend" />
+      <recent name="$PROJECT_DIR$/frontend/components" />
+      <recent name="$PROJECT_DIR$/nginx" />
+      <recent name="$PROJECT_DIR$/frontend/public" />
+      <recent name="$PROJECT_DIR$/app/static" />
     </key>
   </component>
   <component name="RunManager">
@@ -178,6 +169,7 @@
       <workItem from="1601299296864" duration="2656000" />
       <workItem from="1601339883133" duration="1553000" />
       <workItem from="1601480741349" duration="621000" />
+      <workItem from="1602492615480" duration="3310000" />
     </task>
     <servers />
   </component>

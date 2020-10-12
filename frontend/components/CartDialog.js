@@ -55,8 +55,7 @@ function CartDialog(props) {
             <Box display="flex" flexDirection="column">
                 <Box display="flex" justifyContent="flex-end">
                     <CloseIcon
-                        style={{alignSelf: "end", paddingTop: 20, paddingRight: 20}}
-                        fontSize="large"
+                        style={{alignSelf: "end", paddingTop: 20, paddingRight: 20, fontSize: 60}}
                         onClick={() => {
                             props.setCartOpen(false)
                         }}

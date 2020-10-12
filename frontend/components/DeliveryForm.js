@@ -1,11 +1,6 @@
 import React from "react";
 import {connect} from "react-redux";
-import {
-    returnToContacts,
-    setAddress,
-    setDeliveryOption,
-    submitOrder
-} from "../redux/actions/OrderActions";
+import { useRouter } from 'next/router'
 
 import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
@@ -13,8 +8,15 @@ import Typography from "@material-ui/core/Typography";
 import GenericForm from "./form/GenericForm";
 import AddressField from "./form/AddressField";
 import DeliveryOptionField from "./form/DeliveryOptionField";
+import {
+    returnToContacts,
+    setAddress,
+    setDeliveryOption,
+    submitOrder
+} from "../redux/actions/OrderActions";
 
 function DeliveryForm(props) {
+    const router = useRouter();
 
     function convertItemToData(item) {
         return {
@@ -35,7 +37,7 @@ function DeliveryForm(props) {
             items: Object.values(props.order.cart).map(item => convertItemToData(item))
         };
 
-        props.submitOrder(orderData, () => {});
+        props.submitOrder(orderData, () => { router.push('/order') });
     }
 
     console.log(props.order);

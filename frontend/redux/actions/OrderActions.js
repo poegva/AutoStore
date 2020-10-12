@@ -159,7 +159,7 @@ export function submitOrder(orderData, redirect) {
 
 export function loadOrder(id, token, callback) {
     return dispatch => {
-        fetch(window.location.protocol + "//" + window.location.hostname + `/api/orders/${id}/?token=${token}`)
+        fetch(`/api/orders/${id}/?token=${token}`)
             .then(result => result.json())
             .then(result => {
                 dispatch({
