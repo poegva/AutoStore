@@ -6,11 +6,15 @@ import {addItem} from "../redux/actions/OrderActions";
 import ShopItemGrid from "../components/ShopItemGrid";
 import ItemsLoading from "../components/ItemsLoading";
 import FooterBlock from "../components/layout/FooterBlock";
+import CartButton from "./CartButton";
+import CartDialog from "./CartDialog";
+import {BrowserRouter} from "react-router-dom";
 
 
 function Shop(props) {
     const [items, setItems] = React.useState(null);
     const [error, setError] = React.useState(false);
+
 
     React.useEffect(() => {
         if (!items) {
