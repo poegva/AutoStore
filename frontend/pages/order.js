@@ -128,9 +128,14 @@ function OrderInfo(props) {
 }
 
 function Order(props) {
-    const urlParams = new URLSearchParams(window.location.search);
-    let id = urlParams.get('id');
-    let token = urlParams.get('token');
+    let id = null;
+    let token = null;
+
+    if (typeof window !== 'undefined') {
+        const urlParams = new URLSearchParams(window.location.search);
+        id = urlParams.get('id');
+        token = urlParams.get('token');
+    }
 
     if (!id) {
         id = props.order.lastOrderId;
@@ -140,13 +145,7 @@ function Order(props) {
     const [error, setError] = React.useState(id ? false : "Заказ не найден");
     const [reloaded, setReloaded] = React.useState(false);
 
-    console.log(id);
-    console.log(token);
-    console.log(props.order.orders[id]);
-
     React.useEffect(() => {
-        console.log("Using effect");
-        console.log(id);
         if (!error && !id) {
             setError("Ошибка загрузки");
         } else {

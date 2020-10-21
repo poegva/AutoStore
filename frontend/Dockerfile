@@ -13,7 +13,5 @@ RUN npm install
 # Copying source files
 COPY . .
 
-RUN npm run build
-
 # Running the app
 CMD [ "npm", "run", "dev" ]

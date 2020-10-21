@@ -1,19 +1,20 @@
 import React from "react";
 import Layout from "../components/Layout";
 import 'fontsource-roboto';
-import { useStore } from 'react-redux';
-import { PersistGate } from 'redux-persist/integration/react'
 import { wrapper } from "../redux/store";
+import Head from "next/head";
 
 function App({ Component, pageProps }) {
-    const store = useStore((state) => state);
-
     return (
-        <PersistGate loading={<div>loading...</div>} persistor={store.__persistor}>
-            <Layout>
-                <Component {...pageProps} />
-            </Layout>
-        </PersistGate>
+        <Layout>
+            <Head>
+                <title>HQD - Удобно. Вкусно</title>
+                <meta charSet="UTF-8" key="charset" />
+                <meta name="robots" content="index, follow" key="robots" />
+                <meta name="viewport" content="width=device-width, initial-scale=1.0" key="viewport" />
+            </Head>
+            <Component {...pageProps} />
+        </Layout>
     )
 }
 
