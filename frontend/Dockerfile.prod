@@ -11,9 +11,10 @@ COPY package-lock.json ./
 RUN npm install
 
 # Copying source files
+COPY ./entrypoint.sh /src/frontend/entrypoint.sh
 COPY . .
 
-RUN npm run build
+RUN chmod +x /src/frontend/entrypoint.sh
 
 # Running the app
-CMD [ "npm", "start" ]
+ENTRYPOINT ["/src/frontend/entrypoint.sh"]
