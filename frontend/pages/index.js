@@ -1,6 +1,8 @@
 import React from "react";
-import Box from "@material-ui/core/Box";
 
+import Head from "next/head";
+
+import Box from "@material-ui/core/Box";
 import BatteryChargingFullIcon from '@material-ui/icons/BatteryChargingFull';
 import DriveEtaIcon from '@material-ui/icons/DriveEta';
 import SvgIcon from "@material-ui/core/SvgIcon";
@@ -10,6 +12,7 @@ import ImageBlock from "../components/blocks/ImageBlock";
 import TextBlock from "../components/blocks/TextBlock";
 import PerksBlock from "../components/blocks/PerksBlock";
 import ShowcaseBlock from "../components/blocks/ShowcaseBlock";
+
 import hqdfront from '../public/hqdfront.png';
 import hqdfront2 from '../public/hqdfront2.png';
 import hqdfront3 from '../public/hqdfront3.png';
@@ -22,6 +25,15 @@ import pineapple from "../public/pineapple.svg";
 export default function Home() {
   return (
       <Box style={{backgroundColor: "white", width: "100%", maxWidth: "100%"}}>
+          <Head>
+              <title>HQD - Вкусно. Удобно</title>
+              <meta name="title" content="HQD - Вкусно. Удобно" key="title" />
+              <meta name="description" content="Успей попробовать каждый из вкусов HQD Cuvie!
+HQD Cuvie - это не просто удобная и компактная электронная сигарета, но и индивидуальный характер в каждой затяжке.
+Несмотря на свою миниатюрность,  одноразовая HQD Cuvie содержит в себе 300 затяжек, чего в среднем хватает на 1-2 дня.
+HQD Cuvie - одна из самых разнообразных электронных сигарет. Она насчитываю до 26 - от кока-колы - до фруктового микса. Любой сможет выбрать свой любимый вкус.
+Уже в наличии! Купить hqd можно у нас на сайте. Быстрая доставка." key="description" />
+          </Head>
           <CarouselBlock
               images={[hqdfront, hqdfront2, hqdfront3]}
               title="HQD"

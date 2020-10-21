@@ -15,16 +15,26 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.down('sm')]: {
             height: "150px"
         },
-        "&:hover": {
-            "overlay": {
-                opacity: 1
-            }
+        "&:hover $description": {
+            opacity: 1
         }
     },
     itemCard: {
         height: '100%',
         display: 'flex',
         flexDirection: 'column',
+    },
+    description: {
+        position: "absolute",
+        width: "100%",
+        height: "inherit",
+        background: "rgba(0, 0, 0, 0.7)",
+        color: "white",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        opacity: 0,
+        padding: "0 20px 0 20px"
     },
     overlay: {
         transition: ".5s ease",
@@ -117,13 +127,18 @@ export default function ShopItemCard(props) {
     }
 
     return (
-        <Card style={{height: "100%", flexFlow: "column", display: "flex"}}>
+        <Card style={{height: "100%", flexFlow: "column", display: "flex", position: "relative"}}>
             <CardMedia
-                image={window.location.protocol + "//" + window.location.hostname + props.item.image}
+                image={props.item.image}
                 title={props.item.name}
                 className={classes.media}
                 style={matches ? {} : {minHeight: 200}}
-            />
+            >
+                <Typography align="center" className={classes.description}>
+                    {props.item.description}
+                </Typography>
+            </CardMedia>
+
             {content}
         </Card>
     )

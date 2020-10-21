@@ -10,9 +10,10 @@ import ItemsLoading from "../components/ItemsLoading";
 import CartButton from "../components/CartButton";
 import CartDialog from "../components/CartDialog";
 import {setCartOpen} from "../redux/actions/GeneralActions";
+import Head from "next/head";
 
 function Shop(props) {
-    const [items, setItems] = React.useState(null);
+    const [items, setItems] = React.useState(props.items);
     const [error, setError] = React.useState(false);
 
     React.useEffect(() => {
@@ -28,15 +29,36 @@ function Shop(props) {
 
     return (
         <Container style={{paddingTop: 20}} >
+            <Head>
+                <title>HQD - Магазин</title>
+                <meta name="title" content="HQD - Магазин" key="title" />
+                <meta name="description" content="HQD Cuvie - это сочетание удобства, стиля и невероятного вкуса в одном продукте.
+Это именно та электронная сигарета, которую все так долго ждали - миниатюрная, простая в использовании, надежная и яркая!
+Несмотря на свой размер, в HQD Cuvie 300 затяжек, что равнозначно 1-2 дням свободному и полноценному парению.
+HQD Cuvie - одна из самых разнообразных электронных сигарет. Она насчитываю до 26 - от кока-колы - до фруктового микса. Любой сможет выбрать свой любимый вкус.
+Уже в наличии!" key="description" />
+            </Head>
             <CartButton setCartOpen={props.setCartOpen} floating />
             <CartDialog cartOpen={props.cartOpen} setCartOpen={props.setCartOpen} />
             <TextBlock title="HQD Cuvie" subtitle="Успей попробовать все вкусы!" />
-            {items ?
-                <ShopItemGrid cart={props.cart} items={items} addItem={props.addItem} /> :
+            {items  ?
+                <ShopItemGrid cart={props.cart} items={items ?? props.items} addItem={props.addItem} /> :
                 <ItemsLoading error={error} errorText="Что-то пошло не так" loadingText="Загрузка..." />
             }
         </Container>
     );
+}
+
+export async function getStaticProps() {
+    const res = await fetch(process.env.HOST + '/api/items/')
+    const items = await res.json()
+
+    return {
+        props: {
+            items
+        },
+        revalidate: 10
+    }
 }
 
 const mapStateToProps = store => {

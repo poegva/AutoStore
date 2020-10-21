@@ -27,6 +27,8 @@ services:
     environment:
       - CHOKIDAR_USEPOLLING=true
       - NODE_ENV=production
+    env_file:
+      - ./.env.prod
   nginx:
     build:
       context: nginx
