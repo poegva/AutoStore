@@ -33,8 +33,7 @@ const useStyles = makeStyles((theme) => ({
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
-        opacity: 0,
-        padding: "0 20px 0 20px"
+        opacity: 0
     },
     overlay: {
         transition: ".5s ease",
@@ -132,13 +131,13 @@ export default function ShopItemCard(props) {
                 image={props.item.image}
                 title={props.item.name}
                 className={classes.media}
-                style={matches ? {} : {minHeight: 200}}
             >
-                <Typography align="center" className={classes.description}>
-                    {props.item.description}
-                </Typography>
+                <Box className={classes.description}>
+                    <Typography align="center" style={{padding: 10}}>
+                        {props.item.description}
+                    </Typography>
+                </Box>
             </CardMedia>
-
             {content}
         </Card>
     )

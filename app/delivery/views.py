@@ -4,7 +4,7 @@ from rest_framework.exceptions import ParseError
 from rest_framework.response import Response
 
 from delivery.models import Address, DeliveryType
-from delivery.providers import YANDEX
+from delivery.providers import YANDEX, PROVIDERS
 from delivery.providers.yandex import YandexDeliveryPlugin
 from delivery.utils import get_dadata_suggest
 from shop.models import Shop
@@ -32,9 +32,9 @@ class OptionsView(viewsets.ViewSet):
         delivery_types = DeliveryType.objects.filter(shop=shop)
         delivery_options = {}
 
-        yandex_delivery_types = [delivery_type for delivery_type in delivery_types if delivery_type.provider == YANDEX]
-        for delivery_type in yandex_delivery_types:
-            delivery_options[delivery_type.code] = YandexDeliveryPlugin.get_optimal(delivery_type, to, value).to_dict()
+        for delivery_type in delivery_types:
+            option = PROVIDERS[delivery_type.provider].get_optimal(delivery_type, to, value).to_dict()
+            delivery_options[delivery_type.code] = option
 
         return Response(delivery_options)
 

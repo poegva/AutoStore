@@ -2,6 +2,8 @@ import React from 'react'
 import Document, { Html, Head, Main, NextScript } from 'next/document'
 import { createMuiTheme, responsiveFontSizes } from '@material-ui/core/styles'
 import ServerStyleSheets from "@material-ui/styles/ServerStyleSheets";
+import YandexMetrika from "../components/analytics/YandexMetrika";
+import GoogleAnalytics from "../components/analytics/GoogleAnalytics";
 
 const theme = responsiveFontSizes(createMuiTheme())
 
@@ -40,6 +42,8 @@ class MyDocument extends Document {
                           }
                         `}
                     </style>
+                    <YandexMetrika />
+                    <GoogleAnalytics />
                 </Head>
                 <body>
                 <Main />

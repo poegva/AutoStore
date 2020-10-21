@@ -1,31 +1,20 @@
-from math import ceil
-
-from delivery.models import Address, DeliveryType, Delivery, Shipment
-
-
-class DeliveryOption:
-    def __init__(self, cost, date, extra=None):
-        self.cost = cost
-        self.date = date
-        self.extra = extra
-
-    def to_dict(self):
-        return {
-            'cost': int(ceil(self.cost)),
-            'date': self.date,
-            'extra': self.extra
-        }
+from delivery.models import DeliveryType, Address, Delivery, Shipment
+from delivery.providers.base import ProviderPluginBase, DeliveryOption
 
 
-class ProviderPluginBase:
+class ManualProviderPlugin(ProviderPluginBase):
 
     @classmethod
     def get_optimal(cls, delivery_type: DeliveryType, to: Address, items_value: int) -> DeliveryOption:
-        pass
+        return DeliveryOption(
+            delivery_type.added_price_fixed,
+            delivery_type.extra.get('date', 'неизвестно'),
+            extra=delivery_type.extra.get('comment')
+        )
 
     @classmethod
     def get_pickup_points(cls, delivery_type: DeliveryType, to: Address):
-        pass
+        return []
 
     @classmethod
     def submit_delivery(cls, delivery: Delivery):

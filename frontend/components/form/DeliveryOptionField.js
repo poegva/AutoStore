@@ -11,13 +11,14 @@ import Box from "@material-ui/core/Box";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
 function OptionCard(props) {
-    let description = <Typography variant="body2">Недоступно</Typography>
+    let description;
 
     if (props.option) {
         description = (
             <Box display="flex" flexDirection="column">
                 <Typography variant="body2">Стоимость: {props.option.cost} ₽</Typography>
-                <Typography variant="body2">Дата доставки: {props.option.date}</Typography>
+                <Typography variant="body2">Дата: {props.option.date}</Typography>
+                {props.option.extra ? <Typography variant="body2">{props.option.extra}</Typography> : null}
             </Box>
         )
     } else {
