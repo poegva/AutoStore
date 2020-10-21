@@ -30,7 +30,9 @@ export default function Layout(props) {
                 sections={sections}
                 image=""
             />
-            {props.children}
+            <div style={{marginTop: "4rem"}}>
+                {props.children}
+            </div>
             <FooterBlock />
         </div>
     )
