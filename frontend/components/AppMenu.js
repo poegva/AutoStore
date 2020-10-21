@@ -94,7 +94,7 @@ export default function AppMenu(props) {
     }
 
     return (
-        <AppBar position="static" style={{backgroundColor: "white", boxShadow: 'none', paddingTop: matches ? 20 : 0}}>
+        <AppBar position="fixed" style={{backgroundColor: "white", boxShadow: 'none', paddingTop: matches ? 20 : 0}}>
             <Container>
                 <Toolbar style={{justifyContent: matches ? "flex-start" : "space-between"}}>
                     <img src="/logo.png" alt="" className={classes.appLogo}/>

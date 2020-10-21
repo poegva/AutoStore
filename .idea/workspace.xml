@@ -31,17 +31,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="47897e9c-1e32-4683-9b93-11bcf88e51a5" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/delivery/providers/manual.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/components/analytics/GoogleAnalytics.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/components/analytics/YandexMetrika.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.env.dev" beforeDir="false" afterPath="$PROJECT_DIR$/.env.dev" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/delivery/providers/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/delivery/providers/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/delivery/providers/base.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/delivery/providers/base.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/delivery/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/delivery/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/components/ShopItemCard.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/components/ShopItemCard.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/components/form/DeliveryOptionField.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/components/form/DeliveryOptionField.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/pages/_document.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/pages/_document.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/components/AppMenu.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/components/AppMenu.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
