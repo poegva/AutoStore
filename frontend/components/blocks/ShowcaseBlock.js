@@ -66,9 +66,11 @@ export default function ShowcaseBlock(props) {
                     </Grid>
                 ))}
             </Grid>
-            <Button link={props.buttonLink}>
-                {props.buttonText}
-            </Button>
+            {props.buttonLink ? (
+                <Button link={props.buttonLink}>
+                    {props.buttonText ?? props.buttonLink}
+                </Button>
+            ) : null}
         </Container>
     )
 }

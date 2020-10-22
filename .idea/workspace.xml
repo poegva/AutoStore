@@ -32,8 +32,7 @@
   <component name="ChangeListManager">
     <list default="true" id="47897e9c-1e32-4683-9b93-11bcf88e51a5" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/components/AppMenu.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/components/AppMenu.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/components/blocks/FooterBlock.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/components/blocks/FooterBlock.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/components/blocks/ShowcaseBlock.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/components/blocks/ShowcaseBlock.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -95,6 +94,7 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/frontend/pages/item" />
       <recent name="$PROJECT_DIR$/app/delivery/providers" />
       <recent name="$PROJECT_DIR$/frontend/src/components/layout" />
       <recent name="$PROJECT_DIR$/cabinet/src/containers" />
@@ -161,23 +161,25 @@
       <workItem from="1601480741349" duration="621000" />
       <workItem from="1602492615480" duration="3310000" />
       <workItem from="1602942117627" duration="8419000" />
+      <workItem from="1603370690521" duration="227000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="1" />
+    <option name="version" value="2" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
     <state x="304" y="109" width="1071" height="848" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1598478957675">
