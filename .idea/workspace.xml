@@ -31,11 +31,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="47897e9c-1e32-4683-9b93-11bcf88e51a5" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/app/delivery/providers/dostavista.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.env.dev" beforeDir="false" afterPath="$PROJECT_DIR$/.env.dev" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/components/Layout.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/components/Layout.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/components/ShopItemCard.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/components/ShopItemCard.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/pages/item/[id].js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/pages/item/[id].js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/pages/shop.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/pages/shop.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/delivery/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/delivery/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/delivery/providers/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/delivery/providers/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/delivery/providers/base.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/delivery/providers/base.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/delivery/providers/manual.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/delivery/providers/manual.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/delivery/providers/yandex.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/delivery/providers/yandex.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/delivery/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/delivery/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/shop/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/shop/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/store/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/store/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/components/DeliveryForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/components/DeliveryForm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/components/form/DeliveryOptionField.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/components/form/DeliveryOptionField.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,8 +71,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="HTML File" />
-        <option value="Python Script" />
         <option value="JavaScript File" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
@@ -166,7 +174,8 @@
       <workItem from="1602942117627" duration="8419000" />
       <workItem from="1603370690521" duration="2592000" />
       <workItem from="1603619739446" duration="263000" />
-      <workItem from="1603620169508" duration="1021000" />
+      <workItem from="1603620169508" duration="4328000" />
+      <workItem from="1603625583837" duration="1340000" />
     </task>
     <servers />
   </component>

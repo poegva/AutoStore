@@ -108,7 +108,7 @@ class OrderViewSet(viewsets.ModelViewSet):
         delivery_type = shop.delivery_types.get(code=order.delivery_type)
         to = Address.objects.get_or_create(order.address)
 
-        optimal_delivery = PROVIDERS[delivery_type.provider].get_optimal(delivery_type, to, order.items_cost)
+        optimal_delivery = PROVIDERS[delivery_type.provider].get_optimal(delivery_type, to, order.items_cost, order.phone)
         order.delivery_cost = math.ceil(optimal_delivery.cost)
         order.shop = shop
         order.save(update_fields=['items_cost', 'delivery_cost', 'shop_id'])

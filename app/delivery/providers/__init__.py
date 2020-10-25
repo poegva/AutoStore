@@ -1,4 +1,5 @@
-from delivery.models import YANDEX, MANUAL
+from delivery.models import YANDEX, MANUAL, DOSTAVISTA
+from delivery.providers.dostavista import DostavistaPlugin
 from delivery.providers.manual import ManualProviderPlugin
 from delivery.providers.yandex import YandexDeliveryPlugin
 
@@ -6,5 +7,6 @@ from delivery.providers.yandex import YandexDeliveryPlugin
 
 PROVIDERS = {
     YANDEX: YandexDeliveryPlugin,
-    MANUAL: ManualProviderPlugin
+    MANUAL: ManualProviderPlugin,
+    DOSTAVISTA: DostavistaPlugin,
 }

@@ -25,6 +25,7 @@ class OptionsView(viewsets.ViewSet):
     def list(self, request, format=None):
         address = request.query_params['address']
         value = request.query_params['value']
+        phone = request.query_params.get('phone', '')
 
         to = Address.objects.get_or_create(address)
 
@@ -33,8 +34,8 @@ class OptionsView(viewsets.ViewSet):
         delivery_options = {}
 
         for delivery_type in delivery_types:
-            option = PROVIDERS[delivery_type.provider].get_optimal(delivery_type, to, value).to_dict()
-            delivery_options[delivery_type.code] = option
+            option = PROVIDERS[delivery_type.provider].get_optimal(delivery_type, to, value, phone)
+            delivery_options[delivery_type.code] = option.to_dict() if option else None
 
         return Response(delivery_options)
 

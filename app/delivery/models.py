@@ -9,20 +9,23 @@ def get_empty_dict():
 
 YANDEX = 'YANDEX'
 MANUAL = 'MANUAL'
+DOSTAVISTA = 'DOSTAVISTA'
 
 PROVIDER_CHOICES = [
     (MANUAL, 'Самостоятельная доставка'),
     (YANDEX, 'Яндекс.Доставка'),
+    (DOSTAVISTA, 'Достависта')
 ]
 
 
 class AddressManager(models.Manager):
     def get_or_create(self, value):
-        existing = self.filter(value=value)
+        dadata_suggest = get_dadata_suggest(value)[0]
+        existing = self.filter(value=dadata_suggest['value'])
+
         if existing.exists():
             return existing.first()
         else:
-            dadata_suggest = get_dadata_suggest(value)[0]
             address = Address.from_dadata(dadata_suggest)
             address.save()
             return address

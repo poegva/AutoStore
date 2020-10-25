@@ -20,7 +20,7 @@ class DeliveryOption:
 class ProviderPluginBase:
 
     @classmethod
-    def get_optimal(cls, delivery_type: DeliveryType, to: Address, items_value: int) -> DeliveryOption:
+    def get_optimal(cls, delivery_type: DeliveryType, to: Address, items_value: int, phone: str) -> DeliveryOption:
         pass
 
     @classmethod

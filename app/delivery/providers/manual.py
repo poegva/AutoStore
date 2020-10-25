@@ -5,7 +5,7 @@ from delivery.providers.base import ProviderPluginBase, DeliveryOption
 class ManualProviderPlugin(ProviderPluginBase):
 
     @classmethod
-    def get_optimal(cls, delivery_type: DeliveryType, to: Address, items_value: int) -> DeliveryOption:
+    def get_optimal(cls, delivery_type: DeliveryType, to: Address, items_value: int, phone: str) -> DeliveryOption:
         return DeliveryOption(
             delivery_type.added_price_fixed,
             delivery_type.extra.get('date', 'неизвестно'),

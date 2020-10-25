@@ -49,10 +49,8 @@ function OptionCard(props) {
     )
 }
 
-function fetchOptions(address, itemsValue, callback) {
-    const optionsEndpoint = window.location.protocol + "//" + window.location.hostname + "/api/delivery/options/";
-
-    fetch(optionsEndpoint + `?value=${itemsValue}&address=${address.value}`)
+function fetchOptions(address, itemsValue, phone, callback) {
+    fetch(`/api/delivery/options/?value=${itemsValue}&address=${address.value}$phone=${phone}`)
         .then(r => r.json())
         .then(result => callback(result));
 }
@@ -64,7 +62,7 @@ export default function DeliveryOptionField(props) {
 
     const getOptions = React.useMemo(
         () =>
-            throttle((address, itemsValue, callback) => fetchOptions(address, itemsValue, callback), 2000),
+            throttle((address, itemsValue, phone, callback) => fetchOptions(address, itemsValue, phone, callback), 2000),
         [],
     );
 
@@ -80,7 +78,7 @@ export default function DeliveryOptionField(props) {
             setHasCity(true);
             setOptions(null);
 
-            getOptions(props.address, props.itemsValue, (result) => setOptions(result));
+            getOptions(props.address, props.itemsValue, props.phone, (result) => setOptions(result));
         } else {
             setHasCity(false);
             setOptions(null);

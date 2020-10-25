@@ -62,6 +62,7 @@ function DeliveryForm(props) {
                     label="Способ доставки"
                     address={props.order.address}
                     value={props.order.deliveryOption}
+                    phone={props.order.contacts.phone}
                     setValue={props.setDeliveryOption}
                     itemsValue={props.order.cartTotal ?? 0}
                     options={[

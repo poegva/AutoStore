@@ -148,7 +148,7 @@ class YandexDeliveryPlugin(ProviderPluginBase):
     # Plugin methods
 
     @classmethod
-    def get_optimal(cls, delivery_type: DeliveryType, to: Address, items_value: int) -> Optional[DeliveryOption]:
+    def get_optimal(cls, delivery_type: DeliveryType, to: Address, items_value: int, phone: str) -> Optional[DeliveryOption]:
         assert delivery_type.provider == cls.code
         config = cls.get_config(delivery_type.shop_id)
 
