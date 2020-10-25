@@ -8,6 +8,8 @@ import React from "react";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import useTheme from "@material-ui/core/styles/useTheme";
+import CardActionArea from "@material-ui/core/CardActionArea";
+import {useRouter} from "next/router";
 
 const useStyles = makeStyles((theme) => ({
     media: {
@@ -78,6 +80,8 @@ export default function ShopItemCard(props) {
     const theme = useTheme();
     const matches = useMediaQuery(theme.breakpoints.up('sm'));
 
+    const router = useRouter();
+
     let content = null;
 
     const allUsed = props.item.shop_quantity === 0 || props.cartItem && props.cartItem.quantity >= props.item.shop_quantity;
@@ -127,17 +131,19 @@ export default function ShopItemCard(props) {
 
     return (
         <Card style={{height: "100%", flexFlow: "column", display: "flex", position: "relative"}}>
-            <CardMedia
-                image={props.item.image}
-                title={props.item.name}
-                className={classes.media}
-            >
-                <Box className={classes.description}>
-                    <Typography align="center" style={{padding: 10}}>
-                        {props.item.description}
-                    </Typography>
-                </Box>
-            </CardMedia>
+            <CardActionArea onClick={() => router.push(`/item/${props.item.id}`).then(() => window.scrollTo(0, 0))}>
+                <CardMedia
+                    image={props.item.image}
+                    title={props.item.name}
+                    className={classes.media}
+                >
+                    <Box className={classes.description}>
+                        <Typography align="center" style={{padding: 10}}>
+                            {props.item.description}
+                        </Typography>
+                    </Box>
+                </CardMedia>
+            </CardActionArea>
             {content}
         </Card>
     )

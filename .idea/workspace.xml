@@ -32,7 +32,10 @@
   <component name="ChangeListManager">
     <list default="true" id="47897e9c-1e32-4683-9b93-11bcf88e51a5" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/components/blocks/ShowcaseBlock.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/components/blocks/ShowcaseBlock.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/components/Layout.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/components/Layout.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/components/ShopItemCard.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/components/ShopItemCard.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/pages/item/[id].js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/pages/item/[id].js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/pages/shop.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/pages/shop.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -161,12 +164,14 @@
       <workItem from="1601480741349" duration="621000" />
       <workItem from="1602492615480" duration="3310000" />
       <workItem from="1602942117627" duration="8419000" />
-      <workItem from="1603370690521" duration="227000" />
+      <workItem from="1603370690521" duration="2592000" />
+      <workItem from="1603619739446" duration="263000" />
+      <workItem from="1603620169508" duration="1021000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="2" />
+    <option name="version" value="1" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">

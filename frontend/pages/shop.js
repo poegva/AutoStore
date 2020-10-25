@@ -38,8 +38,6 @@ function Shop(props) {
 HQD Cuvie - одна из самых разнообразных электронных сигарет. Она насчитываю до 26 - от кока-колы - до фруктового микса. Любой сможет выбрать свой любимый вкус.
 Уже в наличии!" key="description" />
             </Head>
-            <CartButton setCartOpen={props.setCartOpen} floating />
-            <CartDialog cartOpen={props.cartOpen} setCartOpen={props.setCartOpen} />
             <TextBlock title="HQD Cuvie" subtitle="Успей попробовать все вкусы!" />
             {items  ?
                 <ShopItemGrid cart={props.cart} items={items ?? props.items} addItem={props.addItem} /> :
@@ -64,14 +62,12 @@ export async function getStaticProps() {
 const mapStateToProps = store => {
     return {
         cart: store.order.cart,
-        cartOpen: store.general.cartOpen
     };
 }
 
 const mapDispatchToProps = dispatch => {
     return {
         addItem: item => dispatch(addItem(item)),
-        setCartOpen: open => dispatch(setCartOpen(open))
     };
 }
 

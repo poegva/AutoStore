@@ -13,6 +13,9 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 
 import ShowcaseBlock from "../../components/blocks/ShowcaseBlock";
+import {addItem} from "../../redux/actions/OrderActions";
+import {setCartOpen} from "../../redux/actions/GeneralActions";
+import {connect} from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
     media: {
@@ -24,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function Item(props) {
+function Item(props) {
     const classes = useStyles();
     const theme = useTheme();
     const matches = useMediaQuery(theme.breakpoints.up('sm'));
@@ -35,36 +38,47 @@ export default function Item(props) {
         return <div>Loading...</div>
     }
 
+    const allUsed = (
+        props.item.shop_quantity === 0 ||
+        props.cart[props.item.id] && props.cart[props.item.id].quantity >= props.item.shop_quantity
+    );
+
     return (
         <React.Fragment>
             <Paper style={{
                 padding: 30,
                 marginLeft: (matches ? 100 : 30),
                 marginRight: (matches ? 100 : 30),
-                marginTop: 30,
-                marginBottom: 30
+                marginTop: (matches ? 40 : 30)
             }}>
                 <Grid container>
-                    <Grid item xs={12} md={6} style={{paddingLeft: 20, paddingRight: 20, paddingBottom: (matches ? 0 : 20)}}>
-                        <Box
-                            style={{
-                                backgroundImage: `url(${props.item.image})`,
-                                width: "100%",
-                                backgroundSize: "cover",
-                                backgroundRepeat: "no-repeat",
-                                backgroundPosition: "center",
-                                minHeight: 400
-                            }}
-                        >
+                    <Grid item xs={12} md={6} style={{
+                        paddingLeft: 20,
+                        paddingRight: 20,
+                        paddingBottom: (matches ? 0 : 20)
+                    }}>
+                        <Box style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
+                            <Box
+                                style={{
+                                    backgroundImage: `url(${props.item.image})`,
+                                    backgroundSize: "cover",
+                                    backgroundRepeat: "no-repeat",
+                                    backgroundPosition: "center",
+                                    minWidth: "15rem",
+                                    maxWidth: 300,
+                                    minHeight: 400
+                                }}
+                            >
+                            </Box>
                         </Box>
                     </Grid>
                     <Grid item xs={12} md={6} style={{paddingLeft: 20, paddingRight: 20}}>
                         <Typography variant="h5" align={matches ? "left" : "center"} paragraph>{props.item.name}</Typography>
-                        <Box display="flex" flexDirection="row" justifyContent={matches ? "left" : "space-between"} bgcolor="background.paper">
+                        <Box display="flex" flexDirection="row" alignItems="center" justifyContent={matches ? "left" : "space-between"} bgcolor="background.paper">
                             <Typography variant="h6" component="h6" align='center' style={{paddingRight: 20}}>
                                 {props.item.price} ₽
                             </Typography>
-                            <Button variant="outlined">
+                            <Button variant="outlined" size="large" disabled={allUsed} onClick={() => props.addItem(props.item)}>
                                 Купить
                             </Button>
                         </Box>
@@ -72,7 +86,7 @@ export default function Item(props) {
                     </Grid>
                 </Grid>
             </Paper>
-            <ShowcaseBlock title="Похожие товары" itemsUrl="/api/items"/>
+            <ShowcaseBlock title="Похожие товары" itemsUrl="/api/items" buttonLink="/shop" buttonText="Смотреть все"/>
         </React.Fragment>
     )
 }
@@ -100,3 +114,20 @@ export async function getStaticProps({ params }) {
         revalidate: 3
     }
 }
+
+const mapStateToProps = store => {
+    return {
+        cart: store.order.cart,
+    };
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        addItem: item => dispatch(addItem(item)),
+    };
+}
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Item);
