@@ -5,6 +5,8 @@ import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import Button from "./Button";
+import Link from "next/link";
+import {useRouter} from "next/router";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -19,6 +21,7 @@ const useStyles = makeStyles((theme) => ({
 export default function ShowcaseBlock(props) {
     const classes = useStyles();
     const [items, setItems] = React.useState([]);
+    const router = useRouter();
 
     React.useEffect(() => {
         if (items.length === 0) {
@@ -48,18 +51,21 @@ export default function ShowcaseBlock(props) {
                 {items.map(item => (
                     <Grid item xs={12} md={4} key={item.id} style={{padding: 20, paddingLeft: 40, paddingRight: 40}} >
                         <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center" >
-                            <Box
-                                style={{
-                                    backgroundImage: `url(${item.image})`,
-                                    width: "100%",
-                                    backgroundSize: "cover",
-                                    backgroundRepeat: "no-repeat",
-                                    backgroundPosition: "center",
-                                    minHeight: 400,
-                                    margin: 20
-                                }}
-                            >
-                            </Box>
+                            <Link href={`/item/${item.id}`}>
+                                <Box
+                                    style={{
+                                        backgroundImage: `url(${item.image})`,
+                                        width: "100%",
+                                        backgroundSize: "cover",
+                                        backgroundRepeat: "no-repeat",
+                                        backgroundPosition: "center",
+                                        minHeight: 400,
+                                        margin: 20
+                                    }}
+                                    onClick={() => router.push(`/item/${item.id}`).then(() => window.scrollTo(0, 0))}
+                                >
+                                </Box>
+                            </Link>
                             <Typography variant="h5" gutterBottom align='center' component="h2" style={{fontWeight: "bold"}}>{item.name}</Typography>
                             <Typography variant="body1" gutterBottom align='center' component="h4">{item.description}</Typography>
                         </Box>
