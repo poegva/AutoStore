@@ -32,8 +32,6 @@
   <component name="ChangeListManager">
     <list default="true" id="47897e9c-1e32-4683-9b93-11bcf88e51a5" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/store/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/store/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/components/blocks/ShowcaseBlock.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/components/blocks/ShowcaseBlock.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,9 +58,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="HTML File" />
         <option value="JavaScript File" />
         <option value="Python Script" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -87,26 +85,26 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/frontend/public" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/frontend/public/.well-known" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="run.code.analysis.last.selected.profile" value="aDefault" />
     <property name="settings.editor.selected.configurable" value="preferences.fileTypes" />
     <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/frontend/pages/item" />
-      <recent name="$PROJECT_DIR$/app/delivery/providers" />
-      <recent name="$PROJECT_DIR$/frontend/src/components/layout" />
-      <recent name="$PROJECT_DIR$/cabinet/src/containers" />
-      <recent name="$PROJECT_DIR$/app/frontend/src" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/frontend/public/.well-known" />
       <recent name="$PROJECT_DIR$/frontend/public" />
       <recent name="$PROJECT_DIR$/frontend" />
       <recent name="$PROJECT_DIR$/frontend/components" />
       <recent name="$PROJECT_DIR$/nginx" />
-      <recent name="$PROJECT_DIR$/app/static" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/frontend/public/.well-known" />
+      <recent name="$PROJECT_DIR$/frontend/pages/item" />
+      <recent name="$PROJECT_DIR$/app/delivery/providers" />
+      <recent name="$PROJECT_DIR$/frontend/src/components/layout" />
+      <recent name="$PROJECT_DIR$/cabinet/src/containers" />
     </key>
   </component>
   <component name="RunManager">
@@ -169,11 +167,17 @@
       <workItem from="1604062409129" duration="513000" />
       <workItem from="1604397250111" duration="596000" />
       <workItem from="1604452941007" duration="1357000" />
+      <workItem from="1604776304421" duration="390000" />
+      <workItem from="1604936129371" duration="282000" />
+      <workItem from="1604936482811" duration="928000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="*.conf" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -195,10 +199,10 @@
     <state x="304" y="111" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1680.934@0.23.1680.934" timestamp="1597594097694" />
     <state x="304" y="113" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1680.937@0.23.1680.937" timestamp="1597584919897" />
     <state x="304" y="109" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1680.941@0.23.1680.941" timestamp="1598478957675" />
-    <state x="546" y="301" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1602076368432">
-      <screen x="0" y="23" width="1680" height="937" />
+    <state x="546" y="300" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1604937433483">
+      <screen x="0" y="23" width="1680" height="934" />
     </state>
-    <state x="546" y="300" key="#com.intellij.fileTypes.FileTypeChooser/0.23.1680.934@0.23.1680.934" timestamp="1597599271491" />
+    <state x="546" y="300" key="#com.intellij.fileTypes.FileTypeChooser/0.23.1680.934@0.23.1680.934" timestamp="1604937433483" />
     <state x="546" y="301" key="#com.intellij.fileTypes.FileTypeChooser/0.23.1680.937@0.23.1680.937" timestamp="1602076368432" />
     <state x="578" y="244" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1598270672578">
       <screen x="0" y="23" width="1680" height="941" />
