@@ -140,26 +140,20 @@ function Order(props) {
     if (!id) {
         id = props.order.lastOrderId;
     }
+
     const order = props.order.orders[id];
 
-    const [error, setError] = React.useState(id ? false : "Заказ не найден");
+    const [error, setError] = React.useState(false);
     const [reloaded, setReloaded] = React.useState(false);
 
     React.useEffect(() => {
-        if (!error && !id) {
-            setError("Ошибка загрузки");
-        } else {
-            if (!error) {
-                if (!order && reloaded) {
-                    setError( "Заказ не найден");
-                } else {
-                    if (!reloaded) {
-                        console.log("Need to load order");
-                        props.loadOrder(id, token ?? order.token);
-                        setReloaded(true);
-                    }
-                }
+        if (!reloaded) {
+            if (id) {
+                props.loadOrder(id, token ?? (order ? order.token : null));
+                setReloaded(true);
             }
+        } else if (!order) {
+            //setError( "Заказ не найден");
         }
     }, [order, props, reloaded, error, id]);
 

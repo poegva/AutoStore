@@ -157,7 +157,7 @@ export function submitOrder(orderData, redirect) {
     };
 }
 
-export function loadOrder(id, token, callback) {
+export function loadOrder(id, token, callback, error_callback) {
     return dispatch => {
         fetch(`/api/orders/${id}/?token=${token}`)
             .then(result => result.json())
@@ -169,6 +169,7 @@ export function loadOrder(id, token, callback) {
                 if (callback)
                     callback();
             })
+            .catch(error => error_callback(error))
     }
 }
 

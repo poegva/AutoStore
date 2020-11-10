@@ -1,3 +1,5 @@
+from django.db.models import Q
+from django.utils import timezone
 from rest_framework import viewsets, serializers
 from rest_framework.decorators import action
 from rest_framework.exceptions import ParseError
@@ -22,6 +24,18 @@ class CompleteView(viewsets.ViewSet):
 
 
 class OptionsView(viewsets.ViewSet):
+    def get_types(self, shop):
+        now = timezone.now().time()
+        return (
+            DeliveryType.objects
+            .filter(active=True, shop=shop)
+            .filter(
+                Q(start_time__isnull=True) |
+                Q(start_time__isnull=True) |
+                Q(start_time__lte=now, end_time__gte=now)
+            )
+        )
+
     def list(self, request, format=None):
         address = request.query_params['address']
         value = request.query_params['value']
@@ -30,7 +44,7 @@ class OptionsView(viewsets.ViewSet):
         to = Address.objects.get_or_create(address)
 
         shop = Shop.objects.first()
-        delivery_types = DeliveryType.objects.filter(shop=shop)
+        delivery_types = self.get_types(shop)
         delivery_options = {}
 
         for delivery_type in delivery_types:
@@ -42,7 +56,7 @@ class OptionsView(viewsets.ViewSet):
     @action(detail=False)
     def types(self, request):
         shop = Shop.objects.get()
-        types = DeliveryType.objects.filter(shop=shop).values_list('code', flat=True)
+        types = self.get_types(shop).values_list('code', flat=True)
         return Response(types)
 
 

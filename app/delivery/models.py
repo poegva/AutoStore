@@ -110,6 +110,11 @@ class DeliveryType(models.Model):
     ]
     type = models.CharField(max_length=20, choices=TYPE_CHOICES, default=NO_TYPE, verbose_name='Тип доставки')
 
+    active = models.BooleanField(default=True, db_index=True, verbose_name='Активен')
+
+    start_time = models.TimeField(null=True, db_index=True, verbose_name='Время начала работы')
+    end_time = models.TimeField(null=True, db_index=True, verbose_name='Время конца работы')
+
     extra = models.JSONField(default=get_empty_dict, blank=True, verbose_name='Дополнительная информация')
 
     def __str__(self):

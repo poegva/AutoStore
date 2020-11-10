@@ -2,6 +2,7 @@ from celery.task import task
 from django.db.models import F
 from django.utils import timezone
 
+from delivery.models import Delivery
 from shop.models import Order, OrderNotification
 from store.utils import send_template_mail
 
@@ -39,4 +40,17 @@ def send_order_mails():
 
         notification.status = OrderNotification.SENT
         notification.save(update_fields=['status'])
+
+
+@task()
+def complete_orders():
+    orders_in_delivery = Order.objects.filter(status=Order.DELIVERY)
+    orders_to_complete_pks = (
+        Delivery.objects
+        .filter(order__in=orders_in_delivery, status=Delivery.COMPLETED)
+        .values_list('order_id', flat=True)
+    )
+    orders_in_delivery.filter(pk__in=orders_to_complete_pks).update(status=Order.COMPLETED)
+
+
 

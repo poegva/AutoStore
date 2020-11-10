@@ -312,8 +312,6 @@ class YandexDeliveryPlugin(ProviderPluginBase):
             }
         }
 
-        print(data)
-
         response = requests.put(
             cls.endpoint + '/delivery-options',
             headers={
@@ -323,8 +321,6 @@ class YandexDeliveryPlugin(ProviderPluginBase):
             data=json.dumps(data).encode('utf-8')
         )
         result = response.json()
-
-        print(result)
 
         if not isinstance(result, list):
             log.warning(f"Yandex Delivery options returned {result}")

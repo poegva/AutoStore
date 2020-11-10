@@ -9,7 +9,6 @@ from rest_framework.response import Response
 
 from delivery.models import Address
 from delivery.providers import PROVIDERS
-from delivery.providers.yandex import YandexDeliveryPlugin
 from payment.utils import get_or_create_payment
 from shop.models import Shop, Item, Order, OrderItem
 
@@ -108,7 +107,12 @@ class OrderViewSet(viewsets.ModelViewSet):
         delivery_type = shop.delivery_types.get(code=order.delivery_type)
         to = Address.objects.get_or_create(order.address)
 
-        optimal_delivery = PROVIDERS[delivery_type.provider].get_optimal(delivery_type, to, order.items_cost, order.phone)
+        optimal_delivery = PROVIDERS[delivery_type.provider].get_optimal(
+            delivery_type,
+            to,
+            order.items_cost,
+            order.phone
+        )
         order.delivery_cost = math.ceil(optimal_delivery.cost)
         order.shop = shop
         order.save(update_fields=['items_cost', 'delivery_cost', 'shop_id'])
