@@ -13,12 +13,11 @@ import TextBlock from "../components/blocks/TextBlock";
 import PerksBlock from "../components/blocks/PerksBlock";
 import ShowcaseBlock from "../components/blocks/ShowcaseBlock";
 
-import hqdfront from '../public/hqdfront.png';
-import hqdfront2 from '../public/hqdfront2.png';
-import hqdfront3 from '../public/hqdfront3.png';
+import hqdfront from '../public/hqdfront.jpg';
+import hqdfront2 from '../public/hqdfront2.jpg';
+import hqdfront3 from '../public/hqdfront3.jpg';
 import imageblock from '../public/imageblock.jpg';
 import imageblock2 from '../public/imageblock2.jpg';
-import cigarettes from '../public/cigarettes.png';
 import pineapple from "../public/pineapple.svg";
 
 
@@ -46,7 +45,6 @@ HQD Cuvie - одна из самых разнообразных электрон
               title={<text>300 затяжек <br /> в каждом девайсе</text>}
               subtitle="В одном HQD находится 1,25 мл жидкости с солевой крепостью 50 мг"
               padding={40}
-              image={cigarettes}
               buttonText="В магазин"
               buttonLink="/shop"
           />

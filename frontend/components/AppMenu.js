@@ -18,9 +18,8 @@ import {setCartOpen} from "../redux/actions/GeneralActions";
 
 const useStyles = makeStyles((theme) => ({
     appLogo: {
-        [theme.breakpoints.down('sm')]: {
-            height: "60px"
-        }
+        height: "30px",
+        marginRight: "10px"
     },
     toolbarLink: {
         padding: theme.spacing(1),

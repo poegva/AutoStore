@@ -11,7 +11,7 @@ export default function FooterBlock(props) {
         <Container fixed>
             <Box display="flex" width="100%" justifyContent="space-between" style={{paddingTop: 20, paddingBottom: 20}} alignItems="center">
                 <NextLink href="/">
-                    <img src="/logo.png" alt="" style={{maxWidth: "30%"}}/>
+                    <img src="/logo.png" alt="" style={{maxWidth: "30%", maxHeight: "30px"}}/>
                 </NextLink>
                 <Typography variant="body1" component="h2" style={{maxWidth: "60%"}}>
                     E-mail: <Link href="mailto:info@hqdrussia.ru">info@hqdrussia.ru</Link>
